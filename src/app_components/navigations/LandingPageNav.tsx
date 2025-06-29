@@ -8,7 +8,6 @@ import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
@@ -82,7 +81,7 @@ function LandingPageNav() {
                         <Link
                           key={`list-${index}`}
                           href={""}
-                          className="hover:underline transition-all"
+                          className="hover:bg-gray-200/50 px-2 rounded-sm transition-all"
                         >
                           {component.name}
                         </Link>
@@ -107,7 +106,7 @@ function LandingPageNav() {
                           <Link
                             key={`list-${index}`}
                             href={""}
-                            className="hover:underline transition-all"
+                            className="hover:bg-gray-200/50 px-2 rounded-sm transition-all"
                           >
                             {type.name}
                           </Link>
