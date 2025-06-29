@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetFooter,
   SheetHeader,
   SheetTitle,
@@ -76,11 +77,15 @@ function LandingPageNav() {
                         Khám phá
                       </h1>
                     </div>
-                    <ul className="grid w-[400px] gap-2 md:grid-cols-2">
+                    <ul className="grid w-[400px] gap-2 md:grid-cols-2 mt-3">
                       {filmList.map((component, index) => (
-                        <ListItem key={`list-${index}`} href={""}>
+                        <Link
+                          key={`list-${index}`}
+                          href={""}
+                          className="hover:underline transition-all"
+                        >
                           {component.name}
-                        </ListItem>
+                        </Link>
                       ))}
                     </ul>
                   </NavigationMenuContent>
@@ -153,12 +158,13 @@ function LandingPageNav() {
                     priority
                   />
                 </SheetTitle>
+                <SheetDescription></SheetDescription>
               </SheetHeader>
               <div className="mx-4">
                 <div>
                   <h1 className="font-bold  text-yellow-500">Khám phá</h1>
                 </div>
-                <div className="grid grid-cols-2 ml-3 gap-1 max-h-72 overflow-auto">
+                <div className="grid grid-cols-2 ml-3 gap-3 mt-2 ">
                   {filmList.map((component, index) => (
                     <Link
                       key={`list-${index}`}
@@ -175,7 +181,7 @@ function LandingPageNav() {
                 <div>
                   <h1 className="font-bold  text-yellow-500">Thể loại</h1>
                 </div>
-                <div className="grid grid-cols-2 ml-3 gap-2 max-h-72 overflow-auto">
+                <div className="grid grid-cols-2 ml-3 gap-3 mt-2 ">
                   {filmType &&
                     filmType.success === true &&
                     filmType.data.map((type, index: number) => (
@@ -215,22 +221,6 @@ function LandingPageNav() {
         </div>
       </div>
     </div>
-  );
-}
-
-function ListItem({
-  children,
-  href,
-  ...props
-}: React.ComponentPropsWithoutRef<"li"> & { href: string }) {
-  return (
-    <li {...props}>
-      <NavigationMenuLink asChild>
-        <Link href={href}>
-          <div className="leading-none text-sm">{children}</div>
-        </Link>
-      </NavigationMenuLink>
-    </li>
   );
 }
 
