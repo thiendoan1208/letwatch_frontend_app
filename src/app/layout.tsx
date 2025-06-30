@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${interSans.variable} antialiased`}>
         <QueryProvider>
-          <div>{children}</div>
+          <div className="bg-black">{children}</div>
         </QueryProvider>
       </body>
     </html>

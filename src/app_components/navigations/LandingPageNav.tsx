@@ -35,7 +35,7 @@ function LandingPageNav() {
   });
 
   return (
-    <div className="flex items-center h-12 bg-black/60 translate-y-2 mx-2 rounded-sm backdrop-blur-sm">
+    <div className="flex items-center h-12 bg-black/60 translate-y-2 mx-2 rounded-sm backdrop-blur-sm z-9999">
       <div className=" w-full flex items-center justify-between pr-2">
         <div className="flex items-center">
           <div className="relative">
@@ -63,37 +63,45 @@ function LandingPageNav() {
           </div>
         </div>
         <div className="hidden xl:flex items-center">
-          <div className="flex items-center">
+          <div className="flex items-center relative">
             <NavigationMenu viewport={false}>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className=" cursor-pointer bg-transparent text-white/80 hover:text-white transition-all/100 w-fit hover:bg-transparent">
+                  <NavigationMenuTrigger className="cursor-pointer bg-transparent text-white/80 hover:text-white transition-all/100 w-fit hover:bg-transparent">
                     Khám phá
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent className="absolute left-full top-full -translate-x-full mt-2  z-50">
+                  <NavigationMenuContent className=" z-[999] absolute left-full top-full -translate-x-full mt-2">
                     <div>
                       <h1 className="font-bold ml-1 text-yellow-500">
                         Khám phá
                       </h1>
                     </div>
                     <ul className="grid w-[400px] gap-2 md:grid-cols-2 mt-3">
-                      {filmList.map((component, index) => (
-                        <Link
-                          key={`list-${index}`}
-                          href={""}
-                          className="hover:bg-gray-200/50 px-2 rounded-sm transition-all"
-                        >
-                          {component.name}
-                        </Link>
-                      ))}
+                      {filmType &&
+                        filmList.map((component, index) => (
+                          <Link
+                            key={`list-${index}`}
+                            href={""}
+                            className="hover:bg-gray-200/50 px-2 rounded-sm transition-all"
+                          >
+                            {component.name}
+                          </Link>
+                        ))}
                     </ul>
+                    <div>
+                      {!filmType && (
+                        <div className="">
+                          <h1>Không thể lấy danh sách thể loại phim</h1>
+                        </div>
+                      )}
+                    </div>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger className="cursor-pointer bg-transparent text-white/80 hover:text-white transition-all/100 w-fit hover:bg-transparent">
                     Thể loại
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent className="absolute left-full top-full -translate-x-full mt-2  z-50">
+                  <NavigationMenuContent className=" z-[999] absolute left-full top-full -translate-x-full mt-2 ">
                     <div>
                       <h1 className="font-bold ml-1 text-yellow-500">
                         Chọn thể loại mà bạn ưa thích
@@ -111,12 +119,14 @@ function LandingPageNav() {
                             {type.name}
                           </Link>
                         ))}
-                      {filmType?.success === false && (
+                    </ul>
+                    <div>
+                      {!filmType && (
                         <div className="">
                           <h1>Không thể lấy danh sách thể loại phim</h1>
                         </div>
                       )}
-                    </ul>
+                    </div>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
               </NavigationMenuList>
@@ -164,15 +174,23 @@ function LandingPageNav() {
                   <h1 className="font-bold  text-yellow-500">Khám phá</h1>
                 </div>
                 <div className="grid grid-cols-2 ml-3 gap-3 mt-2 ">
-                  {filmList.map((component, index) => (
-                    <Link
-                      key={`list-${index}`}
-                      href={""}
-                      className="hover:underline transition-all"
-                    >
-                      {component.name}
-                    </Link>
-                  ))}
+                  {filmType &&
+                    filmList.map((component, index) => (
+                      <Link
+                        key={`list-${index}`}
+                        href={""}
+                        className="hover:underline transition-all"
+                      >
+                        {component.name}
+                      </Link>
+                    ))}
+                </div>
+                <div>
+                  {!filmType && (
+                    <div className="">
+                      <h1>Không thể lấy danh sách thể loại phim</h1>
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="h-[1px] bg-black/50 mx-4 rounded-2xl"></div>
@@ -192,7 +210,9 @@ function LandingPageNav() {
                         {type.name}
                       </Link>
                     ))}
-                  {filmType?.success === false && (
+                </div>
+                <div>
+                  {!filmType && (
                     <div className="">
                       <h1>Không thể lấy danh sách thể loại phim</h1>
                     </div>
