@@ -107,7 +107,7 @@ function LandingPageNav() {
                         Chọn thể loại mà bạn ưa thích
                       </h1>
                     </div>
-                    <ul className="grid w-[400px] gap-2 md:grid-cols-2 mt-3">
+                    <ul className="grid min-w-[600px] gap-2 md:grid-cols-4 mt-3">
                       {filmType &&
                         filmType.success === true &&
                         filmType.data.map((type, index: number) => (

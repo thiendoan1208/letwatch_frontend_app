@@ -1,13 +1,14 @@
-import LandingPageSlider from "@/app_components/navigations/HomePageNav";
 import LandingPageNav from "@/app_components/navigations/LandingPageNav";
+import LandingPageSlider from "@/app_components/sliders/LandingPageSlider";
 import Link from "next/link";
 
 export default function Home() {
   return (
     <div>
-      <div>
+      {/* Header & Top */}
+      <div className="h-screen">
         <div
-          className="h-screen"
+          className="h-full"
           style={{
             backgroundImage: `
         radial-gradient(at 80% 100%, hsla(241, 0%, 9%, 1) 0px, transparent 50%),
@@ -16,12 +17,12 @@ export default function Home() {
             backgroundColor: " #191919 ",
           }}
         >
-          <div className="z-9999">
+          <header className="">
             <LandingPageNav />
-          </div>
-          <div className="h-full">
-            <div className="h-full flex flex-col items-center justify-center mx-4 transition-all">
-              <div className="grid grid-rows-3 grid-cols-1 animate-fadeIn">
+          </header>
+          <section className="h-full">
+            <div className="h-full">
+              <div className="grid grid-rows-3 grid-cols-1 animate-fadeIn mt-20">
                 <div className="text-center">
                   <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold text-rose-500">
                     Khám phá kho phim tuyệt đỉnh.
@@ -39,13 +40,15 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div className="">
+              <div className="w-full">
                 <LandingPageSlider />
               </div>
             </div>
-          </div>
+          </section>
         </div>
       </div>
+
+      {/* Main */}
     </div>
   );
 }

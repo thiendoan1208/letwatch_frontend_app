@@ -1,8 +1,12 @@
 import axios from "@/config/axios";
-import { FilmType } from "@/types/film_type";
+import { FilmList, FilmType } from "@/types/film_type";
 
 const getFilmType = (): Promise<FilmType> => {
-  return axios.get("/api/all-film-type");
+  return axios.get("/all-film-type");
 };
 
-export { getFilmType };
+const getNewFilmList = (page: number): Promise<FilmList> => {
+  return axios.get("/category/new-film-list", { params: { page } });
+};
+
+export { getFilmType, getNewFilmList };
