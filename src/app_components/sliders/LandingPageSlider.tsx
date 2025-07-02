@@ -38,10 +38,10 @@ function LandingPageSlider() {
   };
 
   return (
-    <div className="w-full flex items-center justify-center">
+    <div className=" w-full flex items-center justify-center select-none">
       {!isFilmListLoading && (
         <div
-          className="w-full lg:w-[75%] bg-cover bg-center px-12 pt-10 pb-4 rounded-none lg:rounded-3xl translate-y-20 object-cover object-center"
+          className="w-full lg:w-[90%] xl:w-[75%] bg-cover bg-center px-12 pt-10 pb-4 rounded-none lg:rounded-3xl object-cover object-center"
           style={{
             backgroundImage:
               'linear-gradient(to right, #f43f5e, transparent), url("/slider_image_landing_page.png")',
@@ -76,7 +76,7 @@ function LandingPageSlider() {
                     <Image
                       className="object-cover object-center w-full  cursor-pointer"
                       src={film.poster_url}
-                      alt="vsd"
+                      alt={film.name}
                       width={100}
                       height={100}
                       priority={true}

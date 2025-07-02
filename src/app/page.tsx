@@ -1,3 +1,4 @@
+import LandingPageBody from "@/app_components/body/LandingPageBody";
 import LandingPageNav from "@/app_components/navigations/LandingPageNav";
 import LandingPageSlider from "@/app_components/sliders/LandingPageSlider";
 import Link from "next/link";
@@ -6,9 +7,9 @@ export default function Home() {
   return (
     <div>
       {/* Header & Top */}
-      <div className="h-screen">
+      <div>
         <div
-          className="h-full"
+          className="min-h-screen xl:h-screen"
           style={{
             backgroundImage: `
         radial-gradient(at 80% 100%, hsla(241, 0%, 9%, 1) 0px, transparent 50%),
@@ -17,11 +18,11 @@ export default function Home() {
             backgroundColor: " #191919 ",
           }}
         >
-          <header className="">
+          <header>
             <LandingPageNav />
           </header>
-          <section className="h-full">
-            <div className="h-full">
+          <section>
+            <div>
               <div className="grid grid-rows-3 grid-cols-1 animate-fadeIn mt-20">
                 <div className="text-center">
                   <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold text-rose-500">
@@ -36,19 +37,26 @@ export default function Home() {
                 </div>
                 <div className=" flex items-center justify-center mt-2">
                   <div className=" flex items-center justify-center flex-nowrap w-[170px] h-[50px] bg-yellow-500  rounded-3xl text-xl font-semibold cursor-pointer hover:scale-95 transition-all ">
-                    <Link href="">Xem ngay</Link>
+                    <Link
+                      className="w-full h-full flex items-center justify-center"
+                      href=""
+                    >
+                      Xem ngay
+                    </Link>
                   </div>
                 </div>
               </div>
-              <div className="w-full">
+              <div className="w-full mt-20 pb-10">
                 <LandingPageSlider />
               </div>
             </div>
           </section>
         </div>
       </div>
-
       {/* Main */}
+      <main className="bg-black min-h-screen">
+        <LandingPageBody />
+      </main>
     </div>
   );
 }
