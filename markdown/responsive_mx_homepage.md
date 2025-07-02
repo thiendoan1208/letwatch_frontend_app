@@ -1,0 +1,1 @@
+ mx-4 xl:mx-10 // navigation

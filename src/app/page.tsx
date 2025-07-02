@@ -41,7 +41,7 @@ export default function Home() {
                   <div className=" flex items-center justify-center flex-nowrap w-[170px] h-[50px] bg-yellow-500  rounded-3xl text-xl font-semibold cursor-pointer hover:scale-95 transition-all ">
                     <Link
                       className="w-full h-full flex items-center justify-center"
-                      href=""
+                      href="/watch/home"
                     >
                       Xem ngay
                     </Link>
