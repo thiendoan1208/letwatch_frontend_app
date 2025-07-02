@@ -155,6 +155,16 @@ function LandingPageBody() {
         </div>
       </div>
       <div className=" h-60 md:h-72 w-full"></div>
+      <div className="flex items-center justify-center mx-4 md:mx-10 text-center">
+        <h1
+          className="inline-block
+      bg-gradient-to-r from-indigo-500 to-pink-600
+      bg-clip-text text-transparent text-[20px] sm:text-[30px] md:text-[30px] lg:text-[40px] xl:text-[40px]  font-(family-name:--font-poppins) font-bold xl:leading-20"
+        >
+          Cùng bắt đầu trải nghiệm cá nhân hóa của riêng bạn!
+        </h1>
+      </div>
+      <div className=" h-60 md:h-72 w-full"></div>
     </div>
   );
 }
