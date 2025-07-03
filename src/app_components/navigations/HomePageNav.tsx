@@ -110,7 +110,7 @@ function HomePageNav() {
             <Bookmark />
           </div>
           <div className="relative flex items-center justify-center gap-2 text-white bg-black/10 hover:bg-black/20 px-4 py-2 rounded-3xl cursor-pointer transition-all font-semibold">
-            <h2 className="text-nowrap">Sign In</h2>
+            <h2 className="text-nowrap">Đăng nhập</h2>
             <Link
               href=""
               className="absolute w-full h-full text-transparent select-none"
