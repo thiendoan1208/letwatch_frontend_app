@@ -20,7 +20,7 @@ function HomePageNav() {
   });
 
   return (
-    <div className="fixed w-full flex items-center h-16 bg-black/75 backdrop-blur z-9999 transition-all">
+    <div className="fixed w-full flex items-center h-16 bg-black/75 backdrop-blur z-[999] transition-all">
       <div className="relative w-full flex items-center justify-between mx-4 xl:mx-10 pr-4">
         <div className="flex items-center">
           <div className="relative">

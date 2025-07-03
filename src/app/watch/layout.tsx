@@ -1,4 +1,5 @@
 import HomePageNav from "@/app_components/navigations/HomePageNav";
+import HomePageSubNav from "@/app_components/navigations/HomePageSubNav";
 
 function Layout({
   children,
@@ -7,8 +8,10 @@ function Layout({
 }>) {
   return (
     <div>
-      <div className="bg-red-500 min-w-screen">
+      <div>
         <HomePageNav />
+        {/* options when responsive */}
+        <HomePageSubNav />
       </div>
       <div>{children}</div>
     </div>
