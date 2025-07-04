@@ -1,3 +1,4 @@
+import HomePageCategory from "@/app_components/category/HomePageCategory";
 import VideoPlayer from "@/app_components/video/homepage_video";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,7 +7,7 @@ function HomePage() {
   return (
     <div className="bg-black">
       {/* Video intro */}
-      <div className="relative h-screen flex items-center justify-center">
+      <div className="relative h-screen flex items-center justify-center overflow-y-hidden">
         <VideoPlayer />
         <div className="block lg:hidden w-full h-full">
           <Image
@@ -39,8 +40,10 @@ function HomePage() {
           </div>
         </div>
       </div>
-
-      <div className="min-h-screen"></div>
+      <div>
+        <HomePageCategory />
+      </div>
+    
     </div>
   );
 }

@@ -28,6 +28,21 @@ type FilmList = {
   error: null | string;
 };
 
+type FilmListType = {
+  success: boolean;
+  message: string;
+  data: {
+    data: {
+      seoOnPage: object;
+      breadCrumb: object[];
+      titlePage: string;
+      items: FilmInList[];
+      params: object;
+    };
+  };
+  error: null | string;
+};
+
 type FilmInList = {
   imdb: {
     id: string | null;
@@ -51,4 +66,4 @@ type FilmInList = {
   _id: string;
 };
 
-export type { FilmType, FilmList, FilmInList };
+export type { FilmType, FilmList, FilmInList, FilmListType };

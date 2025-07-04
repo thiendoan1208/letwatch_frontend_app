@@ -16,11 +16,11 @@ function LandingPageSlider() {
     error: filmListError,
     isFetching: isFilmListLoading,
   } = useQuery({
-    queryKey: ["new-film-list"],
+    queryKey: ["new-film-list", 1],
     queryFn: async () => {
       return getFiveFilmsOnly();
     },
-    staleTime: 60 * 60 * 1000,
+    staleTime: 5 * 60 * 1000,
   });
 
   const getFiveFilmsOnly = async () => {
@@ -70,11 +70,11 @@ function LandingPageSlider() {
               filmList.map((film, index) => (
                 <div
                   key={`${film._id}-${index}`}
-                  className="flex flex-col h-full justify-between"
+                  className="relative flex flex-col h-full justify-between"
                 >
-                  <div className="relative rounded-xl overflow-hidden">
+                  <div className=" rounded-xl h-full overflow-hidden">
                     <Image
-                      className="object-cover object-center w-full  cursor-pointer"
+                      className="object-cover object-center w-full h-full  cursor-pointer"
                       src={film.poster_url}
                       alt={film.name}
                       width={100}
@@ -83,7 +83,7 @@ function LandingPageSlider() {
                     />
                     <Link
                       href={`/${film.slug}`}
-                      className="absolute w-full h-full top-0 rounded-xl text-transparent"
+                      className="absolute w-full h-full top-0 rounded-xl text-transparent select-none"
                     >
                       {film.name}
                     </Link>
