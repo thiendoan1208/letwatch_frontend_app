@@ -26,7 +26,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${interSans.variable} ${poppins.variable} antialiased`}>
+      <body
+        className={`${interSans.variable} ${poppins.variable} antialiased bg-black`}
+      >
         <QueryProvider>
           <div>{children}</div>
         </QueryProvider>

@@ -8,4 +8,11 @@ const filmList: { name: string; slug: string }[] = [
   { name: "Phim lồng tiếng", slug: "phim-long-tieng" },
 ];
 
-export { filmList };
+const filmLang = [
+  { name: "Loại Phim", slug: "no" },
+  { name: "Phim Vietsub", slug: "vietsub" },
+  { name: "Phim thuyết minh", slug: "thuyet-minh" },
+  { name: "Phim lồng tiếng", slug: "long-tieng" },
+];
+
+export { filmList, filmLang };

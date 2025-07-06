@@ -18,15 +18,15 @@ function Layout({
       </div>
       <div>{children}</div>
       {/* Footer */}
-      <footer>
+      <div>
         <div
-          className="flex flex-col md:flex-row items-center justify-between px-16 py-5 text-white gap-10 md:gap-0  "
+          className="flex flex-col md:flex-row items-center justify-between px-16 text-white gap-10 md:gap-0 pt-10 pb-20 lg:py-5"
           style={{
             backgroundColor: "#3F4245",
           }}
         >
           <div className="flex flex-col">
-            <div className="relative">
+            <div className="relative w-full flex items-center justify-center">
               <Image
                 src="/logo_name.png"
                 alt="logo name"
@@ -35,8 +35,8 @@ function Layout({
                 height={100}
                 priority
               />
-              <div>Copyright © 2025 LetWatch</div>
             </div>
+            <div>Copyright © 2025 LetWatch</div>
           </div>
           <div className="space-y-2">
             <h1 className="text-lg font-semibold text-yellow-400">
@@ -56,7 +56,7 @@ function Layout({
             </div>
           </div>
         </div>
-      </footer>
+      </div>
     </div>
   );
 }

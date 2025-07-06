@@ -3,7 +3,7 @@ import Link from "next/link";
 
 function HomePageSubNav() {
   return (
-    <div className="fixed lg:hidden bottom-0 z-[999] w-full bg-black border-t-[0.5px] border-white/50 select-none">
+    <div className="min-w-screen fixed lg:hidden bottom-0 z-[999] w-full bg-black border-t-[0.5px] border-white/50 select-none">
       <div className="grid grid-cols-4 gap-1.5 xl:gap-2  my-0.5 text-[16px]">
         <div className=" text-[14px] xl:text-md relative flex flex-col items-center justify-center  text-white/80 px-4 py-2 rounded-3xl cursor-pointer transition-all font-semibold">
           {/* active */}

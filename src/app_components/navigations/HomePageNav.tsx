@@ -20,7 +20,7 @@ function HomePageNav() {
   });
 
   return (
-    <div className="fixed w-full flex items-center h-16 bg-black/75 backdrop-blur z-[999] transition-all">
+    <div className="fixed min-w-screen flex items-center h-16 bg-black/75 backdrop-blur z-[999] transition-all">
       <div className="relative w-full flex items-center justify-between mx-4 xl:mx-10 pr-4">
         <div className="flex items-center">
           <div className="relative">
@@ -99,7 +99,7 @@ function HomePageNav() {
           </div>
         </div>
         {/* Info */}
-        <div className="flex items-center ml-auto gap-2">
+        <div className="flex items-center ml-auto sm:gap-2">
           <div
             onClick={displayInput}
             className="lg:hidden flex items-center justify-center gap-2 text-white/80 hover:text-black bg-transparent hover:bg-white px-2.5 py-2.5 rounded-full cursor-pointer transition-all font-semibold"

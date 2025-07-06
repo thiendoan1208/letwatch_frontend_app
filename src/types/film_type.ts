@@ -11,6 +11,19 @@ type SpecificFilmsType = {
   slug: string;
 };
 
+type FilmCountry = {
+  success: boolean;
+  message: string;
+  data: SpecificFilmCountry[];
+  error: null | string;
+};
+
+type SpecificFilmCountry = {
+  _id: string;
+  name: string;
+  slug: string;
+};
+
 type FilmList = {
   success: boolean;
   message: string;
@@ -37,7 +50,11 @@ type FilmListType = {
       breadCrumb: object[];
       titlePage: string;
       items: FilmInList[];
-      params: object;
+      params: {
+        pagination: {
+          totalPages: number;
+        };
+      };
     };
   };
   error: null | string;
@@ -66,4 +83,4 @@ type FilmInList = {
   _id: string;
 };
 
-export type { FilmType, FilmList, FilmInList, FilmListType };
+export type { FilmType, FilmList, FilmInList, FilmListType, FilmCountry };

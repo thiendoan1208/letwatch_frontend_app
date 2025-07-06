@@ -4,13 +4,13 @@ import { ChevronRight, MoveUp } from "lucide-react";
 import Link from "next/link";
 
 import { useQueries } from "@tanstack/react-query";
-import { getFilmListByType, getNewFilmList } from "@/services/film";
+import { getFilmListByCategory, getNewFilmList } from "@/services/film";
 import LoaderComponent from "@/app_components/loader/loaderComponent";
 import FilmListCarousel from "@/app_components/carousel/FilmListCarousel";
 import FilmTypeCarousel from "@/app_components/carousel/FilmTypeCarousel";
 import { useEffect, useState } from "react";
 
-const MAX_PAGE = 100;
+const MAX_PAGE = 1000;
 const MIN_PAGE = 1;
 
 function HomePageCategory() {
@@ -27,32 +27,31 @@ function HomePageCategory() {
       {
         queryKey: ["film-list-by-type-phim-bo", 1],
         queryFn: async () => {
-          return await getFilmListByType("phim-bo", 1);
+          return await getFilmListByCategory("phim-bo", 1);
         },
       },
       {
         queryKey: ["film-list-by-type-phim-le", 1],
         queryFn: async () => {
-          return await getFilmListByType("phim-le", 1);
+          return await getFilmListByCategory("phim-le", 1);
         },
       },
       {
         queryKey: ["film-list-by-type-phim-long-tieng", 1],
         queryFn: async () => {
-          return await getFilmListByType("phim-long-tieng", 1);
+          return await getFilmListByCategory("phim-long-tieng", 1);
         },
       },
       {
         queryKey: ["film-list-by-type-phim-thuyet-minh", 1],
         queryFn: async () => {
-          return await getFilmListByType("phim-thuyet-minh", 1);
+          return await getFilmListByCategory("phim-thuyet-minh", 1);
         },
       },
       {
         queryKey: ["random-film-list", randomNumber],
         queryFn: async () => {
           if (randomNumber) {
-            console.log(randomNumber);
             return await getNewFilmList(randomNumber);
           }
         },
@@ -114,6 +113,7 @@ function HomePageCategory() {
             newFilmList.data &&
             newFilmList.data.success &&
             newFilmList.data.data.items.length > 0 &&
+            newFilmList.data.data.items.length !== null &&
             newFilmList.isPending === false ? (
               <FilmListCarousel noti="normal" data={newFilmList?.data} />
             ) : (
@@ -150,6 +150,7 @@ function HomePageCategory() {
             filmListByTypePhimLe.data &&
             filmListByTypePhimLe.data?.success &&
             filmListByTypePhimLe.data.data.data.items.length > 0 &&
+            filmListByTypePhimLe.data.data.data.items.length !== null &&
             filmListByTypePhimLe.isPending === false ? (
               <FilmTypeCarousel data={filmListByTypePhimLe?.data} />
             ) : (
@@ -185,6 +186,7 @@ function HomePageCategory() {
             {filmListByTypePhimBo !== undefined &&
             filmListByTypePhimBo.data &&
             filmListByTypePhimBo.data.data.data.items.length > 0 &&
+            filmListByTypePhimBo.data.data.data.items.length !== null &&
             filmListByTypePhimBo.isPending === false ? (
               <FilmTypeCarousel data={filmListByTypePhimBo?.data} />
             ) : (
@@ -220,6 +222,7 @@ function HomePageCategory() {
             {filmListByTypePhimLongTieng !== undefined &&
             filmListByTypePhimLongTieng.data &&
             filmListByTypePhimLongTieng.data.data.data.items.length > 0 &&
+            filmListByTypePhimLongTieng.data.data.data.items.length !== null &&
             filmListByTypePhimLongTieng.isPending === false ? (
               <FilmTypeCarousel data={filmListByTypePhimLongTieng?.data} />
             ) : (
@@ -255,6 +258,7 @@ function HomePageCategory() {
             {filmListByTypePhimThuyetMinh !== undefined &&
             filmListByTypePhimThuyetMinh.data &&
             filmListByTypePhimThuyetMinh.data.data.data.items.length > 0 &&
+            filmListByTypePhimThuyetMinh.data.data.data.items.length !== null &&
             filmListByTypePhimThuyetMinh.isPending === false ? (
               <FilmTypeCarousel data={filmListByTypePhimThuyetMinh?.data} />
             ) : (
@@ -287,6 +291,7 @@ function HomePageCategory() {
             {randomFilmList &&
             randomFilmList.data &&
             randomFilmList.data.data.items.length > 0 &&
+            randomFilmList.data.data.items.length !== null &&
             randomFilmList.isPending === false ? (
               <FilmListCarousel noti={"random"} data={randomFilmList?.data} />
             ) : (
@@ -305,7 +310,7 @@ function HomePageCategory() {
           href="/watch/home"
           className="text-white text-lg font-normal flex items-center"
         >
-          <h1>Back to top</h1>
+          <h1>Quay lại đầu trang</h1>
           <MoveUp />
         </Link>
       </div>
