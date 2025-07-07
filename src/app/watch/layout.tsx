@@ -10,7 +10,8 @@ function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <div>
+    <div
+    >
       <div>
         <HomePageNav />
         {/* options when responsive */}

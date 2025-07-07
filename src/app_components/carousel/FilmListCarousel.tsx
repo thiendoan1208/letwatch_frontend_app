@@ -79,7 +79,7 @@ function FilmListCarousel({ data, noti }: { data: FilmList; noti: string }) {
                     </h1>
                   </div>
                   <Link
-                    href=""
+                    href={`/watch/phim-moi`}
                     className="absolute w-full h-full top-0 rounded-xl text-transparent select-none"
                   ></Link>
                 </div>

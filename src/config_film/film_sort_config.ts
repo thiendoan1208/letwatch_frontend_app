@@ -5,11 +5,11 @@ const sortDescAsc = [
   },
   {
     type: "desc",
-    name: "A -> Z",
+    name: "Mới Nhất-> Cũ Nhất",
   },
   {
     type: "asc",
-    name: "Z -> A",
+    name: "Cũ Nhất -> Mới Nhất",
   },
 ];
 

@@ -19,11 +19,7 @@ import {
 } from "@/components/ui/select";
 import { filmLang } from "@/config_film/film_type_config";
 import { useQuery } from "@tanstack/react-query";
-import {
-  getFilmCountry,
-  getFilmListSortedByCategory,
-  getFilmType,
-} from "@/services/film";
+import { getFilmCountry, getFilmListSortByType } from "@/services/film";
 import { sortDescAsc } from "@/config_film/film_sort_config";
 import { fullYearFilm } from "@/config_film/fim_year_config";
 import { Button } from "@/components/ui/button";
@@ -44,7 +40,7 @@ import { cloneDeep } from "lodash";
 
 const PAGE_LIMIT = "24";
 
-function MainFilterAndDisplay() {
+function FilmListTypeFilterAndDisplay() {
   const pathname = usePathname();
   const path = pathname.split("/");
   const [page, setPage] = React.useState(1);
@@ -74,12 +70,6 @@ function MainFilterAndDisplay() {
     null
   );
 
-  const { data: filmType } = useQuery({
-    queryKey: ["film-types"],
-    queryFn: async () => await getFilmType(),
-    staleTime: 60 * 60 * 1000,
-  });
-
   const { data: filmCountry } = useQuery({
     queryKey: ["film-countries"],
     queryFn: async () => await getFilmCountry(),
@@ -104,12 +94,7 @@ function MainFilterAndDisplay() {
       country: value,
     });
   };
-  const handleCategoryChange = (value: string) => {
-    setSortFilmList({
-      ...sortPhimList,
-      category: value,
-    });
-  };
+
   const handleYearChange = (value: string) => {
     setSortFilmList({
       ...sortPhimList,
@@ -126,7 +111,7 @@ function MainFilterAndDisplay() {
       setIsLoading(true);
       setSaveSortFilmList(sortPhimList);
       setPage(1);
-      const data = await getFilmListSortedByCategory(pagePathName, {
+      const data = await getFilmListSortByType(pagePathName, {
         ...sortPhimList,
         page: 1,
       });
@@ -141,10 +126,7 @@ function MainFilterAndDisplay() {
   const submitPaginationInfo = async () => {
     try {
       setIsLoading(true);
-      const data = await getFilmListSortedByCategory(
-        pagePathName,
-        saveSortFilmList
-      );
+      const data = await getFilmListSortByType(pagePathName, saveSortFilmList);
       setFilmListData(data);
       setIsLoading(false);
     } catch (error) {
@@ -220,33 +202,6 @@ function MainFilterAndDisplay() {
                           {item.name}
                         </SelectItem>
                       ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Phim category */}
-              <div>
-                <Select
-                  value={sortPhimList.category}
-                  onValueChange={handleCategoryChange}
-                >
-                  <SelectTrigger className=" w-full xl:w-[180px] cursor-pointer">
-                    <SelectValue placeholder="Thể loại" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-white">
-                    <SelectGroup>
-                      <SelectItem value="no">Thể Loại</SelectItem>
-                      {filmType &&
-                        filmType.success === true &&
-                        filmType.data.map((type, index: number) => (
-                          <SelectItem
-                            key={`phim-category-${index}`}
-                            value={type.slug}
-                          >
-                            {type.name}
-                          </SelectItem>
-                        ))}
                     </SelectGroup>
                   </SelectContent>
                 </Select>
@@ -399,7 +354,7 @@ function MainFilterAndDisplay() {
 
       {/* Pagination */}
       {filmListData &&
-        filmListData.success == true &&
+        filmListData.success === true &&
         filmListData?.data.data.items !== null &&
         filmListData?.data.data.items.length > 0 &&
         isLoading === false && (
@@ -429,4 +384,4 @@ function MainFilterAndDisplay() {
   );
 }
 
-export default MainFilterAndDisplay;
+export default FilmListTypeFilterAndDisplay;

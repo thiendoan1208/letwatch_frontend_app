@@ -1,18 +1,18 @@
 const filmList: { name: string; slug: string }[] = [
-  { name: "Phim bộ", slug: "phim-bo" },
-  { name: "Phim lẻ", slug: "phim-le" },
+  { name: "Phim Bộ", slug: "phim-bo" },
+  { name: "Phim Lẻ", slug: "phim-le" },
   { name: "TV Shows", slug: "tv-shows" },
-  { name: "Hoạt hình", slug: "hoat-hinh" },
+  { name: "Hoạt Hình", slug: "hoat-hinh" },
   { name: "Phim Vietsub", slug: "phim-vietsub" },
-  { name: "Phim thuyết minh", slug: "phim-thuyet-minh" },
-  { name: "Phim lồng tiếng", slug: "phim-long-tieng" },
+  { name: "Phim Thuyết Minh", slug: "phim-thuyet-minh" },
+  { name: "Phim Lồng Tiếng", slug: "phim-long-tieng" },
 ];
 
 const filmLang = [
   { name: "Loại Phim", slug: "no" },
   { name: "Phim Vietsub", slug: "vietsub" },
-  { name: "Phim thuyết minh", slug: "thuyet-minh" },
-  { name: "Phim lồng tiếng", slug: "long-tieng" },
+  { name: "Phim Thuyết Minh", slug: "thuyet-minh" },
+  { name: "Phim Lồng Tiếng", slug: "long-tieng" },
 ];
 
 export { filmList, filmLang };

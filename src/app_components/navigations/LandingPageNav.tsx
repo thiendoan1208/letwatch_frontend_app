@@ -81,7 +81,7 @@ function LandingPageNav() {
                         filmList.map((component, index) => (
                           <Link
                             key={`list-${index}`}
-                            href={""}
+                            href={`/watch/${component.slug}`}
                             className="hover:bg-gray-200/50 px-2 rounded-sm transition-all"
                           >
                             {component.name}
@@ -113,7 +113,7 @@ function LandingPageNav() {
                         filmType.data.map((type, index: number) => (
                           <Link
                             key={`list-${index}`}
-                            href={""}
+                            href={`/watch/kham-pha/the-loai/${type.slug}`}
                             className="hover:bg-gray-200/50 px-2 rounded-sm transition-all"
                           >
                             {type.name}
@@ -122,7 +122,7 @@ function LandingPageNav() {
                     </ul>
                     <div>
                       {!filmType && (
-                        <div className="">
+                        <div>
                           <h1>Không thể lấy danh sách thể loại phim</h1>
                         </div>
                       )}

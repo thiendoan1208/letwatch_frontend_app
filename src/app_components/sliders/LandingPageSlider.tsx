@@ -10,6 +10,8 @@ import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
 
+const PAGE_LIMIT = "24";
+
 function LandingPageSlider() {
   const {
     data: filmList,
@@ -25,7 +27,7 @@ function LandingPageSlider() {
 
   const getFiveFilmsOnly = async () => {
     try {
-      const data = await getNewFilmList(1);
+      const data = await getNewFilmList(1, PAGE_LIMIT);
       const slicelist = data.data.items.slice(0, 6);
       if (data && data.success === true && data.data.items.length > 0) {
         return slicelist;

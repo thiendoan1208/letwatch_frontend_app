@@ -1,6 +1,6 @@
-import MainFilterAndDisplay from "@/app_components/filter_and_display/MainFilterAndDisplay";
+import MainDisplay from "@/app_components/filter_and_display/MainDisplay";
 
-function TVShowsPage() {
+function NewFilmRelease() {
   return (
     <div
       className="bg-black min-h-screen"
@@ -12,11 +12,11 @@ function TVShowsPage() {
       <div className="pt-20 text-white">
         {/* Main Collapse Menu Film Filter */}
         <div className="mx-4 lg:mx-16 ">
-          <MainFilterAndDisplay />
+          <MainDisplay />
         </div>
       </div>
     </div>
   );
 }
 
-export default TVShowsPage;
+export default NewFilmRelease;

@@ -17,7 +17,13 @@ import {
 import { FilmListType } from "@/types/film_type";
 import ErrorMessage from "@/app_components/error/ErrorMesage";
 
-function FilmTypeCarousel({ data }: { data: FilmListType }) {
+function FilmTypeCarousel({
+  data,
+  filmTypeSlug,
+}: {
+  data: FilmListType;
+  filmTypeSlug: string;
+}) {
   return (
     <>
       {data && data.success === false && data.data.data.items === null ? (
@@ -79,7 +85,7 @@ function FilmTypeCarousel({ data }: { data: FilmListType }) {
                     </h1>
                   </div>
                   <Link
-                    href=""
+                    href={`/watch/kham-pha/${filmTypeSlug}`}
                     className="absolute w-full h-full top-0 rounded-xl text-transparent select-none"
                   ></Link>
                 </div>

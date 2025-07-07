@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 
 const MAX_PAGE = 1000;
 const MIN_PAGE = 1;
+const PAGE_LIMIT = "10";
 
 function HomePageCategory() {
   const [randomNumber, setRandomNumber] = useState<number>(10);
@@ -21,7 +22,7 @@ function HomePageCategory() {
       {
         queryKey: ["new-film-list", 1],
         queryFn: async () => {
-          return await getNewFilmList(1);
+          return await getNewFilmList(1, PAGE_LIMIT);
         },
       },
       {
@@ -52,7 +53,7 @@ function HomePageCategory() {
         queryKey: ["random-film-list", randomNumber],
         queryFn: async () => {
           if (randomNumber) {
-            return await getNewFilmList(randomNumber);
+            return await getNewFilmList(randomNumber, PAGE_LIMIT);
           }
         },
       },
@@ -67,6 +68,29 @@ function HomePageCategory() {
     filmListByTypePhimThuyetMinh,
     randomFilmList,
   ] = results;
+
+  const filmSections = [
+    {
+      title: "Phim Lẻ",
+      result: filmListByTypePhimLe,
+      slug: "phim-le",
+    },
+    {
+      title: "Phim Bộ",
+      result: filmListByTypePhimBo,
+      slug: "phim-bo",
+    },
+    {
+      title: "Phim Lồng Tiếng",
+      result: filmListByTypePhimLongTieng,
+      slug: "phim-long-tieng",
+    },
+    {
+      title: "Phim Thuyết Minh",
+      result: filmListByTypePhimThuyetMinh,
+      slug: "phim-thuyet-minh",
+    },
+  ];
 
   const randomFilmPage = () => {
     const number = Math.floor(
@@ -92,13 +116,13 @@ function HomePageCategory() {
         <div className="pt-14 pb-6">
           <div className="flex flex-col items-start gap-5 overflow-hidden ">
             <div className="text-white flex items-center gap-2">
-              <Link href="" className="text-2xl font-bold">
+              <Link href={`/watch/phim-moi`} className="text-2xl font-bold">
                 Mới Phát Hành
               </Link>
               <div className="bg-black/45 px-3 py-1 rounded-sm text-yellow-500">
                 <h1>HOT</h1>
               </div>
-              <Link href="">
+              <Link href={`/watch/phim-moi`}>
                 <ChevronRight className="size-8" />
               </Link>
             </div>
@@ -112,6 +136,7 @@ function HomePageCategory() {
             {newFilmList &&
             newFilmList.data &&
             newFilmList.data.success &&
+            newFilmList.data.data.items !== null &&
             newFilmList.data.data.items.length > 0 &&
             newFilmList.data.data.items.length !== null &&
             newFilmList.isPending === false ? (
@@ -127,159 +152,56 @@ function HomePageCategory() {
         )}
       </div>
 
-      {/* Phim le */}
-      <div className="ml-4 lg:ml-16">
-        <div className="pt-10 pb-6">
-          <div className="flex flex-col items-start gap-5 overflow-hidden ">
-            <div className="text-white flex items-center gap-2">
-              <Link href="" className="text-2xl font-bold">
-                Phim Lẻ
-              </Link>
-              <Link href="">
-                <ChevronRight className="size-8" />
-              </Link>
+      {filmSections.map((section, index) => (
+        <div key={`film-section-${index}`} className="ml-4 lg:ml-16">
+          <div className="pt-10 pb-6">
+            <div className="flex flex-col items-start gap-5 overflow-hidden ">
+              <div className="text-white flex items-center gap-2">
+                <Link
+                  href={`/watch/kham-pha/${section.slug}`}
+                  className="text-2xl font-bold"
+                >
+                  {section.title}
+                </Link>
+                <Link href={`/watch/kham-pha/${section.slug}`}>
+                  <ChevronRight className="size-8" />
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
 
-        {filmListByTypePhimLe.isPending ? (
-          <LoaderComponent />
-        ) : (
-          <div className=" relative overflow-hidden group transition-all">
-            {filmListByTypePhimLe !== undefined &&
-            filmListByTypePhimLe.data &&
-            filmListByTypePhimLe.data?.success &&
-            filmListByTypePhimLe.data.data.data.items.length > 0 &&
-            filmListByTypePhimLe.data.data.data.items.length !== null &&
-            filmListByTypePhimLe.isPending === false ? (
-              <FilmTypeCarousel data={filmListByTypePhimLe?.data} />
-            ) : (
-              <div>
-                <h1 className="text-white">
-                  Không thể lấy dữ liệu danh sách phim
-                </h1>
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-
-      {/* Phim bo */}
-      <div className="ml-4 lg:ml-16">
-        <div className="pt-10 pb-6">
-          <div className="flex flex-col items-start gap-5 overflow-hidden ">
-            <div className="text-white flex items-center gap-2">
-              <Link href="" className="text-2xl font-bold">
-                Phim Bộ
-              </Link>
-              <Link href="">
-                <ChevronRight className="size-8" />
-              </Link>
+          {section.result.isPending ? (
+            <LoaderComponent />
+          ) : (
+            <div className=" relative overflow-hidden group transition-all">
+              {section.result !== undefined &&
+              section.result.data &&
+              section.result.data?.success &&
+              section.result.data.data.data.items !== null &&
+              section.result.data.data.data.items.length > 0 &&
+              section.result.isPending === false ? (
+                <FilmTypeCarousel
+                  data={section.result?.data}
+                  filmTypeSlug={section.slug}
+                />
+              ) : (
+                <div>
+                  <h1 className="text-white">
+                    Không thể lấy dữ liệu danh sách phim
+                  </h1>
+                </div>
+              )}
             </div>
-          </div>
+          )}
         </div>
-
-        {filmListByTypePhimBo.isPending ? (
-          <LoaderComponent />
-        ) : (
-          <div className=" relative overflow-hidden group transition-all">
-            {filmListByTypePhimBo !== undefined &&
-            filmListByTypePhimBo.data &&
-            filmListByTypePhimBo.data.data.data.items.length > 0 &&
-            filmListByTypePhimBo.data.data.data.items.length !== null &&
-            filmListByTypePhimBo.isPending === false ? (
-              <FilmTypeCarousel data={filmListByTypePhimBo?.data} />
-            ) : (
-              <div>
-                <h1 className="text-white">
-                  Không thể lấy dữ liệu danh sách phim
-                </h1>
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-
-      {/* Phim Long tieng */}
-      <div className="ml-4 lg:ml-16">
-        <div className="pt-10 pb-6">
-          <div className="flex flex-col items-start gap-5 overflow-hidden ">
-            <div className="text-white flex items-center gap-2">
-              <Link href="" className="text-2xl font-bold">
-                Phim Lồng Tiếng
-              </Link>
-              <Link href="">
-                <ChevronRight className="size-8" />
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        {filmListByTypePhimLongTieng.isPending ? (
-          <LoaderComponent />
-        ) : (
-          <div className=" relative overflow-hidden group transition-all">
-            {filmListByTypePhimLongTieng !== undefined &&
-            filmListByTypePhimLongTieng.data &&
-            filmListByTypePhimLongTieng.data.data.data.items.length > 0 &&
-            filmListByTypePhimLongTieng.data.data.data.items.length !== null &&
-            filmListByTypePhimLongTieng.isPending === false ? (
-              <FilmTypeCarousel data={filmListByTypePhimLongTieng?.data} />
-            ) : (
-              <div>
-                <h1 className="text-white">
-                  Không thể lấy dữ liệu danh sách phim
-                </h1>
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-
-      {/* Phim Thuyet Minh */}
-      <div className="ml-4 lg:ml-16">
-        <div className="pt-10 pb-6">
-          <div className="flex flex-col items-start gap-5 overflow-hidden ">
-            <div className="text-white flex items-center gap-2">
-              <Link href="" className="text-2xl font-bold">
-                Phim Thuyết Minh
-              </Link>
-              <Link href="">
-                <ChevronRight className="size-8" />
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        {filmListByTypePhimThuyetMinh.isPending ? (
-          <LoaderComponent />
-        ) : (
-          <div className=" relative overflow-hidden group transition-all">
-            {filmListByTypePhimThuyetMinh !== undefined &&
-            filmListByTypePhimThuyetMinh.data &&
-            filmListByTypePhimThuyetMinh.data.data.data.items.length > 0 &&
-            filmListByTypePhimThuyetMinh.data.data.data.items.length !== null &&
-            filmListByTypePhimThuyetMinh.isPending === false ? (
-              <FilmTypeCarousel data={filmListByTypePhimThuyetMinh?.data} />
-            ) : (
-              <div>
-                <h1 className="text-white">
-                  Không thể lấy dữ liệu danh sách phim
-                </h1>
-              </div>
-            )}
-          </div>
-        )}
-      </div>
+      ))}
 
       {/* Phim Random */}
       <div className="ml-4 lg:ml-16">
         <div className="pt-14 pb-6">
           <div className="flex flex-col items-start gap-5 overflow-hidden ">
             <div className="text-white flex items-center gap-2">
-              <Link href="" className="text-2xl font-bold">
-                Phim Ngẫu Nhiên
-              </Link>
+              <h1 className="text-2xl font-bold">Phim Ngẫu Nhiên</h1>
             </div>
           </div>
         </div>
@@ -290,8 +212,8 @@ function HomePageCategory() {
           <div className=" relative overflow-hidden group transition-all">
             {randomFilmList &&
             randomFilmList.data &&
+            randomFilmList.data.data.items !== null &&
             randomFilmList.data.data.items.length > 0 &&
-            randomFilmList.data.data.items.length !== null &&
             randomFilmList.isPending === false ? (
               <FilmListCarousel noti={"random"} data={randomFilmList?.data} />
             ) : (

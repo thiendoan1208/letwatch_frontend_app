@@ -1,6 +1,6 @@
 import MainFilterAndDisplay from "@/app_components/filter_and_display/MainFilterAndDisplay";
 
-function TVShowsPage() {
+function Anime() {
   return (
     <div
       className="bg-black min-h-screen"
@@ -19,4 +19,4 @@ function TVShowsPage() {
   );
 }
 
-export default TVShowsPage;
+export default Anime;

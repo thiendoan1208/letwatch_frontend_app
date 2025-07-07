@@ -14,8 +14,8 @@ const getFilmCountry = (): Promise<FilmCountry> => {
   return axios.get("/all-film-countries");
 };
 
-const getNewFilmList = (page: number): Promise<FilmList> => {
-  return axios.get("/category/new-film-list", { params: { page } });
+const getNewFilmList = (page: number, limit: string): Promise<FilmList> => {
+  return axios.get("/category/new-film-list", { params: { page, limit } });
 };
 
 const getFilmListByCategory = (
@@ -40,10 +40,26 @@ const getFilmListSortedByCategory = (
   return axios.get(`/category/${path}`, { params: sortFilmList });
 };
 
+const getFilmListSortByType = (
+  path: string,
+  sortFilmList: {
+    page: number;
+    sort_type: string;
+    sort_lang: string;
+    category: string;
+    country: string;
+    year: string;
+    limit: string;
+  }
+): Promise<FilmListType> => {
+  return axios.get(`/film-type/${path}`, { params: sortFilmList });
+};
+
 export {
   getFilmType,
   getNewFilmList,
   getFilmListByCategory,
   getFilmCountry,
   getFilmListSortedByCategory,
+  getFilmListSortByType,
 };
