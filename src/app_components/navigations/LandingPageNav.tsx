@@ -68,12 +68,12 @@ function LandingPageNav() {
               <NavigationMenuList>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger className="cursor-pointer bg-transparent text-white/80 hover:text-white transition-all/100 w-fit hover:bg-transparent">
-                    Khám phá
+                    Danh Mục
                   </NavigationMenuTrigger>
                   <NavigationMenuContent className=" z-[999] absolute left-full top-full -translate-x-full mt-2">
                     <div>
                       <h1 className="font-bold ml-1 text-yellow-500">
-                        Khám phá
+                        Danh Mục
                       </h1>
                     </div>
                     <ul className="grid w-[400px] gap-2 md:grid-cols-2 mt-3">
@@ -81,7 +81,7 @@ function LandingPageNav() {
                         filmList.map((component, index) => (
                           <Link
                             key={`list-${index}`}
-                            href={`/watch/${component.slug}`}
+                            href={component.url}
                             className="hover:bg-gray-200/50 px-2 rounded-sm transition-all"
                           >
                             {component.name}
@@ -99,7 +99,7 @@ function LandingPageNav() {
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger className="cursor-pointer bg-transparent text-white/80 hover:text-white transition-all/100 w-fit hover:bg-transparent">
-                    Thể loại
+                    Thể Loại
                   </NavigationMenuTrigger>
                   <NavigationMenuContent className=" z-[999] absolute left-full top-full -translate-x-full mt-2 ">
                     <div>
@@ -139,13 +139,13 @@ function LandingPageNav() {
                 className="mx-4 font-semibold  text-white/80 hover:text-white hover:underline transition-all"
                 href="/me"
               >
-                Đăng nhập
+                Đăng Nhập
               </Link>
               <Link
                 className="mx-4 font-semibold shadow-2xl text-black/75 bg-yellow-500 px-8 py-1 rounded-md hover:text-black/50"
                 href="/me"
               >
-                Đăng ký
+                Đăng Ký
               </Link>
             </div>
           </div>
@@ -171,7 +171,7 @@ function LandingPageNav() {
               </SheetHeader>
               <div className="mx-4">
                 <div>
-                  <h1 className="font-bold  text-yellow-500">Khám phá</h1>
+                  <h1 className="font-bold  text-yellow-500">Danh Mục</h1>
                 </div>
                 <div className="grid grid-cols-2 ml-3 gap-3 mt-2 ">
                   {filmType &&
@@ -196,7 +196,7 @@ function LandingPageNav() {
               <div className="h-[1px] bg-black/50 mx-4 rounded-2xl"></div>
               <div className="mx-4">
                 <div>
-                  <h1 className="font-bold  text-yellow-500">Thể loại</h1>
+                  <h1 className="font-bold  text-yellow-500">Thể Loại</h1>
                 </div>
                 <div className="grid grid-cols-2 ml-3 gap-3 mt-2 ">
                   {filmType &&

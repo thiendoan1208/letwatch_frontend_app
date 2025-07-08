@@ -6,9 +6,12 @@ import ClickOutsideElement from "@/utils/click_outside_element";
 import { Bookmark, Compass, House, Search, ShipWheel, Tv } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 function HomePageNav() {
+  const pathname = usePathname();
+
   const [isActive, setIsActive] = useState<boolean>(false);
 
   const displayInput = () => {
@@ -19,13 +22,40 @@ function HomePageNav() {
     setIsActive(false);
   });
 
+  const menuItems = [
+    {
+      label: "Trang Chủ",
+      href: "/watch/trang-chu",
+      icon: House,
+      pathKey: "trang-chu",
+    },
+    {
+      label: "TV Shows",
+      href: "/watch/tv-shows",
+      icon: Tv,
+      pathKey: "tv-shows",
+    },
+    {
+      label: "Hoạt Hình",
+      href: "/watch/hoat-hinh",
+      icon: ShipWheel,
+      pathKey: "hoat-hinh",
+    },
+    {
+      label: "Khám phá",
+      href: "/watch/kham-pha",
+      icon: Compass,
+      pathKey: "kham-pha",
+    },
+  ];
+
   return (
     <div className="fixed min-w-screen flex items-center h-16 bg-black/75 backdrop-blur z-[999] transition-all">
       <div className="relative w-full flex items-center justify-between mx-4 xl:mx-10 pr-4">
         <div className="flex items-center">
           <div className="relative">
             <Link
-              href="/watch/home"
+              href="/watch/trang-chu"
               className="absolute text-3xl left-[30px] text-transparent"
             >
               Home
@@ -53,51 +83,33 @@ function HomePageNav() {
             <Search className="text-white size-5" />
           </div>
         </div>
+
         {/* Options */}
+
         <div className="hidden lg:block select-none">
           <div className="flex items-center gap-1.5 xl:gap-2 mx-2 text-[16px]">
-            <div className="text-[14px] xl:text-md relative border-3 border-white/20 flex items-center justify-center gap-2 text-white/80 hover:text-black bg-transparent hover:bg-white px-4 py-2 rounded-3xl cursor-pointer transition-all font-semibold">
-              <House className="size-5" />
-              <h2 className="text-nowrap">Trang Chủ</h2>
-              <Link
-                href="/watch/home"
-                className="absolute w-full h-full text-transparent select-none "
+            {menuItems.map(({ label, href, icon: Icon, pathKey }) => (
+              <div
+                key={pathKey}
+                className={cn(
+                  "text-[14px] xl:text-md relative flex items-center justify-center gap-2 text-white/80 hover:text-black bg-transparent hover:bg-white px-4 py-2 rounded-3xl cursor-pointer font-semibold",
+                  (pathname === href || pathname.includes(href)) &&
+                    "border-3 border-white/20"
+                )}
               >
-                Trang Chủ
-              </Link>
-            </div>
-            <div className=" text-[14px] xl:text-md relative flex items-center justify-center gap-2 text-white/80 hover:text-black bg-transparent hover:bg-white px-4 py-2 rounded-3xl cursor-pointer transition-all font-semibold">
-              <Tv className="size-5" />
-              <h1 className="text-nowrap">TV Shows</h1>
-              <Link
-                href="/watch/tv-shows"
-                className="absolute w-full h-full text-transparent select-none"
-              >
-                TV Shows
-              </Link>
-            </div>
-            <div className=" text-[14px] xl:text-md relative flex items-center justify-center gap-2 text-white/80 hover:text-black bg-transparent hover:bg-white px-4 py-2 rounded-3xl cursor-pointer transition-all font-semibold">
-              <ShipWheel className="size-5" />
-              <h1 className="text-nowrap">Hoạt Hình</h1>
-              <Link
-                href="/watch/hoat-hinh"
-                className="absolute w-full h-full text-transparent select-none "
-              >
-                Hoạt Hình
-              </Link>
-            </div>
-            <div className="text-[14px] xl:text-md relative flex items-center justify-center gap-2 text-white/80 hover:text-black bg-transparent hover:bg-white px-4 py-2 rounded-3xl cursor-pointer transition-all font-semibold">
-              <Compass className="size-5" />
-              <h1 className="text-nowrap">Khám phá</h1>
-              <Link
-                href="/watch/kham-pha"
-                className="absolute w-full h-full text-transparent select-none "
-              >
-                Khám phá
-              </Link>
-            </div>
+                <Icon className="size-5" />
+                <h2 className="text-nowrap">{label}</h2>
+                <Link
+                  href={href}
+                  className="absolute w-full h-full text-transparent select-none"
+                >
+                  {label}
+                </Link>
+              </div>
+            ))}
           </div>
         </div>
+
         {/* Info */}
         <div className="flex items-center ml-auto sm:gap-2">
           <div

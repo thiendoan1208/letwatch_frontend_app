@@ -2,7 +2,7 @@
 "use client";
 
 import * as React from "react";
-import { ChevronsDown } from "lucide-react";
+import { ChevronLeft, ChevronRight, ChevronsDown } from "lucide-react";
 import {
   Collapsible,
   CollapsibleContent,
@@ -403,17 +403,17 @@ function MainFilterAndDisplay() {
         filmListData?.data.data.items !== null &&
         filmListData?.data.data.items.length > 0 &&
         isLoading === false && (
-          <div className="flex items-center justify-center py-20 px-2">
+          <div className="flex items-center justify-center py-20">
             <ReactPaginate
               forcePage={page - 1}
-              className="flex items-center gap-4 md:gap-7  cursor-pointer select-none"
+              className=" max-w-screen overflow-hidden px-4 flex items-center justify-center flex-wrap gap-5 md:gap-7  cursor-pointer select-none"
               pageClassName="px-2"
               activeClassName="px-2 text-yellow-400 border-2 rounded bg-white font-semibold"
               previousClassName="text-2xl"
               nextClassName="text-2xl"
               breakLabel="..."
-              previousLabel="<"
-              nextLabel=">"
+              previousLabel={<ChevronLeft />}
+              nextLabel={<ChevronRight />}
               onPageChange={handlePagination}
               pageRangeDisplayed={1}
               pageCount={

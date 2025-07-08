@@ -229,7 +229,7 @@ function HomePageCategory() {
 
       <div className="p-10 flex items-center justify-center">
         <Link
-          href="/watch/home"
+          href="/watch/trang-chu"
           className="text-white text-lg font-normal flex items-center"
         >
           <h1>Quay lại đầu trang</h1>

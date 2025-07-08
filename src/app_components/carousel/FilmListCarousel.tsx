@@ -73,8 +73,8 @@ function FilmListCarousel({ data, noti }: { data: FilmList; noti: string }) {
               <CarouselItem className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6 select-none -mr-2.5 md:mr-0">
                 <div className="relative rounded-xl h-[86%] overflow-hidden bg-black cursor-pointer">
                   <div className="h-full flex flex-col gap-2 items-center justify-center">
-                    <LayoutGrid className="size-20 text-white" />
-                    <h1 className="text-white text-2xl font-semibold">
+                    <LayoutGrid className="size-15 md:size-20 text-white" />
+                    <h1 className="text-white text-xl md:text-2xl font-semibold">
                       Xem Thêm
                     </h1>
                   </div>
