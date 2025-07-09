@@ -5,6 +5,7 @@ import {
   FilmListType,
   FilmType,
 } from "@/types/film_type";
+import { FilmInfo } from "@/types/fim_info_type";
 
 const getFilmType = (): Promise<FilmType> => {
   return axios.get("/all-film-type");
@@ -55,6 +56,10 @@ const getFilmListSortByType = (
   return axios.get(`/film-type/${path}`, { params: sortFilmList });
 };
 
+const getFilmInfo = (slug: string): Promise<FilmInfo> => {
+  return axios.get(`/film/${slug}`);
+};
+
 export {
   getFilmType,
   getNewFilmList,
@@ -62,4 +67,5 @@ export {
   getFilmCountry,
   getFilmListSortedByCategory,
   getFilmListSortByType,
+  getFilmInfo,
 };

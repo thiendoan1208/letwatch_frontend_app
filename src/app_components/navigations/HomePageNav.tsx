@@ -50,13 +50,13 @@ function HomePageNav() {
   ];
 
   return (
-    <div className="fixed min-w-screen flex items-center h-16 bg-black/75 backdrop-blur z-[999] transition-all">
+    <div className="fixed min-w-screen flex items-center h-16 bg-black/20 backdrop-blur z-[999] transition-all">
       <div className="relative w-full flex items-center justify-between mx-4 xl:mx-10 pr-4">
         <div className="flex items-center">
           <div className="relative">
             <Link
               href="/watch/trang-chu"
-              className="absolute text-3xl left-[30px] text-transparent"
+              className="absolute text-3xl left-[30px] text-transparent select-none"
             >
               Home
             </Link>

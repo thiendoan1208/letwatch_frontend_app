@@ -75,7 +75,7 @@ type FilmInList = {
   tmdb: {
     id: string;
     season: number;
-    type: "tv" | "movie"; // giả định chỉ có "tv" hoặc "movie"
+    type: string;
     vote_average: number;
     vote_count: number;
   };

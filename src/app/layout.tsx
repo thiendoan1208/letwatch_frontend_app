@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import { QueryProvider } from "@/provider/query_provider";
+import { Toaster } from "sonner";
 
 const interSans = Inter({
   variable: "--font-inter",
@@ -31,6 +32,7 @@ export default function RootLayout({
       >
         <QueryProvider>
           <div>{children}</div>
+          <Toaster richColors duration={2000} position="top-right" />
         </QueryProvider>
       </body>
     </html>
