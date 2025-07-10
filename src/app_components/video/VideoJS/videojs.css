@@ -1,0 +1,44 @@
+.video-js .vjs-control-bar {
+  background-color: transparent;
+}
+
+.video-js .vjs-progress-control {
+    position: absolute;
+    top: -100%;
+    width: 100%;
+}
+
+.video-js .vjs-play-progress {
+  background-color: #eeff00; 
+}
+
+.video-js .vjs-playback-rate {
+    position: absolute;
+    right: 8%;
+}
+
+.video-js .vjs-picture-in-picture-control {
+    position: absolute;
+    right: 4%;
+}
+
+.video-js .vjs-fullscreen-control {
+    position: absolute;
+    right: 0;   
+}
+
+.video-js .vjs-big-play-button {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.video-js .vjs-big-play-button .vjs-icon-placeholder:before {
+    width: 0%;
+    height: 0%;
+    position: static;
+}

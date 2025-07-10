@@ -75,6 +75,13 @@ export type Episode = {
   link_m3u8: string;
 };
 
+export type EachEpisode = {
+  success: boolean;
+  message: string;
+  data: Episode;
+  error: null;
+};
+
 export type Pallete = {
   DarkMuted: { rgb: number[]; population: number };
   DarkVibrant: { rgb: number[]; population: number };

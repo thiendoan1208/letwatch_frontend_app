@@ -1,5 +1,5 @@
 import HomePageCategory from "@/app_components/category/HomePageCategory";
-import VideoPlayer from "@/app_components/video/homepage_video";
+import VideoPlayer from "@/app_components/video/HomePageVideo";
 import Image from "next/image";
 import Link from "next/link";
 

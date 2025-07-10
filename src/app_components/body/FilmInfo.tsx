@@ -136,7 +136,7 @@ function FilmInfo() {
                     </div>
                     <div className="mt-3">
                       <Link
-                        href=""
+                        href={`/watch/${filmSlug}/${film.data.episodes[0].server_data[0].slug}`}
                         className="flex gap-2 bg-white text-black py-2 justify-center rounded-full cursor-pointer"
                       >
                         <Play className="size-6" />
