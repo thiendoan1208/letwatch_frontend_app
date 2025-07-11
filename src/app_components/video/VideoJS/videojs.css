@@ -13,19 +13,10 @@
 }
 
 .video-js .vjs-playback-rate {
-    position: absolute;
-    right: 8%;
+   margin-left: auto;
 }
 
-.video-js .vjs-picture-in-picture-control {
-    position: absolute;
-    right: 4%;
-}
 
-.video-js .vjs-fullscreen-control {
-    position: absolute;
-    right: 0;   
-}
 
 .video-js .vjs-big-play-button {
     width: 5rem;

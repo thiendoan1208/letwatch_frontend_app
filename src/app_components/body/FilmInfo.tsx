@@ -3,6 +3,7 @@
 import ErrorMessage from "@/app_components/error/ErrorMesage";
 import LoaderComponent from "@/app_components/loader/loaderComponent";
 import { getFilmInfo } from "@/services/film";
+import slugify from "@/utils/modifyText";
 import { useQuery } from "@tanstack/react-query";
 import {
   Bookmark,
@@ -136,7 +137,9 @@ function FilmInfo() {
                     </div>
                     <div className="mt-3">
                       <Link
-                        href={`/watch/${filmSlug}/${film.data.episodes[0].server_data[0].slug}`}
+                        href={`/watch/${filmSlug}/${
+                          film.data.episodes[0].server_data[0].slug
+                        }?server=${slugify(film.data.episodes[0].server_name)}`}
                         className="flex gap-2 bg-white text-black py-2 justify-center rounded-full cursor-pointer"
                       >
                         <Play className="size-6" />

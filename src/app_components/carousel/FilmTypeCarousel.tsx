@@ -46,7 +46,7 @@ function FilmTypeCarousel({
                     <div className=" rounded-xl h-full overflow-hidden  hover:border-2 hover:border-white">
                       <Image
                         className="object-cover object-center w-full h-full "
-                        src={`https://phimimg.com/${film.poster_url}`}
+                        src={`${process.env.NEXT_PUBLIC_API_IMAGE_URL}/${film.poster_url}`}
                         alt={film.slug}
                         width={100}
                         height={100}

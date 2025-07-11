@@ -5,7 +5,7 @@ import {
   FilmListType,
   FilmType,
 } from "@/types/film_type";
-import { EachEpisode, Episode, FilmInfo } from "@/types/fim_info_type";
+import { EachEpisode, FilmInfo } from "@/types/fim_info_type";
 
 const getFilmType = (): Promise<FilmType> => {
   return axios.get("/all-film-type");

@@ -11,7 +11,7 @@ function WatchFilmPage() {
     >
       <div className="pt-20 text-white">
         {/* Main Collapse Menu Film Filter */}
-        <div className="mx-4 lg:mx-16 ">
+        <div>
           <WatchFilm />
         </div>
       </div>
