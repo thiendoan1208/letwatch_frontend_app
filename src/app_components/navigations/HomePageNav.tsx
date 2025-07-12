@@ -6,13 +6,31 @@ import ClickOutsideElement from "@/utils/click_outside_element";
 import { Bookmark, Compass, House, Search, ShipWheel, Tv } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { ChangeEvent, useEffect, useState } from "react";
 
 function HomePageNav() {
   const pathname = usePathname();
+  const router = useRouter();
 
   const [isActive, setIsActive] = useState<boolean>(false);
+  const [searchKeyword, setSearchKeyword] = useState<string>("");
+
+  const setSearchResult = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchKeyword(e.target.value);
+  };
+
+  const handleNavigateResultPage = (e: { code: string }) => {
+    if (e.code === "Enter") {
+      router.push(`/watch/search?keyword=${searchKeyword}`);
+    }
+  };
+
+  useEffect(() => {
+    if (pathname !== "/watch/search") {
+      setSearchKeyword("");
+    }
+  }, [pathname]);
 
   const displayInput = () => {
     setIsActive(true);
@@ -74,6 +92,9 @@ function HomePageNav() {
             <Input
               className="xl:w-[300px] h-8 rounded-2xl border-none text-white"
               placeholder="Tìm kiếm phim"
+              onChange={setSearchResult}
+              onKeyDown={handleNavigateResultPage}
+              value={searchKeyword}
             />
           </div>
           <div
@@ -137,7 +158,7 @@ function HomePageNav() {
       {/* Overlay input */}
       <div
         className={cn(
-          "absolute h-full w-full bg-gray-900 lex items-center px-2",
+          "absolute h-full w-full bg-gray-900 items-center px-5",
           isActive ? "flex" : "hidden"
         )}
       >
@@ -149,6 +170,9 @@ function HomePageNav() {
           <Input
             className="xl:w-[300px] h-8 rounded-2xl border-none text-black"
             placeholder="Tìm kiếm phim"
+            onChange={setSearchResult}
+            onKeyDown={handleNavigateResultPage}
+            value={searchKeyword}
           />
         </div>
       </div>

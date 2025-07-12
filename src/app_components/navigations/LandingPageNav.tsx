@@ -26,13 +26,28 @@ import {
 import { filmList } from "@/config_film/film_type_config";
 import { getFilmType } from "@/services/film";
 import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 function LandingPageNav() {
+  const router = useRouter();
+
   const { data: filmType } = useQuery({
     queryKey: ["film-types"],
     queryFn: async () => await getFilmType(),
     staleTime: 60 * 60 * 1000,
   });
+
+  const [searchKeyword, setSearchKeyword] = React.useState<string>("");
+
+  const setSearchResult = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchKeyword(e.target.value);
+  };
+
+  const handleNavigateResultPage = (e: { code: string }) => {
+    if (e.code === "Enter") {
+      router.push(`/watch/search?keyword=${searchKeyword}`);
+    }
+  };
 
   return (
     <div className="flex items-center h-12 bg-black/60 translate-y-2 mx-2 rounded-sm backdrop-blur-sm z-9999">
@@ -59,6 +74,9 @@ function LandingPageNav() {
             <Input
               className="w-[100px] sm:w-[200px] md:w-[400px] h-8 rounded-2xl border-none text-white"
               placeholder="Tìm kiếm phim"
+              onChange={setSearchResult}
+              onKeyDown={handleNavigateResultPage}
+              value={searchKeyword}
             />
           </div>
         </div>

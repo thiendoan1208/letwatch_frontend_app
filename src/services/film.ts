@@ -68,6 +68,10 @@ const getFilmEpisode = (
   return axios.get(`/film/${filmSlug}/${episodeSlug}`, { params: { server } });
 };
 
+const findFilm = (keyword: string | null): Promise<FilmListType> => {
+  return axios.get("/find-film", { params: { keyword } });
+};
+
 export {
   getFilmType,
   getNewFilmList,
@@ -77,4 +81,5 @@ export {
   getFilmListSortByType,
   getFilmInfo,
   getFilmEpisode,
+  findFilm,
 };

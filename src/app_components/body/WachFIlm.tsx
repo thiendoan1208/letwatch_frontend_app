@@ -207,9 +207,9 @@ function WatchFilm() {
                     >
                       <Link
                         href={`/watch/${item.slug}`}
-                        className="flex space-x-3"
+                        className="grid grid-cols-3 gap-3"
                       >
-                        <div className="rounded-md overflow-hidden">
+                        <div className="rounded-md overflow-hidden col-span-1">
                           <Image
                             src={`${process.env.NEXT_PUBLIC_API_IMAGE_URL}/${item.poster_url}`}
                             alt={item.name}
@@ -218,7 +218,7 @@ function WatchFilm() {
                             className="w-full h-auto"
                           />
                         </div>
-                        <div>
+                        <div className="col-span-2">
                           <h1 className="text-wrap">{item.name}</h1>
                           <h6>{item.year}</h6>
                         </div>

@@ -8,7 +8,9 @@ function HomePage() {
     <div className="bg-black">
       {/* Video intro */}
       <div className="relative h-screen flex items-center justify-center overflow-y-hidden">
-        <VideoPlayer />
+        <div className="hidden lg:block">
+          <VideoPlayer />
+        </div>
         <div className="block lg:hidden w-full h-full">
           <Image
             className="w-full h-full object-center object-cover"
@@ -43,7 +45,6 @@ function HomePage() {
       <div>
         <HomePageCategory />
       </div>
-    
     </div>
   );
 }
