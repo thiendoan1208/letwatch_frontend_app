@@ -59,7 +59,7 @@ function LandingPageSlider() {
             </h2>
             <div className=" flex items-center justify-left mt-6">
               <div className=" flex items-center justify-center flex-nowrap w-[168px] h-[48px] bg-white  rounded-3xl text-xl font-semibold cursor-pointer hover:scale-95 shadow-black/20 shadow-xl hover:shadow-none transition-all ">
-                <Link className="px-10 py-4" href="">
+                <Link className="px-10 py-4" href="/watch/trang-chu">
                   Chi tiết
                 </Link>
               </div>
@@ -84,7 +84,7 @@ function LandingPageSlider() {
                       priority={true}
                     />
                     <Link
-                      href={`/${film.slug}`}
+                      href={`/watch/${film.slug}`}
                       className="absolute w-full h-full top-0 rounded-xl text-transparent select-none"
                     >
                       {film.name}

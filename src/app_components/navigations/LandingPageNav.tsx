@@ -155,13 +155,13 @@ function LandingPageNav() {
             <div>
               <Link
                 className="mx-4 font-semibold  text-white/80 hover:text-white hover:underline transition-all"
-                href="/me"
+                href="/sign-in"
               >
                 Đăng Nhập
               </Link>
               <Link
                 className="mx-4 font-semibold shadow-2xl text-black/75 bg-yellow-500 px-8 py-1 rounded-md hover:text-black/50"
-                href="/me"
+                href="/sign-up"
               >
                 Đăng Ký
               </Link>
@@ -241,13 +241,13 @@ function LandingPageNav() {
                 <div className="flex flex-col ">
                   <Link
                     className="my-3 font-semibold hover:underline transition-all text-center"
-                    href="/me"
+                    href="/sign-in"
                   >
                     Đăng nhập
                   </Link>
                   <Link
                     className="mx-4 font-semibold shadow-2xl text-black/75 bg-yellow-500 px-8 py-1 rounded-md hover:text-black/50 text-center transition-all"
-                    href="/me"
+                    href="/sign-up"
                   >
                     Đăng ký
                   </Link>
