@@ -58,8 +58,6 @@ function WatchFilm() {
     staleTime: 60 * 60 * 1000,
   });
 
-  console.log(filmSuggest);
-
   // VideoJS
   const playerRef = React.useRef<Player>(null);
 

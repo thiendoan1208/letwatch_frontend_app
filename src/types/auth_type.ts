@@ -8,6 +8,14 @@ type SignUp = {
   username: string;
   password: string;
   re_password: string;
+  verifyCode: string;
 };
 
-export type { SignIn, SignUp };
+type ResponseNoti = {
+  success: boolean;
+  message: string;
+  data: [];
+  error: string | null;
+};
+
+export type { SignIn, SignUp, ResponseNoti };

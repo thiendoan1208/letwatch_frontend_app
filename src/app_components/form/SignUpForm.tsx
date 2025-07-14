@@ -17,14 +17,60 @@ import { Eye, EyeClosed } from "lucide-react";
 import Link from "next/link";
 import { ChangeEvent, useState } from "react";
 import { toast } from "sonner";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
+import { useMutation } from "@tanstack/react-query";
+import { handleSendVerfyCode, handleSignUp } from "@/services/authen";
 
 function SignUpForm() {
   const [isCheck, setIsCheck] = useState<boolean>(false);
+  const [isDialogActive, setIsDialogActive] = useState(false);
   const [form, setForm] = useState<SignUp>({
     email: "",
     username: "",
     password: "",
     re_password: "",
+    verifyCode: "",
+  });
+  const [verifyCode, setVerifyCode] = useState<string>("");
+
+  const { mutate: sendCodeMutate } = useMutation({
+    mutationFn: handleSendVerfyCode,
+    onSuccess: () => {
+      toast.success("Đã gửi mã!");
+    },
+    onError: () => {
+      toast.error("Email không tồn tại hoặc có lỗi xảy ra, không thể gửi mã!");
+    },
+  });
+
+  const { mutate: signUpMutate } = useMutation({
+    mutationFn: handleSignUp,
+    onSuccess: (data) => {
+      if (data && data.success) {
+        toast.success(data.message);
+      } else {
+        toast.error(data.message);
+      }
+
+      setIsDialogActive(false);
+    },
+    onError: (data) => {
+      toast.error(data.message);
+    },
   });
 
   const handleCheckEye = () => {
@@ -40,14 +86,27 @@ function SignUpForm() {
   };
 
   const validateForm = () => {
+    const checkSpace = /^(?!.*\s).+$/;
+    const regexEmail = /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/;
+
     for (const [key, value] of Object.entries(form)) {
       if (key && !value) {
-        toast.error(`Trường ${key} chưa có dữ liệu`);
-        return false;
+        if (key !== "verifyCode") {
+          toast.error(`Trường ${key} chưa có dữ liệu`);
+          return false;
+        } else {
+          return true;
+        }
+      }
+
+      if (key && value) {
+        if (!checkSpace.test(value)) {
+          toast.error(`${key} không được chứa khoảng trắng`);
+          return false;
+        }
       }
     }
 
-    const regexEmail = /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/;
     if (!regexEmail.test(form.email)) {
       toast.error("Email không đúng định dạng");
       return false;
@@ -71,10 +130,19 @@ function SignUpForm() {
     return true;
   };
 
+  const sendValidateCode = () => {
+    const isValidate = validateForm();
+
+    if (isValidate) {
+      sendCodeMutate(form);
+      setIsDialogActive(true);
+    }
+  };
+
   const submitForm = () => {
     const isValidate = validateForm();
     if (isValidate) {
-      console.log(form);
+      signUpMutate({ ...form, verifyCode: verifyCode });
     }
   };
 
@@ -163,13 +231,71 @@ function SignUpForm() {
         </form>
       </CardContent>
       <CardFooter className="flex-col gap-2">
-        <Button
-          onClick={submitForm}
-          type="submit"
-          className="w-full bg-yellow-500"
+        <Dialog
+          open={isDialogActive}
+          onOpenChange={() => {
+            if (isDialogActive) {
+              setIsDialogActive(false);
+            }
+          }}
         >
-          <span className="text-white">Đăng Ký</span>
-        </Button>
+          <form className="w-full">
+            <DialogTrigger asChild>
+              <Button
+                onClick={sendValidateCode}
+                className="w-full bg-yellow-500"
+              >
+                Đăng Ký
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle>Mã Xác Minh</DialogTitle>
+                <DialogDescription>
+                  {`Chúng tôi đã gửi mã xác minh đến ${form.email}. Vui lòng kiểm tra hòm thư của bạn.`}
+                </DialogDescription>
+              </DialogHeader>
+              <div className="flex items-center justify-center">
+                <InputOTP
+                  value={verifyCode}
+                  onChange={(value) => {
+                    setVerifyCode(value);
+                  }}
+                  maxLength={6}
+                >
+                  <InputOTPGroup>
+                    <InputOTPSlot index={0} />
+                    <InputOTPSlot index={1} />
+                    <InputOTPSlot index={2} />
+                  </InputOTPGroup>
+                  <InputOTPSeparator />
+                  <InputOTPGroup>
+                    <InputOTPSlot index={3} />
+                    <InputOTPSlot index={4} />
+                    <InputOTPSlot index={5} />
+                  </InputOTPGroup>
+                </InputOTP>
+              </div>
+              <DialogFooter>
+                <Button asChild>
+                  <Button
+                    onClick={sendValidateCode}
+                    className="bg-white text-black border-2 hover:bg-white cursor-pointer"
+                    variant="outline"
+                  >
+                    Gửi lại mã
+                  </Button>
+                </Button>
+                <Button
+                  onClick={submitForm}
+                  className="bg-yellow-500 cursor-pointer"
+                >
+                  Xác nhận
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </form>
+        </Dialog>
       </CardFooter>
     </Card>
   );
