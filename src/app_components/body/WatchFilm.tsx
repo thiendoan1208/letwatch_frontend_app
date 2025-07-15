@@ -42,7 +42,7 @@ function WatchFilm() {
   });
 
   const { data: filmSuggest } = useQuery({
-    queryKey: ["film-suggest", film!.data.movie.category[0].slug],
+    queryKey: ["film-suggest", film?.data.movie.category[0].slug],
     queryFn: async () => {
       return await getFilmListSortByType(film!.data.movie.category[0].slug, {
         page: 1,

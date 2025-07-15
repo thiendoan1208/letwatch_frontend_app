@@ -18,4 +18,18 @@ type ResponseNoti = {
   error: string | null;
 };
 
-export type { SignIn, SignUp, ResponseNoti };
+type User = {
+  id: number;
+  email: string;
+  username: string;
+  role: number;
+};
+
+type LoginRespone = {
+  success: boolean;
+  message: string;
+  data: User;
+  error: string | null;
+};
+
+export type { SignIn, SignUp, ResponseNoti, User, LoginRespone };

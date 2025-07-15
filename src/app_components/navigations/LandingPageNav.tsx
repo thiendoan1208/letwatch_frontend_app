@@ -25,11 +25,34 @@ import {
 } from "@/components/ui/sheet";
 import { filmList } from "@/config_film/film_type_config";
 import { getFilmType } from "@/services/film";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { UserContext } from "@/context/user";
+import { getUserInfo, handleSignOut } from "@/services/authen";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { toast } from "sonner";
 
 function LandingPageNav() {
   const router = useRouter();
+  const { user, login } = React.useContext(UserContext);
 
   const { data: filmType } = useQuery({
     queryKey: ["film-types"],
@@ -48,6 +71,31 @@ function LandingPageNav() {
       router.push(`/watch/search?keyword=${searchKeyword}`);
     }
   };
+
+  const { data: userData } = useQuery({
+    queryKey: ["me"],
+    queryFn: async () => await getUserInfo(),
+  });
+
+  React.useEffect(() => {
+    if (userData && userData.success) {
+      login(userData.data);
+    }
+  }, [login, userData]);
+
+  const { mutate: signOutMutate } = useMutation({
+    mutationFn: handleSignOut,
+    onSuccess: (data) => {
+      if (data && data.success) {
+        window.location.reload();
+      } else {
+        toast.error(data.message);
+      }
+    },
+    onError: (data) => {
+      toast.error(data.message);
+    },
+  });
 
   return (
     <div className="flex items-center h-12 bg-black/60 translate-y-2 mx-2 rounded-sm backdrop-blur-sm z-9999">
@@ -152,20 +200,77 @@ function LandingPageNav() {
           </div>
           <div className="flex items-center ">
             <div className="h-[35px] w-[1.5px] bg-blue-950/50 rounded-2xl"></div>
-            <div>
-              <Link
-                className="mx-4 font-semibold  text-white/80 hover:text-white hover:underline transition-all"
-                href="/sign-in"
-              >
-                Đăng Nhập
-              </Link>
-              <Link
-                className="mx-4 font-semibold shadow-2xl text-black/75 bg-yellow-500 px-8 py-1 rounded-md hover:text-black/50"
-                href="/sign-up"
-              >
-                Đăng Ký
-              </Link>
-            </div>
+            {user && user.email !== "" ? (
+              <div>
+                <DropdownMenu>
+                  <DropdownMenuTrigger>
+                    {" "}
+                    <span
+                      style={{
+                        backgroundImage:
+                          "linear-gradient(90deg,rgba(155, 151, 42, 1) 0%, rgba(224, 215, 36, 1) 0%, rgba(87, 199, 178, 1) 100%, rgba(237, 221, 83, 1) 100%)",
+                        color: "transparent",
+                        backgroundClip: "text",
+                      }}
+                      className=" font-semibold cursor-pointer hover:underline"
+                    >
+                      {user.username}
+                    </span>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuLabel>Tài khoản</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>Profile</DropdownMenuItem>
+                    <DropdownMenuItem>Billing</DropdownMenuItem>
+                    <DropdownMenuItem>Team</DropdownMenuItem>
+                    <div className="px-2 text-sm hover:bg-gray-100 py-1 rounded-sm">
+                      <AlertDialog>
+                        <AlertDialogTrigger>
+                          <h1 className="text-yellow-500 font-semibold  w-full cursor-pointer">
+                            Đăng xuất
+                          </h1>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Đăng xuất?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              Bạn sẽ không thể trải nghiệm toàn bộ các dịch vụ
+                              nếu đăng xuất.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Quay lại</AlertDialogCancel>
+                            <AlertDialogAction
+                              onClick={() => {
+                                signOutMutate();
+                              }}
+                              className=" bg-yellow-500"
+                            >
+                              Xác nhận
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+                    </div>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+            ) : (
+              <div>
+                <Link
+                  className="mx-4 font-semibold  text-white/80 hover:text-white hover:underline transition-all"
+                  href="/sign-in"
+                >
+                  Đăng Nhập
+                </Link>
+                <Link
+                  className="mx-4 font-semibold shadow-2xl text-black/75 bg-yellow-500 px-8 py-1 rounded-md hover:text-black/50"
+                  href="/sign-up"
+                >
+                  Đăng Ký
+                </Link>
+              </div>
+            )}
           </div>
         </div>
         <div className="block xl:hidden bg-black">
@@ -238,20 +343,24 @@ function LandingPageNav() {
                 </div>
               </div>
               <SheetFooter>
-                <div className="flex flex-col ">
-                  <Link
-                    className="my-3 font-semibold hover:underline transition-all text-center"
-                    href="/sign-in"
-                  >
-                    Đăng nhập
-                  </Link>
-                  <Link
-                    className="mx-4 font-semibold shadow-2xl text-black/75 bg-yellow-500 px-8 py-1 rounded-md hover:text-black/50 text-center transition-all"
-                    href="/sign-up"
-                  >
-                    Đăng ký
-                  </Link>
-                </div>
+                {user && user.email !== "" ? (
+                  <div></div>
+                ) : (
+                  <div className="flex flex-col ">
+                    <Link
+                      className="my-3 font-semibold hover:underline transition-all text-center"
+                      href="/sign-in"
+                    >
+                      Đăng nhập
+                    </Link>
+                    <Link
+                      className="mx-4 font-semibold shadow-2xl text-black/75 bg-yellow-500 px-8 py-1 rounded-md hover:text-black/50 text-center transition-all"
+                      href="/sign-up"
+                    >
+                      Đăng ký
+                    </Link>
+                  </div>
+                )}
               </SheetFooter>
             </SheetContent>
           </Sheet>

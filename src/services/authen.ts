@@ -1,5 +1,5 @@
 import axios from "@/config/axios";
-import { ResponseNoti, SignUp } from "@/types/auth_type";
+import { LoginRespone, ResponseNoti, SignIn, SignUp } from "@/types/auth_type";
 
 const handleSendVerfyCode = (
   userInfo: SignUp
@@ -11,4 +11,22 @@ const handleSignUp = (userInfo: SignUp): Promise<ResponseNoti> => {
   return axios.post("/auth/sign-up", userInfo);
 };
 
-export { handleSendVerfyCode, handleSignUp };
+const handleSignIn = (userInfo: SignIn): Promise<LoginRespone> => {
+  return axios.post("/auth/sign-in", userInfo);
+};
+
+const getUserInfo = (): Promise<LoginRespone> => {
+  return axios.get("/me");
+};
+
+const handleSignOut = (): Promise<ResponseNoti> => {
+  return axios.post("/auth/sign-out");
+};
+
+export {
+  handleSendVerfyCode,
+  handleSignUp,
+  handleSignIn,
+  getUserInfo,
+  handleSignOut,
+};

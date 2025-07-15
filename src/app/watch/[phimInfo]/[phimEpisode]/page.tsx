@@ -1,4 +1,4 @@
-import WatchFilm from "@/app_components/body/WachFIlm";
+import WatchFilm from "@/app_components/body/WatchFilm";
 
 function WatchFilmPage() {
   return (

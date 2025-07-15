@@ -12,16 +12,39 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { UserContext } from "@/context/user";
+import { handleSignIn } from "@/services/authen";
 import { SignIn } from "@/types/auth_type";
+import { useMutation } from "@tanstack/react-query";
 import { Eye, EyeClosed } from "lucide-react";
 import Link from "next/link";
-import { ChangeEvent, useState } from "react";
+import { useRouter } from "next/navigation";
+import { ChangeEvent, useContext, useState } from "react";
+import { toast } from "sonner";
 
 function SignInForm() {
+  const router = useRouter();
   const [isCheck, setIsCheck] = useState<boolean>(false);
   const [form, setForm] = useState<SignIn>({
     email_username: "",
     password: "",
+  });
+  const { login } = useContext(UserContext);
+
+  const { mutate: signInMutate } = useMutation({
+    mutationFn: handleSignIn,
+    onSuccess: (data) => {
+      if (data && data.success) {
+        toast.success(data.message);
+        router.push("/watch/trang-chu");
+        login(data.data);
+      } else {
+        toast.error(data.message);
+      }
+    },
+    onError: (data) => {
+      toast.error(data.message);
+    },
   });
 
   const handleCheckEye = () => {
@@ -37,7 +60,7 @@ function SignInForm() {
   };
 
   const submitForm = () => {
-    console.log(form);
+    signInMutate(form);
   };
 
   return (
@@ -62,7 +85,7 @@ function SignInForm() {
               <Input
                 autoComplete="true"
                 id="email"
-                type="email"
+                type="text"
                 name="email_username"
                 placeholder="m@example.com"
                 value={form.email_username}
@@ -77,7 +100,7 @@ function SignInForm() {
                   href="#"
                   className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
                 >
-                  Forgot your password?
+                  Quên mật khẩu?
                 </a>
               </div>
               <Input

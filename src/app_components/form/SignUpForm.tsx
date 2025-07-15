@@ -34,8 +34,10 @@ import {
 } from "@/components/ui/input-otp";
 import { useMutation } from "@tanstack/react-query";
 import { handleSendVerfyCode, handleSignUp } from "@/services/authen";
+import { useRouter } from "next/navigation";
 
 function SignUpForm() {
+  const router = useRouter();
   const [isCheck, setIsCheck] = useState<boolean>(false);
   const [isDialogActive, setIsDialogActive] = useState(false);
   const [form, setForm] = useState<SignUp>({
@@ -62,11 +64,12 @@ function SignUpForm() {
     onSuccess: (data) => {
       if (data && data.success) {
         toast.success(data.message);
+        router.push("/sign-in");
       } else {
         toast.error(data.message);
       }
 
-      setIsDialogActive(false);
+      setIsDialogActive(true);
     },
     onError: (data) => {
       toast.error(data.message);
@@ -86,23 +89,27 @@ function SignUpForm() {
   };
 
   const validateForm = () => {
-    const checkSpace = /^(?!.*\s).+$/;
+    const regexCheckSpace = /^(?!.*\s).+$/;
     const regexEmail = /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/;
 
     for (const [key, value] of Object.entries(form)) {
       if (key && !value) {
-        if (key !== "verifyCode") {
+        if (key === "verifyCode") {
+          break;
+        } else {
           toast.error(`Trường ${key} chưa có dữ liệu`);
           return false;
-        } else {
-          return true;
         }
       }
 
       if (key && value) {
-        if (!checkSpace.test(value)) {
-          toast.error(`${key} không được chứa khoảng trắng`);
-          return false;
+        if (key === "verifyCode") {
+          break;
+        } else {
+          if (!regexCheckSpace.test(value)) {
+            toast.error(`Trường ${key} không được chứa khoảng trắng.`);
+            return false;
+          }
         }
       }
     }
@@ -112,8 +119,8 @@ function SignUpForm() {
       return false;
     }
 
-    if (form.username.length < 8) {
-      toast.error("Username phải lớn hơn 8 kí tự");
+    if (form.username.length < 5 || form.username.length > 15) {
+      toast.error("Username phải lớn hơn 5 và nhỏ hơn 15 kí tự");
       return false;
     }
 
@@ -140,6 +147,7 @@ function SignUpForm() {
   };
 
   const submitForm = () => {
+    setIsDialogActive(true);
     const isValidate = validateForm();
     if (isValidate) {
       signUpMutate({ ...form, verifyCode: verifyCode });

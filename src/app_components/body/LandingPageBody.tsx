@@ -1,14 +1,17 @@
 "use client";
 
+import { UserContext } from "@/context/user";
 import { Bookmark } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import React from "react";
 import { useEffect, useRef } from "react";
 
 function LandingPageBody() {
   const save = useRef(null);
   const watch = useRef(null);
   const explore = useRef(null);
+  const { user } = React.useContext(UserContext);
 
   const checkElementInViewPort = () => {
     const arr = [save.current, watch.current, explore.current];
@@ -77,16 +80,20 @@ function LandingPageBody() {
               đều được ghi nhớ!
             </p>
           </div>
-          <div className=" flex items-center justify-start mt-2">
-            <div className="px-8 py-3 flex items- justify-center flex-nowrap bg-yellow-500  rounded-3xl text-xl font-semibold cursor-pointer hover:scale-95 transition-all ">
-              <Link
-                className="w-full h-full flex items-center justify-center"
-                href="/abc.com"
-              >
-                Tạo tài khoản ngay
-              </Link>
+          {user && user.email !== "" ? (
+            <div></div>
+          ) : (
+            <div className=" flex items-center justify-start mt-2">
+              <div className="px-8 py-3 flex items- justify-center flex-nowrap bg-yellow-500  rounded-3xl text-xl font-semibold cursor-pointer hover:scale-95 transition-all ">
+                <Link
+                  className="w-full h-full flex items-center justify-center"
+                  href="/abc.com"
+                >
+                  Tạo tài khoản ngay
+                </Link>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
       <div className=" h-60 md:h-72 w-full"></div>

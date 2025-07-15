@@ -1,15 +1,40 @@
 "use client";
 
 import { Input } from "@/components/ui/input";
+import { UserContext } from "@/context/user";
 import { cn } from "@/lib/utils";
+import { getUserInfo, handleSignOut } from "@/services/authen";
 import ClickOutsideElement from "@/utils/click_outside_element";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Bookmark, Compass, House, Search, ShipWheel, Tv } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { toast } from "sonner";
 
 function HomePageNav() {
+  const { user, login } = useContext(UserContext);
+
   const pathname = usePathname();
   const router = useRouter();
 
@@ -40,6 +65,20 @@ function HomePageNav() {
     setIsActive(false);
   });
 
+  const { mutate: signOutMutate } = useMutation({
+    mutationFn: handleSignOut,
+    onSuccess: (data) => {
+      if (data && data.success) {
+        window.location.reload();
+      } else {
+        toast.error(data.message);
+      }
+    },
+    onError: (data) => {
+      toast.error(data.message);
+    },
+  });
+
   const menuItems = [
     {
       label: "Trang Chủ",
@@ -66,6 +105,17 @@ function HomePageNav() {
       pathKey: "kham-pha",
     },
   ];
+
+  const { data: userData } = useQuery({
+    queryKey: ["me"],
+    queryFn: async () => await getUserInfo(),
+  });
+
+  useEffect(() => {
+    if (userData && userData.success) {
+      login(userData.data);
+    }
+  }, [login, userData]);
 
   return (
     <div className="fixed min-w-screen flex items-center h-16 bg-black/20 backdrop-blur z-[999] transition-all">
@@ -142,15 +192,72 @@ function HomePageNav() {
           <div className="flex items-center justify-center gap-2 text-white/80 hover:text-black bg-transparent hover:bg-white px-2.5 py-2.5 rounded-full cursor-pointer transition-all font-semibold">
             <Bookmark />
           </div>
-          <div className="relative flex items-center justify-center gap-2 text-white bg-black/10 hover:bg-black/20 px-4 py-2 rounded-3xl cursor-pointer transition-all font-semibold">
-            <h2 className="text-nowrap">Đăng nhập</h2>
-            <Link
-              href=""
-              className="absolute w-full h-full text-transparent select-none"
-            >
-              Sign In
-            </Link>
-          </div>
+          {user && user.email !== "" ? (
+            <div>
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  {" "}
+                  <span
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(90deg,rgba(155, 151, 42, 1) 0%, rgba(224, 215, 36, 1) 0%, rgba(87, 199, 178, 1) 100%, rgba(237, 221, 83, 1) 100%)",
+                      color: "transparent",
+                      backgroundClip: "text",
+                    }}
+                    className=" font-semibold cursor-pointer hover:underline"
+                  >
+                    {user.username}
+                  </span>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuLabel>Tài khoản</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>Profile</DropdownMenuItem>
+                  <DropdownMenuItem>Billing</DropdownMenuItem>
+                  <DropdownMenuItem>Team</DropdownMenuItem>
+                  <div className="px-2 text-sm hover:bg-gray-100 py-1 rounded-sm">
+                    <AlertDialog>
+                      <AlertDialogTrigger>
+                        <h1 className="text-yellow-500 font-semibold  w-full cursor-pointer">
+                          Đăng xuất
+                        </h1>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Đăng xuất?</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            Bạn sẽ không thể trải nghiệm toàn bộ các dịch vụ nếu
+                            đăng xuất.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Quay lại</AlertDialogCancel>
+                          <AlertDialogAction
+                            onClick={() => {
+                              signOutMutate();
+                            }}
+                            className=" bg-yellow-500"
+                          >
+                            Xác nhận
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  </div>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          ) : (
+            <div className="relative flex items-center justify-center gap-2 text-white bg-black/10 hover:bg-black/20 px-4 py-2 rounded-3xl cursor-pointer transition-all font-semibold">
+              <h2 className="text-nowrap">Đăng nhập</h2>
+              <Link
+                href="/sign-in"
+                className="absolute w-full h-full text-transparent select-none"
+              >
+                Sign In
+              </Link>
+            </div>
+          )}
         </div>
 
         {/*Click btn to display input */}

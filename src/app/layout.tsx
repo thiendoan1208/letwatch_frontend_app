@@ -3,6 +3,7 @@ import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import { QueryProvider } from "@/provider/query_provider";
 import { Toaster } from "sonner";
+import { UserProvider } from "@/context/user";
 
 const interSans = Inter({
   variable: "--font-inter",
@@ -30,10 +31,12 @@ export default function RootLayout({
       <body
         className={`${interSans.variable} ${poppins.variable} antialiased bg-black`}
       >
-        <QueryProvider>
-          <div>{children}</div>
-          <Toaster richColors duration={2000} position="top-right" />
-        </QueryProvider>
+        <UserProvider>
+          <QueryProvider>
+            <div>{children}</div>
+            <Toaster richColors duration={2000} position="top-right" />
+          </QueryProvider>
+        </UserProvider>
       </body>
     </html>
   );
