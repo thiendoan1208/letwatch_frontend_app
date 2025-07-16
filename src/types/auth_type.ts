@@ -11,10 +11,22 @@ type SignUp = {
   verifyCode: string;
 };
 
+type RecoverForm = {
+  email: string;
+  verifyCode: string;
+};
+
 type ResponseNoti = {
   success: boolean;
   message: string;
   data: [];
+  error: string | null;
+};
+
+type VerifyResponseNoti = {
+  success: boolean;
+  message: string;
+  data: { email: string };
   error: string | null;
 };
 
@@ -32,4 +44,12 @@ type LoginRespone = {
   error: string | null;
 };
 
-export type { SignIn, SignUp, ResponseNoti, User, LoginRespone };
+export type {
+  SignIn,
+  SignUp,
+  ResponseNoti,
+  User,
+  LoginRespone,
+  VerifyResponseNoti,
+  RecoverForm,
+};

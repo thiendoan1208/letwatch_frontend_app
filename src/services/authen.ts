@@ -1,5 +1,11 @@
 import axios from "@/config/axios";
-import { LoginRespone, ResponseNoti, SignIn, SignUp } from "@/types/auth_type";
+import {
+  LoginRespone,
+  ResponseNoti,
+  SignIn,
+  SignUp,
+  VerifyResponseNoti,
+} from "@/types/auth_type";
 
 const handleSendVerfyCode = (
   userInfo: SignUp
@@ -20,11 +26,24 @@ const getUserInfo = (): Promise<LoginRespone> => {
 };
 
 const handleSignOut = (): Promise<ResponseNoti> => {
-  return axios.post("/auth/sign-out");
+  return axios.delete("/auth/sign-out");
 };
 
 const handleRefreshToken = (): Promise<ResponseNoti> => {
   return axios.post("/auth/refresh-token");
+};
+
+const handleCheckRecoverCode = (
+  recoverForm: SignUp
+): Promise<VerifyResponseNoti> => {
+  return axios.post("/auth/check-recover-code", recoverForm);
+};
+
+const handleUpdatePassword = (newPasswordForm: {
+  email: string | null;
+  password: string;
+}): Promise<ResponseNoti> => {
+  return axios.patch("/auth/recover", newPasswordForm);
 };
 
 export {
@@ -34,4 +53,6 @@ export {
   getUserInfo,
   handleSignOut,
   handleRefreshToken,
+  handleCheckRecoverCode,
+  handleUpdatePassword,
 };

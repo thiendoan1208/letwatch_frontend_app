@@ -11,10 +11,30 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+
 import { Label } from "@/components/ui/label";
 import { UserContext } from "@/context/user";
-import { handleSignIn } from "@/services/authen";
-import { SignIn } from "@/types/auth_type";
+import {
+  handleCheckRecoverCode,
+  handleSendVerfyCode,
+  handleSignIn,
+} from "@/services/authen";
+import { SignIn, SignUp } from "@/types/auth_type";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
 import { useMutation } from "@tanstack/react-query";
 import { Eye, EyeClosed } from "lucide-react";
 import Link from "next/link";
@@ -29,6 +49,16 @@ function SignInForm() {
     email_username: "",
     password: "",
   });
+
+  const [recoverInfo, setRecoverInfo] = useState<SignUp>({
+    email: "",
+    username: "",
+    password: "",
+    re_password: "",
+    verifyCode: "",
+  });
+  const [verifyCode, setVerifyCode] = useState<string>("");
+
   const { login } = useContext(UserContext);
 
   const { mutate: signInMutate } = useMutation({
@@ -38,6 +68,31 @@ function SignInForm() {
         toast.success(data.message);
         router.push("/watch/trang-chu");
         login(data.data);
+      } else {
+        toast.error(data.message);
+      }
+    },
+    onError: (data) => {
+      toast.error(data.message);
+    },
+  });
+
+  const { mutate: sendCodeMutate } = useMutation({
+    mutationFn: handleSendVerfyCode,
+    onSuccess: () => {
+      toast.success("Đã gửi mã!");
+    },
+    onError: () => {
+      toast.error("Email không tồn tại hoặc có lỗi xảy ra, không thể gửi mã!");
+    },
+  });
+
+  const { mutate: recoverMutate } = useMutation({
+    mutationFn: handleCheckRecoverCode,
+    onSuccess: (data) => {
+      if (data && data.success) {
+        toast.success(data.message);
+        router.push(`/recover?email=${data.data.email}`);
       } else {
         toast.error(data.message);
       }
@@ -59,6 +114,10 @@ function SignInForm() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const handleVerifyInfoChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setRecoverInfo({ ...recoverInfo, [e.target.name]: e.target.value });
+  };
+
   const submitForm = () => {
     signInMutate(form);
   };
@@ -78,7 +137,7 @@ function SignInForm() {
         </CardAction>
       </CardHeader>
       <CardContent>
-        <form>
+        <div>
           <div className="flex flex-col gap-6">
             <div className="grid gap-2">
               <Label htmlFor="email">Email/Username</Label>
@@ -96,12 +155,110 @@ function SignInForm() {
             <div className="grid gap-2 relative">
               <div className="flex items-center">
                 <Label htmlFor="password">Mật khẩu</Label>
-                <a
-                  href="#"
-                  className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                >
-                  Quên mật khẩu?
-                </a>
+                <Dialog>
+                  <div className="ml-auto">
+                    <DialogTrigger asChild>
+                      <p className=" cursor-pointer ml-auto inline-block text-sm underline-offset-4 hover:underline">
+                        Quên mật khẩu?
+                      </p>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px]">
+                      <DialogHeader>
+                        <DialogTitle>Xác Minh Danh Tính</DialogTitle>
+                        <DialogDescription>
+                          Vui lòng nhập email mà bạn đã dùng để đăng ký trước
+                          đây.
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="flex items-center justify-center">
+                        <Input
+                          type="email"
+                          name="email"
+                          value={recoverInfo.email}
+                          onChange={handleVerifyInfoChange}
+                          placeholder="ex: abc@gmail.com"
+                        />
+                      </div>
+                      <DialogFooter>
+                        <Button asChild>
+                          <Button
+                            className="bg-white text-black border-2 hover:bg-white cursor-pointer"
+                            variant="outline"
+                          >
+                            Quay lại
+                          </Button>
+                        </Button>
+
+                        {/* Input OTP Dialog for recover code */}
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <Button
+                              onClick={() => {
+                                sendCodeMutate(recoverInfo);
+                              }}
+                              className="bg-yellow-500 cursor-pointer"
+                            >
+                              Xác nhận
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent className="sm:max-w-[425px]">
+                            <DialogHeader>
+                              <DialogTitle>Mã Khôi Phục</DialogTitle>
+                              <DialogDescription>
+                                {`Chúng tôi đã gửi mã xác minh đến ${recoverInfo.email}. Vui lòng kiểm tra hòm thư của bạn.`}
+                              </DialogDescription>
+                            </DialogHeader>
+                            <div className="flex items-center justify-center">
+                              <InputOTP
+                                value={verifyCode}
+                                onChange={(value) => {
+                                  setVerifyCode(value);
+                                }}
+                                maxLength={6}
+                              >
+                                <InputOTPGroup>
+                                  <InputOTPSlot index={0} />
+                                  <InputOTPSlot index={1} />
+                                  <InputOTPSlot index={2} />
+                                </InputOTPGroup>
+                                <InputOTPSeparator />
+                                <InputOTPGroup>
+                                  <InputOTPSlot index={3} />
+                                  <InputOTPSlot index={4} />
+                                  <InputOTPSlot index={5} />
+                                </InputOTPGroup>
+                              </InputOTP>
+                            </div>
+                            <DialogFooter>
+                              <Button asChild>
+                                <Button
+                                  onClick={() => {
+                                    sendCodeMutate(recoverInfo);
+                                  }}
+                                  className="bg-white text-black border-2 hover:bg-white cursor-pointer"
+                                  variant="outline"
+                                >
+                                  Gửi lại mã
+                                </Button>
+                              </Button>
+                              <Button
+                                onClick={() => {
+                                  recoverMutate({
+                                    ...recoverInfo,
+                                    verifyCode: verifyCode,
+                                  });
+                                }}
+                                className="bg-yellow-500 cursor-pointer"
+                              >
+                                Xác nhận
+                              </Button>
+                            </DialogFooter>
+                          </DialogContent>
+                        </Dialog>
+                      </DialogFooter>
+                    </DialogContent>
+                  </div>
+                </Dialog>
               </div>
               <Input
                 autoComplete="true"
@@ -125,7 +282,7 @@ function SignInForm() {
               )}
             </div>
           </div>
-        </form>
+        </div>
       </CardContent>
       <CardFooter className="flex-col gap-2">
         <Button

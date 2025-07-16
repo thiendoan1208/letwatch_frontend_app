@@ -272,7 +272,7 @@ function LandingPageNav() {
               </div>
             ) : (
               <>
-                {isUserPending && (
+                {!isUserPending && (
                   <div className={`${isUserPending ? "hidden" : "block"}`}>
                     <Link
                       className="mx-4 font-semibold  text-white/80 hover:text-white hover:underline transition-all"
