@@ -23,10 +23,15 @@ const handleSignOut = (): Promise<ResponseNoti> => {
   return axios.post("/auth/sign-out");
 };
 
+const handleRefreshToken = (): Promise<ResponseNoti> => {
+  return axios.post("/auth/refresh-token");
+};
+
 export {
   handleSendVerfyCode,
   handleSignUp,
   handleSignIn,
   getUserInfo,
   handleSignOut,
+  handleRefreshToken,
 };

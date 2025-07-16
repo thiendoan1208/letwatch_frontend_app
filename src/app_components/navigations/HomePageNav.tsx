@@ -3,9 +3,13 @@
 import { Input } from "@/components/ui/input";
 import { UserContext } from "@/context/user";
 import { cn } from "@/lib/utils";
-import { getUserInfo, handleSignOut } from "@/services/authen";
+import {
+  getUserInfo,
+  handleRefreshToken,
+  handleSignOut,
+} from "@/services/authen";
 import ClickOutsideElement from "@/utils/click_outside_element";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Bookmark, Compass, House, Search, ShipWheel, Tv } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -32,7 +36,35 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
 
+const menuItems = [
+  {
+    label: "Trang Chủ",
+    href: "/watch/trang-chu",
+    icon: House,
+    pathKey: "trang-chu",
+  },
+  {
+    label: "TV Shows",
+    href: "/watch/tv-shows",
+    icon: Tv,
+    pathKey: "tv-shows",
+  },
+  {
+    label: "Hoạt Hình",
+    href: "/watch/hoat-hinh",
+    icon: ShipWheel,
+    pathKey: "hoat-hinh",
+  },
+  {
+    label: "Khám phá",
+    href: "/watch/kham-pha",
+    icon: Compass,
+    pathKey: "kham-pha",
+  },
+];
+
 function HomePageNav() {
+  const queryClient = useQueryClient();
   const { user, login } = useContext(UserContext);
 
   const pathname = usePathname();
@@ -65,6 +97,7 @@ function HomePageNav() {
     setIsActive(false);
   });
 
+  //  sign out
   const { mutate: signOutMutate } = useMutation({
     mutationFn: handleSignOut,
     onSuccess: (data) => {
@@ -79,43 +112,27 @@ function HomePageNav() {
     },
   });
 
-  const menuItems = [
-    {
-      label: "Trang Chủ",
-      href: "/watch/trang-chu",
-      icon: House,
-      pathKey: "trang-chu",
-    },
-    {
-      label: "TV Shows",
-      href: "/watch/tv-shows",
-      icon: Tv,
-      pathKey: "tv-shows",
-    },
-    {
-      label: "Hoạt Hình",
-      href: "/watch/hoat-hinh",
-      icon: ShipWheel,
-      pathKey: "hoat-hinh",
-    },
-    {
-      label: "Khám phá",
-      href: "/watch/kham-pha",
-      icon: Compass,
-      pathKey: "kham-pha",
-    },
-  ];
-
-  const { data: userData } = useQuery({
+  // get user info
+  const { data: userData, isPending: isUserPending } = useQuery({
     queryKey: ["me"],
     queryFn: async () => await getUserInfo(),
+    retry: false,
+  });
+
+  const { mutate: refreshTokenMutate } = useMutation({
+    mutationFn: handleRefreshToken,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["me"] });
+    },
   });
 
   useEffect(() => {
     if (userData && userData.success) {
       login(userData.data);
+    } else {
+      refreshTokenMutate();
     }
-  }, [login, userData]);
+  }, [login, userData, user, refreshTokenMutate]);
 
   return (
     <div className="fixed min-w-screen flex items-center h-16 bg-black/20 backdrop-blur z-[999] transition-all">
@@ -248,15 +265,23 @@ function HomePageNav() {
               </DropdownMenu>
             </div>
           ) : (
-            <div className="relative flex items-center justify-center gap-2 text-white bg-black/10 hover:bg-black/20 px-4 py-2 rounded-3xl cursor-pointer transition-all font-semibold">
-              <h2 className="text-nowrap">Đăng nhập</h2>
-              <Link
-                href="/sign-in"
-                className="absolute w-full h-full text-transparent select-none"
-              >
-                Sign In
-              </Link>
-            </div>
+            <>
+              {!isUserPending && (
+                <div
+                  className={`relative ${
+                    isUserPending ? "hidden" : "flex"
+                  } items-center justify-center gap-2 text-white bg-black/10 hover:bg-black/20 px-4 py-2 rounded-3xl cursor-pointer transition-all font-semibold`}
+                >
+                  <h2 className="text-nowrap">Đăng nhập</h2>
+                  <Link
+                    href="/sign-in"
+                    className="absolute w-full h-full text-transparent select-none"
+                  >
+                    Sign In
+                  </Link>
+                </div>
+              )}
+            </>
           )}
         </div>
 

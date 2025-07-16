@@ -25,10 +25,14 @@ import {
 } from "@/components/ui/sheet";
 import { filmList } from "@/config_film/film_type_config";
 import { getFilmType } from "@/services/film";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { UserContext } from "@/context/user";
-import { getUserInfo, handleSignOut } from "@/services/authen";
+import {
+  getUserInfo,
+  handleRefreshToken,
+  handleSignOut,
+} from "@/services/authen";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -51,6 +55,7 @@ import {
 import { toast } from "sonner";
 
 function LandingPageNav() {
+  const queryClient = useQueryClient();
   const router = useRouter();
   const { user, login } = React.useContext(UserContext);
 
@@ -72,16 +77,26 @@ function LandingPageNav() {
     }
   };
 
-  const { data: userData } = useQuery({
+  const { data: userData, isPending: isUserPending } = useQuery({
     queryKey: ["me"],
     queryFn: async () => await getUserInfo(),
+    retry: false,
+  });
+
+  const { mutate: refreshTokenMutate } = useMutation({
+    mutationFn: handleRefreshToken,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["me"] });
+    },
   });
 
   React.useEffect(() => {
     if (userData && userData.success) {
       login(userData.data);
+    } else {
+      refreshTokenMutate();
     }
-  }, [login, userData]);
+  }, [login, userData, user, refreshTokenMutate]);
 
   const { mutate: signOutMutate } = useMutation({
     mutationFn: handleSignOut,
@@ -212,7 +227,7 @@ function LandingPageNav() {
                         color: "transparent",
                         backgroundClip: "text",
                       }}
-                      className=" font-semibold cursor-pointer hover:underline"
+                      className=" font-semibold cursor-pointer hover:underline pl-4"
                     >
                       {user.username}
                     </span>
@@ -256,20 +271,24 @@ function LandingPageNav() {
                 </DropdownMenu>
               </div>
             ) : (
-              <div>
-                <Link
-                  className="mx-4 font-semibold  text-white/80 hover:text-white hover:underline transition-all"
-                  href="/sign-in"
-                >
-                  Đăng Nhập
-                </Link>
-                <Link
-                  className="mx-4 font-semibold shadow-2xl text-black/75 bg-yellow-500 px-8 py-1 rounded-md hover:text-black/50"
-                  href="/sign-up"
-                >
-                  Đăng Ký
-                </Link>
-              </div>
+              <>
+                {isUserPending && (
+                  <div className={`${isUserPending ? "hidden" : "block"}`}>
+                    <Link
+                      className="mx-4 font-semibold  text-white/80 hover:text-white hover:underline transition-all"
+                      href="/sign-in"
+                    >
+                      Đăng Nhập
+                    </Link>
+                    <Link
+                      className="mx-4 font-semibold shadow-2xl text-black/75 bg-yellow-500 px-8 py-1 rounded-md hover:text-black/50"
+                      href="/sign-up"
+                    >
+                      Đăng Ký
+                    </Link>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>
