@@ -24,4 +24,9 @@ type WatchListDBItem = {
   updatedAt: string;
 };
 
-export type { WatchItemInfo, WatchListResponseInfo };
+type DeleteInfo = {
+  userID: number;
+  filmDeleteList: string[];
+};
+
+export type { WatchItemInfo, WatchListResponseInfo, DeleteInfo };

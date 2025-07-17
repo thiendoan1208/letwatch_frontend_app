@@ -1,6 +1,10 @@
 import axios from "@/config/axios";
 import { ResponseNoti } from "@/types/auth_type";
-import { WatchItemInfo, WatchListResponseInfo } from "@/types/personal_type";
+import {
+  DeleteInfo,
+  WatchItemInfo,
+  WatchListResponseInfo,
+} from "@/types/personal_type";
 
 const handleAddFilmToWatchist = (
   info: WatchItemInfo
@@ -18,4 +22,16 @@ const handleGetFilmFromWatchList = (
   });
 };
 
-export { handleAddFilmToWatchist, handleGetFilmFromWatchList };
+const handleDeleteFilmFromWatchList = (
+  deleteInfo: DeleteInfo
+): Promise<ResponseNoti> => {
+  return axios.delete("/personal/delete-film-from-watchlist", {
+    data: deleteInfo,
+  });
+};
+
+export {
+  handleAddFilmToWatchist,
+  handleGetFilmFromWatchList,
+  handleDeleteFilmFromWatchList,
+};

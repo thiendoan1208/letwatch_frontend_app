@@ -24,8 +24,15 @@ function RecoverPage() {
   const [newPassword, setNewPassword] = useState<string>("");
 
   const validate = () => {
+    const regexCheckSpace = /^(?!.*\s).+$/;
+
     if (newPassword.length < 8 || newPassword.length > 15) {
       toast.error("Mật khẩu phải lớn hơn 8 và nhỏ hơn 15 kí tự");
+      return false;
+    }
+
+    if (!regexCheckSpace.test(newPassword)) {
+      toast.error(`Trường ${newPassword} không được chứa khoảng trắng.`);
       return false;
     }
 
