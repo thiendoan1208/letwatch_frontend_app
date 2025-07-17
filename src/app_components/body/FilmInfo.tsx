@@ -2,9 +2,14 @@
 
 import ErrorMessage from "@/app_components/error/ErrorMesage";
 import LoaderComponent from "@/app_components/loader/loaderComponent";
+import { UserContext } from "@/context/user";
 import { getFilmInfo } from "@/services/film";
+import { handleAddFilmToWatchist } from "@/services/personal";
+import { FilmInfoData } from "@/types/fim_info_type";
+
+import { WatchItemInfo } from "@/types/personal_type";
 import slugify from "@/utils/modifyText";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   Bookmark,
   ChevronDown,
@@ -15,13 +20,15 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 function FilmInfo() {
   const pathname = usePathname();
   const pathSplit = pathname.split("/");
   const filmSlug = pathSplit[pathSplit.length - 1];
+
+  const { user } = useContext(UserContext);
 
   const [isLineClamp, setIsLineClamp] = useState(false);
   const [isExpand, setIsExpand] = useState(false);
@@ -96,6 +103,37 @@ function FilmInfo() {
     }
   };
 
+  // Add film to watchlist
+  const { mutate: addToWatchListMutate } = useMutation({
+    mutationFn: handleAddFilmToWatchist,
+    onSuccess: (data) => {
+      if (data && data.success) {
+        toast.success(data.message);
+      } else {
+        toast.error(data.message);
+      }
+    },
+    onError: (data) => {
+      toast.error(data.message);
+    },
+  });
+
+  const addFilmToWatchList = (film: FilmInfoData) => {
+    if (film && film.data.movie) {
+      const filmWatchList: WatchItemInfo = {
+        userID: user.id,
+        movieID: film.data.movie._id,
+        movieTitle: film.data.movie.name,
+        movieSlug: film.data.movie.slug,
+        moviePoster: film.data.movie.poster_url,
+      };
+
+      addToWatchListMutate(filmWatchList);
+    } else {
+      toast.error("Không thể thêm phim vào danh sách xem.");
+    }
+  };
+
   return (
     <div className="relative">
       <div
@@ -155,8 +193,15 @@ function FilmInfo() {
                           <h1 className=" text-2xl md:text-3xl font-bold tracking-wide">
                             {film.data.movie.name}
                           </h1>
-                          <Bookmark className="size-7 cursor-pointer ml-1 text-yellow-500" />
+
+                          <Bookmark
+                            onClick={() => {
+                              addFilmToWatchList(film);
+                            }}
+                            className="size-7 cursor-pointer ml-1 text-yellow-500"
+                          />
                           {/* toast lên, nếu có save r khi ấn lại sẽ thông báo đã save */}
+
                           <ExternalLink
                             className="size-7 cursor-pointer mx-1 text-blue-500"
                             onClick={() => {

@@ -137,7 +137,7 @@ function SignInForm() {
         </CardAction>
       </CardHeader>
       <CardContent>
-        <div>
+        <form>
           <div className="flex flex-col gap-6">
             <div className="grid gap-2">
               <Label htmlFor="email">Email/Username</Label>
@@ -282,7 +282,7 @@ function SignInForm() {
               )}
             </div>
           </div>
-        </div>
+        </form>
       </CardContent>
       <CardFooter className="flex-col gap-2">
         <Button

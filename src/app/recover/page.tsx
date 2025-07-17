@@ -89,7 +89,6 @@ function RecoverPage() {
                     onChange={(e) => {
                       setNewPassword(e.target.value);
                     }}
-                    required
                   />
                 </div>
               </div>

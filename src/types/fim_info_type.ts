@@ -91,7 +91,7 @@ export type Pallete = {
   Vibrant: { rgb: number[]; population: number };
 };
 
-export type FilmInfo = {
+export type FilmInfoData = {
   success: boolean;
   message: string;
   data: MovieDetailResponse;

@@ -207,7 +207,15 @@ function HomePageNav() {
             <Search className=" size-5" />
           </div>
           <div className="flex items-center justify-center gap-2 text-white/80 hover:text-black bg-transparent hover:bg-white px-2.5 py-2.5 rounded-full cursor-pointer transition-all font-semibold">
-            <Bookmark />
+            <Bookmark
+              onClick={() => {
+                if (user && user.id === 0) {
+                  toast.error("Vui lòng đăng nhập để sử dụng tính năng này.");
+                } else {
+                  router.push("/watch/watchlist");
+                }
+              }}
+            />
           </div>
           {user && user.email !== "" ? (
             <div>
