@@ -53,6 +53,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
+import ReviewForm from "@/app_components/form/ContributeForm";
 
 function LandingPageNav() {
   const queryClient = useQueryClient();
@@ -237,10 +238,12 @@ function LandingPageNav() {
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>Profile</DropdownMenuItem>
                     <DropdownMenuItem>Billing</DropdownMenuItem>
-                    <DropdownMenuItem>Team</DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <ReviewForm />
+                    </DropdownMenuItem>
                     <div className="px-2 text-sm hover:bg-gray-100 py-1 rounded-sm">
                       <AlertDialog>
-                        <AlertDialogTrigger>
+                        <AlertDialogTrigger className="w-full text-start">
                           <h1 className="text-yellow-500 font-semibold  w-full cursor-pointer">
                             Đăng xuất
                           </h1>

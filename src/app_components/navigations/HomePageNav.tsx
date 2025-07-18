@@ -10,7 +10,15 @@ import {
 } from "@/services/authen";
 import ClickOutsideElement from "@/utils/click_outside_element";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Bookmark, Compass, House, Search, ShipWheel, Tv } from "lucide-react";
+import {
+  Bookmark,
+  Compass,
+  Construction,
+  House,
+  Search,
+  ShipWheel,
+  Tv,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -35,6 +43,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
+import ReviewForm from "@/app_components/form/ContributeForm";
 
 const menuItems = [
   {
@@ -72,6 +81,7 @@ function HomePageNav() {
 
   const [isActive, setIsActive] = useState<boolean>(false);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
+  const [isDropDownActive, setIsDropDownActive] = useState<boolean>(false);
 
   const setSearchResult = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchKeyword(e.target.value);
@@ -219,8 +229,19 @@ function HomePageNav() {
           </div>
           {user && user.email !== "" ? (
             <div>
-              <DropdownMenu>
-                <DropdownMenuTrigger>
+              <DropdownMenu
+                open={isDropDownActive}
+                onOpenChange={() => {
+                  if (isDropDownActive) {
+                    setIsDropDownActive(false);
+                  }
+                }}
+              >
+                <DropdownMenuTrigger
+                  onClick={() => {
+                    setIsDropDownActive(true);
+                  }}
+                >
                   {" "}
                   <span
                     style={{
@@ -237,12 +258,20 @@ function HomePageNav() {
                 <DropdownMenuContent>
                   <DropdownMenuLabel>Tài khoản</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
-                  <DropdownMenuItem>Billing</DropdownMenuItem>
-                  <DropdownMenuItem>Team</DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => {
+                      setIsDropDownActive(false);
+                    }}
+                  >
+                    Profile
+                    <Construction className="text-yellow-400" />
+                  </DropdownMenuItem>
+                  <div className="px-2 text-sm hover:bg-gray-100 py-1 rounded-sm w-full">
+                    <ReviewForm />
+                  </div>
                   <div className="px-2 text-sm hover:bg-gray-100 py-1 rounded-sm">
                     <AlertDialog>
-                      <AlertDialogTrigger>
+                      <AlertDialogTrigger className="w-full text-start">
                         <h1 className="text-yellow-500 font-semibold  w-full cursor-pointer">
                           Đăng xuất
                         </h1>
