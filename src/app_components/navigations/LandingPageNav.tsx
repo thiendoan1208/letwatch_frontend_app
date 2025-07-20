@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { AlignJustify, Search } from "lucide-react";
+import { AlignJustify, Construction, Search } from "lucide-react";
 
 import {
   NavigationMenu,
@@ -59,6 +59,8 @@ function LandingPageNav() {
   const queryClient = useQueryClient();
   const router = useRouter();
   const { user, login } = React.useContext(UserContext);
+  const [isDropDownActive, setIsDropDownActive] =
+    React.useState<boolean>(false);
 
   const { data: filmType } = useQuery({
     queryKey: ["film-types"],
@@ -218,8 +220,19 @@ function LandingPageNav() {
             <div className="h-[35px] w-[1.5px] bg-blue-950/50 rounded-2xl"></div>
             {user && user.email !== "" ? (
               <div>
-                <DropdownMenu>
-                  <DropdownMenuTrigger>
+                <DropdownMenu
+                  open={isDropDownActive}
+                  onOpenChange={() => {
+                    if (isDropDownActive) {
+                      setIsDropDownActive(false);
+                    }
+                  }}
+                >
+                  <DropdownMenuTrigger
+                    onClick={() => {
+                      setIsDropDownActive(true);
+                    }}
+                  >
                     {" "}
                     <span
                       style={{
@@ -236,11 +249,17 @@ function LandingPageNav() {
                   <DropdownMenuContent>
                     <DropdownMenuLabel>Tài khoản</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>Profile</DropdownMenuItem>
-                    <DropdownMenuItem>Billing</DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <ReviewForm />
+                    <DropdownMenuItem
+                      onClick={() => {
+                        setIsDropDownActive(false);
+                      }}
+                    >
+                      Profile
+                      <Construction className="text-yellow-400" />
                     </DropdownMenuItem>
+                    <div className="px-2 text-sm hover:bg-gray-100 py-1 rounded-sm w-full">
+                      <ReviewForm />
+                    </div>
                     <div className="px-2 text-sm hover:bg-gray-100 py-1 rounded-sm">
                       <AlertDialog>
                         <AlertDialogTrigger className="w-full text-start">

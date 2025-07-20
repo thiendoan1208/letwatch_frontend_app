@@ -79,6 +79,8 @@ type FilmInList = {
     vote_average: number;
     vote_count: number;
   };
+  status: string;
+  episode_current: string;
   year: number;
   _id: string;
 };
