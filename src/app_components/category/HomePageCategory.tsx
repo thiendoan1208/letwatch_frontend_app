@@ -117,7 +117,7 @@ function HomePageCategory() {
           <div className="flex flex-col items-start gap-5 overflow-hidden ">
             <div className="text-white flex items-center gap-2">
               <Link href={`/watch/phim-moi`} className="text-2xl font-bold">
-                Mới Phát Hành
+                Mới Cập Nhật
               </Link>
               <div className="bg-black/45 px-3 py-1 rounded-sm text-yellow-500">
                 <h1>HOT</h1>

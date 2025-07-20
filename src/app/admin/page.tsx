@@ -172,7 +172,44 @@ function AdminPage() {
           <CardContent>
             <div>
               <div>
-                Total form submit: <span>1000</span>
+                Total form submit:{" "}
+                <span>
+                  {allContributeForm &&
+                    allContributeForm.data?.data !== null &&
+                    allContributeForm.data?.data.length}
+                </span>
+                <h1 className="font-semibold">Status:</h1>
+                <ul className="flex gap-4">
+                  <li>
+                    In Progress:{" "}
+                    <span className=" font-semibold text-yellow-500">
+                      {
+                        formStatus.filter(
+                          (item) => item.status === "In Progress"
+                        ).length
+                      }
+                    </span>
+                  </li>
+                  <li>
+                    Done:{" "}
+                    <span className=" font-semibold text-green-500">
+                      {
+                        formStatus.filter((item) => item.status === "Done")
+                          .length
+                      }
+                    </span>
+                  </li>
+                  <li>
+                    Reject:{" "}
+                    <span className=" font-semibold text-red-500">
+                      {" "}
+                      {
+                        formStatus.filter((item) => item.status === "Reject")
+                          .length
+                      }
+                    </span>
+                  </li>
+                </ul>
               </div>
             </div>
           </CardContent>
@@ -223,7 +260,8 @@ function AdminPage() {
         <div className="mt-4 mb-2">
           <div className="flex items-center justify-between">
             <h1 className="text-xl font-semibold">
-              Contribute Information Table
+              <span className="text-yellow-500">In Progress</span> Contribute
+              Information Table
             </h1>
             <div>
               <Button
@@ -275,99 +313,103 @@ function AdminPage() {
                 {allContributeForm.data &&
                   allContributeForm.data.success &&
                   allContributeForm.data.data !== null &&
-                  allContributeForm.data.data.map((form, index) => (
-                    <TableRow key={`form-${index}`}>
-                      <TableCell>{form.id}</TableCell>
-                      <TableCell>{form.userID}</TableCell>
-                      <TableCell>{form.type}</TableCell>
-                      <TableCell className="max-w-[100px] overflow-hidden text-left">
-                        {form.description}
-                      </TableCell>
-                      <TableCell>{form.createdAt}</TableCell>
-                      <TableCell>
-                        <div className={`${isFormManage ? "block" : "hidden"}`}>
-                          <Select
-                            onValueChange={(value) => {
-                              handleStatusChange(form.id, value);
-                            }}
-                            defaultValue={form.status}
+                  allContributeForm.data.data
+                    .filter((item) => item.status === "In Progress")
+                    .map((form, index) => (
+                      <TableRow key={`form-${index}`}>
+                        <TableCell>{form.id}</TableCell>
+                        <TableCell>{form.userID}</TableCell>
+                        <TableCell>{form.type}</TableCell>
+                        <TableCell className="max-w-[100px] overflow-hidden text-left">
+                          {form.description}
+                        </TableCell>
+                        <TableCell>{form.createdAt}</TableCell>
+                        <TableCell>
+                          <div
+                            className={`${isFormManage ? "block" : "hidden"}`}
                           >
-                            <SelectTrigger>
-                              <SelectValue placeholder="Status" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="In Progress">
-                                In Progress
-                              </SelectItem>
-                              <SelectItem value="Done">Done</SelectItem>
-                              <SelectItem value="Reject">Reject</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        <span
-                          className={`${isFormManage ? "hidden" : "block"}`}
-                        >
+                            <Select
+                              onValueChange={(value) => {
+                                handleStatusChange(form.id, value);
+                              }}
+                              defaultValue={form.status}
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder="Status" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="In Progress">
+                                  In Progress
+                                </SelectItem>
+                                <SelectItem value="Done">Done</SelectItem>
+                                <SelectItem value="Reject">Reject</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
                           <span
-                            className={cn(
-                              "text-black font-semibold",
-                              form.status === "In Progress" &&
-                                "text-yellow-500",
-                              form.status === "Done" && "text-green-500",
-                              form.status === "Reject" && "text-red-500"
-                            )}
+                            className={`${isFormManage ? "hidden" : "block"}`}
                           >
-                            {form.status}
+                            <span
+                              className={cn(
+                                "text-black font-semibold",
+                                form.status === "In Progress" &&
+                                  "text-yellow-500",
+                                form.status === "Done" && "text-green-500",
+                                form.status === "Reject" && "text-red-500"
+                              )}
+                            >
+                              {form.status}
+                            </span>
                           </span>
-                        </span>
-                      </TableCell>
+                        </TableCell>
 
-                      <TableCell>
-                        <Dialog>
-                          <form>
-                            <DialogTrigger asChild>
-                              <Button
-                                className={`${
-                                  isFormManage ? "block" : "hidden"
-                                } bg-yellow-500 cursor-pointer`}
-                              >
-                                Detail
-                              </Button>
-                            </DialogTrigger>
-                            <DialogContent className="sm:max-w-[425px] max-h-[70%] overflow-y-auto">
-                              <DialogHeader>
-                                <DialogTitle>Detail</DialogTitle>
-                                <DialogDescription>
-                                  See full information.
-                                </DialogDescription>
-                              </DialogHeader>
-                              <div className="grid gap-4">
-                                <div className="grid gap-3">
-                                  <Label>Type</Label>
-                                  <Input
-                                    className="cursor-default"
-                                    name="type"
-                                    defaultValue={form.type}
-                                  />
+                        <TableCell>
+                          <Dialog>
+                            <form>
+                              <DialogTrigger asChild>
+                                <Button
+                                  className={`${
+                                    isFormManage ? "block" : "hidden"
+                                  } bg-yellow-500 cursor-pointer`}
+                                >
+                                  Detail
+                                </Button>
+                              </DialogTrigger>
+                              <DialogContent className="sm:max-w-[425px] max-h-[70%] overflow-y-auto">
+                                <DialogHeader>
+                                  <DialogTitle>Detail</DialogTitle>
+                                  <DialogDescription>
+                                    See full information.
+                                  </DialogDescription>
+                                </DialogHeader>
+                                <div className="grid gap-4">
+                                  <div className="grid gap-3">
+                                    <Label>Type</Label>
+                                    <Input
+                                      className="cursor-default"
+                                      name="type"
+                                      defaultValue={form.type}
+                                    />
+                                  </div>
+                                  <div className="grid gap-3">
+                                    <Label>Description</Label>
+                                    <Textarea
+                                      name="description"
+                                      defaultValue={form.description}
+                                    />
+                                  </div>
                                 </div>
-                                <div className="grid gap-3">
-                                  <Label>Description</Label>
-                                  <Textarea
-                                    name="description"
-                                    defaultValue={form.description}
-                                  />
-                                </div>
-                              </div>
-                              <DialogFooter>
-                                <DialogClose asChild>
-                                  <Button variant="outline">Close</Button>
-                                </DialogClose>
-                              </DialogFooter>
-                            </DialogContent>
-                          </form>
-                        </Dialog>
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                                <DialogFooter>
+                                  <DialogClose asChild>
+                                    <Button variant="outline">Close</Button>
+                                  </DialogClose>
+                                </DialogFooter>
+                              </DialogContent>
+                            </form>
+                          </Dialog>
+                        </TableCell>
+                      </TableRow>
+                    ))}
               </TableBody>
             </Table>
           </div>

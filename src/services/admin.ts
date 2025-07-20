@@ -3,7 +3,13 @@ import { ContributeResponse, UserResponse } from "@/types/admin_type";
 import { ResponseNoti } from "@/types/auth_type";
 
 const handleGetAllUser = (): Promise<UserResponse> => {
-  return axios.get("/admin/get-all-user");
+  return axios.get("/admin/users");
+};
+
+const handleDeleteUser = (deleteInfo: string[]): Promise<ResponseNoti> => {
+  return axios.delete("/admin/users/delete", {
+    data: deleteInfo,
+  });
 };
 
 const handleGetAllContributeForm = (): Promise<ContributeResponse> => {
@@ -21,6 +27,7 @@ const handleUpdateContributeForm = (
 
 export {
   handleGetAllUser,
+  handleDeleteUser,
   handleGetAllContributeForm,
   handleUpdateContributeForm,
 };

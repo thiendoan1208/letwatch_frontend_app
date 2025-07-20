@@ -1,17 +1,28 @@
 import Image from "next/image";
-import { House, Undo2, User } from "lucide-react";
+import { BookCheck, House, Undo2, User } from "lucide-react";
 import Link from "next/link";
 
 const navigation = [
   {
     icon: <House className="size-4" />,
     name: "Home",
+    link: "/admin",
   },
   {
     icon: <User className="size-4" />,
     name: "User manage",
+    link: "/admin/user-manage",
   },
-  { icon: <Undo2 className="size-4" />, name: "Back to home page" },
+  {
+    icon: <BookCheck className="size-4" />,
+    name: "Contribute form status manage",
+    link: "/admin/contribute-form-status",
+  },
+  {
+    icon: <Undo2 className="size-4" />,
+    name: "Back to home page",
+    link: "/watch/trang-chu",
+  },
 ];
 
 function AdminSidebar() {
@@ -33,7 +44,7 @@ function AdminSidebar() {
         <div className="mt-2">
           {navigation.map((item, index) => (
             <Link
-              href={""}
+              href={item.link}
               key={index}
               className="flex items-center py-1 px-2 my-1 space-x-1 rounded-md hover:bg-gray-200 transition-all"
             >

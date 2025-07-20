@@ -83,12 +83,14 @@ function WatchListPage() {
     onSuccess: (data) => {
       if (data && data.success) {
         toast.success(data.message);
+        setDeleteItems([]);
         isRefetchWatchList();
       } else {
         toast.error(data.message);
       }
     },
     onError: (data) => {
+      setDeleteItems([]);
       toast.error(data.message);
     },
   });
