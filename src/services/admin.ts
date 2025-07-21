@@ -1,13 +1,25 @@
 import axios from "@/config/axios";
-import { ContributeResponse, UserResponse } from "@/types/admin_type";
+import {
+  ContributeResponse,
+  UserFindResponse,
+  UserResponse,
+} from "@/types/admin_type";
 import { ResponseNoti } from "@/types/auth_type";
 
-const handleGetAllUser = (): Promise<UserResponse> => {
-  return axios.get("/admin/users");
+const handleGetAllUser = (
+  limit: number,
+  page: number
+): Promise<UserResponse> => {
+  return axios.get("/admin/users", {
+    params: {
+      limit: limit,
+      page: page,
+    },
+  });
 };
 
-const handleFindUser = (keyword: string): Promise<UserResponse> => {
-  return axios.post("/admin/users/find", {keyword: keyword});
+const handleFindUser = (keyword: string): Promise<UserFindResponse> => {
+  return axios.post("/admin/users/find", { keyword: keyword });
 };
 
 const handleDeleteUser = (deleteInfo: string[]): Promise<ResponseNoti> => {

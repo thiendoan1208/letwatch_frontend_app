@@ -9,6 +9,16 @@ type User = {
 type UserResponse = {
   success: boolean;
   message: string;
+  data: {
+    totalPage: number;
+    userList: User[];
+  };
+  error: string | null;
+};
+
+type UserFindResponse = {
+  success: boolean;
+  message: string;
   data: User[];
   error: string | null;
 };
@@ -30,4 +40,10 @@ type ContributeResponse = {
   error: string | null;
 };
 
-export type { User, UserResponse, ContributeResponse, ContributeForm };
+export type {
+  User,
+  UserResponse,
+  ContributeResponse,
+  ContributeForm,
+  UserFindResponse,
+};
