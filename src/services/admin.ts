@@ -6,6 +6,10 @@ const handleGetAllUser = (): Promise<UserResponse> => {
   return axios.get("/admin/users");
 };
 
+const handleFindUser = (keyword: string): Promise<UserResponse> => {
+  return axios.post("/admin/users/find", {keyword: keyword});
+};
+
 const handleDeleteUser = (deleteInfo: string[]): Promise<ResponseNoti> => {
   return axios.delete("/admin/users/delete", {
     data: deleteInfo,
@@ -27,6 +31,7 @@ const handleUpdateContributeForm = (
 
 export {
   handleGetAllUser,
+  handleFindUser,
   handleDeleteUser,
   handleGetAllContributeForm,
   handleUpdateContributeForm,

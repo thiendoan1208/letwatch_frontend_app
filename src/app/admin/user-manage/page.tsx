@@ -1,6 +1,10 @@
 "use client";
 
-import { handleDeleteUser, handleGetAllUser } from "@/services/admin";
+import {
+  handleDeleteUser,
+  handleFindUser,
+  handleGetAllUser,
+} from "@/services/admin";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   Table,
@@ -12,21 +16,25 @@ import {
 } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useRef, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import { Trash } from "lucide-react";
 import { cloneDeep } from "lodash";
 import { toast } from "sonner";
+import { UserResponse } from "@/types/admin_type";
 
 function UserManagePage() {
   const tableBodyRef = useRef<HTMLTableSectionElement>(null);
+  const [userList, setUserList] = useState<UserResponse>();
   const [deleteItems, setDeleteItems] = useState<string[]>([]);
-
   const [isManageActive, SetIsManageActive] = useState<boolean>(false);
+  const [findUserKeyWord, setFindUserKeyWord] = useState<string>("");
 
-  const { data: allUser, refetch: isUserRefetch } = useQuery({
+  const { refetch: isUserRefetch } = useQuery({
     queryKey: ["get-all-user"],
     queryFn: async () => {
-      return await handleGetAllUser();
+      const data = await handleGetAllUser();
+      setUserList(data);
+      return data;
     },
   });
 
@@ -83,6 +91,23 @@ function UserManagePage() {
     },
   });
 
+  const handleFindUserInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setFindUserKeyWord(e.target.value);
+  };
+
+  const enterToFind = (e: { key: string }) => {
+    if (e.key === "Enter") {
+      findUserMutate(findUserKeyWord);
+    }
+  };
+
+  const { mutate: findUserMutate } = useMutation({
+    mutationFn: handleFindUser,
+    onSuccess: (data) => {
+      setUserList(data);
+    },
+  });
+
   return (
     <div className="col-span-10 mx-5 pr-2 max-h-screen overflow-y-auto">
       <div className="mt-5">
@@ -90,7 +115,14 @@ function UserManagePage() {
           User Manage {`delete > find > pagi`}
         </h1>
         <div className="flex items-center justify-between mt-5">
-          <Input placeholder="Find user with email." className="w-[20%]" />
+          <Input
+            type="text"
+            value={findUserKeyWord}
+            onKeyDown={enterToFind}
+            onChange={handleFindUserInput}
+            placeholder="Find user with email."
+            className="w-[20%]"
+          />
           <div>
             <Button
               onClick={() => {
@@ -135,10 +167,10 @@ function UserManagePage() {
               </TableRow>
             </TableHeader>
             <TableBody ref={tableBodyRef}>
-              {allUser &&
-                allUser.success &&
-                allUser.data !== null &&
-                allUser.data.map((user, index) => (
+              {userList &&
+                userList.success &&
+                userList.data !== null &&
+                userList.data.map((user, index) => (
                   <TableRow key={`user-${index}`}>
                     <TableCell>{user.id}</TableCell>
                     <TableCell>{user.email}</TableCell>
