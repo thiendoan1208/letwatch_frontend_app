@@ -41,10 +41,18 @@ const handleUpdateContributeForm = (
   return axios.post("/admin/update-contribute-forms", contributeForms);
 };
 
+const handleDeleteContributeForm = (
+  formIDArr: number[]
+): Promise<ResponseNoti> => {
+  return axios.delete("/admin/contribute-form/delete", {
+    data: formIDArr,
+  });
+};
 export {
   handleGetAllUser,
   handleFindUser,
   handleDeleteUser,
   handleGetAllContributeForm,
   handleUpdateContributeForm,
+  handleDeleteContributeForm,
 };

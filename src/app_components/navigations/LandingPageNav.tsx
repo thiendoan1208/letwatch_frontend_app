@@ -260,6 +260,14 @@ function LandingPageNav() {
                     <div className="px-2 text-sm hover:bg-gray-100 py-1 rounded-sm w-full">
                       <ReviewForm />
                     </div>
+                    {user &&
+                      user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL && (
+                        <DropdownMenuItem>
+                          <Link href={"/admin"} className="w-full">
+                            Admin
+                          </Link>
+                        </DropdownMenuItem>
+                      )}
                     <div className="px-2 text-sm hover:bg-gray-100 py-1 rounded-sm">
                       <AlertDialog>
                         <AlertDialogTrigger className="w-full text-start">

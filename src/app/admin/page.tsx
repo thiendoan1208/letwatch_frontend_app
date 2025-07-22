@@ -64,7 +64,7 @@ function AdminPage() {
       {
         queryKey: ["get-all-user"],
         queryFn: async () => {
-          return await handleGetAllUser();
+          return await handleGetAllUser(Number(PAGE_LIMIT), 1);
         },
       },
       {
@@ -120,11 +120,11 @@ function AdminPage() {
   const [allUser, allFilms, allContributeForm] = results;
 
   return (
-    <div className="col-span-10 ml-5 pr-2 max-h-screen overflow-y-auto">
+    <div className=" col-span-11 xl:col-span-10 ml-5 pr-2 max-h-screen overflow-y-auto">
       {/* Information Card */}
       <div className="grid grid-cols-9 gap-2 mt-5">
         {/* User Card */}
-        <Card className="col-span-3">
+        <Card className=" col-span-9 xl:col-span-3">
           <CardHeader className="-mb-5">
             <CardTitle>Total User</CardTitle>
           </CardHeader>
@@ -135,14 +135,14 @@ function AdminPage() {
                   allUser.data &&
                   allUser.data.success === true &&
                   allUser.data.data !== null &&
-                  allUser.data.data.length}
+                  allUser.data.data.totalUser}
               </span>
             </div>
           </CardContent>
         </Card>
 
         {/* Film card */}
-        <Card className="col-span-3">
+        <Card className=" col-span-9  xl:col-span-3">
           <CardHeader className="-mb-5">
             <CardTitle>Film Information</CardTitle>
           </CardHeader>
@@ -165,7 +165,7 @@ function AdminPage() {
         </Card>
 
         {/* Contribute Card*/}
-        <Card className="col-span-3">
+        <Card className=" col-span-9  xl:col-span-3">
           <CardHeader className="-mb-5">
             <CardTitle>Contribute Information </CardTitle>
           </CardHeader>

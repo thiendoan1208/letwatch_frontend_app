@@ -130,11 +130,9 @@ function UserManagePage() {
   };
 
   return (
-    <div className="col-span-10 mx-5 pr-2 max-h-screen overflow-y-auto">
+    <div className="col-span-11 xl:col-span-10 mx-5 pr-2 max-h-screen overflow-y-auto">
       <div className="mt-5 mb-10">
-        <h1 className="text-xl font-semibold">
-          User Manage {`delete > find > pagi`}
-        </h1>
+        <h1 className="text-xl font-semibold">User Manage</h1>
         <div className="flex items-center justify-between mt-5">
           <Input
             type="text"
@@ -206,7 +204,7 @@ function UserManagePage() {
                       <TableCell>
                         <Trash
                           onClick={() => {
-                            isClickTrash(user.email, index, 5);
+                            isClickTrash(user.email, index, 6);
                             handleDeleteUserArr(user.email);
                           }}
                           className="size-4 cursor-pointer"

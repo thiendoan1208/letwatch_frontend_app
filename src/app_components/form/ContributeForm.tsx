@@ -67,7 +67,9 @@ function ContributeFrom() {
   };
   return (
     <Dialog>
-      <DialogTrigger className="w-full text-start">Góp ý</DialogTrigger>
+      <DialogTrigger className="w-full text-start cursor-pointer">
+        Góp ý
+      </DialogTrigger>
       <DialogContent className="z-[9999] max-h-[70%] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Đóng góp ý kiến.</DialogTitle>

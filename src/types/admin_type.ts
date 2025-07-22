@@ -10,8 +10,9 @@ type UserResponse = {
   success: boolean;
   message: string;
   data: {
-    totalPage: number;
     userList: User[];
+    totalPage: number;
+    totalUser: number;
   };
   error: string | null;
 };
