@@ -44,6 +44,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
 import ReviewForm from "@/app_components/form/ContributeForm";
+import { useProgress } from "@bprogress/next";
 
 const menuItems = [
   {
@@ -73,6 +74,7 @@ const menuItems = [
 ];
 
 function HomePageNav() {
+  const { start } = useProgress();
   const queryClient = useQueryClient();
   const { user, login } = useContext(UserContext);
 
@@ -89,6 +91,7 @@ function HomePageNav() {
 
   const handleNavigateResultPage = (e: { code: string }) => {
     if (e.code === "Enter") {
+      start();
       router.push(`/watch/search?keyword=${searchKeyword}`);
     }
   };
@@ -222,6 +225,7 @@ function HomePageNav() {
                 if (user && user.id === 0) {
                   toast.error("Vui lòng đăng nhập để sử dụng tính năng này.");
                 } else {
+                  start();
                   router.push("/watch/watchlist");
                 }
               }}

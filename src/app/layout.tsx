@@ -4,6 +4,7 @@ import "./globals.css";
 import { QueryProvider } from "@/provider/query_provider";
 import { Toaster } from "sonner";
 import { UserProvider } from "@/context/user";
+import Providers from "@/provider/bprogress_provider";
 
 const interSans = Inter({
   variable: "--font-inter",
@@ -31,12 +32,14 @@ export default function RootLayout({
       <body
         className={`${interSans.variable} ${poppins.variable} antialiased bg-black`}
       >
-        <UserProvider>
-          <QueryProvider>
-            <div>{children}</div>
-            <Toaster richColors duration={3500} position="top-right" />
-          </QueryProvider>
-        </UserProvider>
+        <Providers>
+          <UserProvider>
+            <QueryProvider>
+              <div>{children}</div>
+              <Toaster richColors duration={3500} position="top-right" />
+            </QueryProvider>
+          </UserProvider>
+        </Providers>
       </body>
     </html>
   );

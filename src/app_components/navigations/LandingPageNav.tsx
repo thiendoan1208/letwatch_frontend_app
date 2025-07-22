@@ -54,8 +54,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
 import ReviewForm from "@/app_components/form/ContributeForm";
+import { useProgress } from "@bprogress/next";
 
 function LandingPageNav() {
+  const { start } = useProgress();
   const queryClient = useQueryClient();
   const router = useRouter();
   const { user, login } = React.useContext(UserContext);
@@ -76,6 +78,7 @@ function LandingPageNav() {
 
   const handleNavigateResultPage = (e: { code: string }) => {
     if (e.code === "Enter") {
+      start();
       router.push(`/watch/search?keyword=${searchKeyword}`);
     }
   };
