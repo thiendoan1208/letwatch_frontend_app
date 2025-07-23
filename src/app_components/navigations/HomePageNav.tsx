@@ -66,7 +66,7 @@ const menuItems = [
     pathKey: "hoat-hinh",
   },
   {
-    label: "Khám phá",
+    label: "Khám Phá",
     href: "/watch/kham-pha",
     icon: Compass,
     pathKey: "kham-pha",

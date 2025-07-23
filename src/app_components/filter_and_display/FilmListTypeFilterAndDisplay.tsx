@@ -275,7 +275,7 @@ function FilmListTypeFilterAndDisplay() {
 
       {/* Display Result */}
       <div className="mt-10">
-        <h1 className="text-lg">
+        <h1 className="text-xl font-semibold text-yellow-500">
           Tổng hợp phim thuộc thể loại {filmListData?.data.data.titlePage}
         </h1>
       </div>

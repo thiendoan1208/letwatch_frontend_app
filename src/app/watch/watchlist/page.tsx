@@ -96,17 +96,13 @@ function WatchListPage() {
   });
 
   return (
-    <div
-      className="bg-black min-h-screen"
-      style={{
-        background:
-          "linear-gradient(90deg, hsla(0, 4%, 10%, 1) 0%, hsla(0, 4%, 14%, 1) 54%, hsla(0, 1%, 20%, 1) 100%)",
-      }}
-    >
+    <div className=" min-h-screen">
       <div className="pt-20 text-white">
         <div className="mx-4 lg:mx-16 ">
           <div className="mt-10 flex items-center justify-between">
-            <h1 className="text-xl text-yellow-500">Danh sách xem</h1>
+            <h1 className="text-xl font-semibold text-yellow-500">
+              Danh sách xem
+            </h1>
             <div className={`${isDeleteActive ? "hidden" : "block"}`}>
               <Button
                 onClick={() => {
@@ -124,6 +120,16 @@ function WatchListPage() {
                 onClick={() => {
                   setIsDeleteActive(false);
                   setDeleteItems([]);
+                  if (filmRef && filmRef.current) {
+                    Array.from(filmRef.current.children).forEach((child) => {
+                      child.classList.remove(
+                        "border-2",
+                        "border-red-500",
+                        "rounded-xl",
+                        "p-1"
+                      );
+                    });
+                  }
                 }}
                 variant={"outline"}
                 className="cursor-pointer text-black "

@@ -40,7 +40,7 @@ function MainDisplay() {
     <div>
       {/* Display Result */}
       <div className="mt-10">
-        <h1 className="text-lg">Phim Mới Cập Nhật</h1>
+        <h1 className="text-xl font-semibold text-yellow-500">Phim mới</h1>
       </div>
       <div className="mr-2 sm:mr-3 md:mr-0">
         {filmList &&

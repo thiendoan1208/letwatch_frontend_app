@@ -22,7 +22,6 @@ function LandingPageSlider() {
     queryFn: async () => {
       return getFiveFilmsOnly();
     },
-    staleTime: 5 * 60 * 1000,
   });
 
   const getFiveFilmsOnly = async () => {

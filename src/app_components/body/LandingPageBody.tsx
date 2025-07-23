@@ -146,7 +146,7 @@ function LandingPageBody() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 text-white mx-4 md:mx-10 xl:mx-40 mt-10">
         <div>
           <div>
-            <h1 className="text-6xl font-semibold text-blue-400 font-(family-name:--font-poppins) leading-20">
+            <h1 className="text-3xl md:text-6xl font-semibold text-blue-400 font-(family-name:--font-poppins) md:leading-20">
               Khám phá niềm vui mỗi ngày!
             </h1>
           </div>

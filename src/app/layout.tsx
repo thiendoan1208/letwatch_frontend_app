@@ -30,7 +30,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${interSans.variable} ${poppins.variable} antialiased bg-black`}
+        className={`${interSans.variable} ${poppins.variable} antialiased bg-black min-h-screen`}
+        style={{
+          background:
+            "linear-gradient(90deg, hsla(0, 4%, 10%, 1) 0%, hsla(0, 4%, 14%, 1) 54%, hsla(0, 1%, 20%, 1) 100%)",
+        }}
       >
         <Providers>
           <UserProvider>

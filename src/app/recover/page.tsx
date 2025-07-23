@@ -55,13 +55,7 @@ function RecoverPage() {
   });
 
   return (
-    <div
-      className="min-h-screen w-screen flex flex-col items-center justify-start md:justify-center"
-      style={{
-        background:
-          "linear-gradient(90deg, hsla(0, 4%, 10%, 1) 0%, hsla(0, 4%, 14%, 1) 54%, hsla(0, 1%, 20%, 1) 100%)",
-      }}
-    >
+    <div className="min-h-screen w-screen flex flex-col items-center justify-start md:justify-center">
       <div className="mt-30 md:mt-0">
         <Image
           className="w-[200px]"

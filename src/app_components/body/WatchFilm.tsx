@@ -44,16 +44,28 @@ function WatchFilm() {
   const { data: filmSuggest } = useQuery({
     queryKey: ["film-suggest", film?.data.movie.category[0].slug],
     queryFn: async () => {
-      return await getFilmListSortByType(film!.data.movie.category[0].slug, {
-        page: 1,
-        sort_type: "",
-        sort_lang: "",
-        category: "",
-        country: "",
-        year: "",
-        limit: String(FILM_SUGGEST_LIMIT),
-      });
+      if (film) {
+        return await getFilmListSortByType(film!.data.movie.category[0].slug, {
+          page: 1,
+          sort_type: "",
+          sort_lang: "",
+          category: "",
+          country: "",
+          year: "",
+          limit: String(FILM_SUGGEST_LIMIT),
+        });
+      } else {
+        return {
+          success: false,
+          data: {
+            data: {
+              items: [],
+            },
+          },
+        };
+      }
     },
+    enabled: !!film,
     retry: 10,
     staleTime: 60 * 60 * 1000,
   });
