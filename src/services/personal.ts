@@ -9,23 +9,25 @@ import {
 const handleAddFilmToWatchist = (
   info: WatchItemInfo
 ): Promise<ResponseNoti> => {
-  return axios.post("/personal/add-to-watchlist", info);
+  return axios.post("/personal/watchlist/add", info);
 };
 
 const handleGetFilmFromWatchList = (
-  userID: number
+  userID: number,
+  signal?: AbortSignal
 ): Promise<WatchListResponseInfo> => {
-  return axios.get("/personal/get-film-from-watchlist", {
+  return axios.get("/personal/watchlist", {
     params: {
       userID: userID,
     },
+    signal,
   });
 };
 
 const handleDeleteFilmFromWatchList = (
   deleteInfo: DeleteInfo
 ): Promise<ResponseNoti> => {
-  return axios.delete("/personal/delete-film-from-watchlist", {
+  return axios.delete("/personal/watchlist/delete", {
     data: deleteInfo,
   });
 };

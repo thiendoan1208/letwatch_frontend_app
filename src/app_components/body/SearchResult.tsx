@@ -12,8 +12,8 @@ function SearchResult() {
 
   const { data: searchResult, isPending } = useQuery({
     queryKey: ["seacrch-keyword", keyword],
-    queryFn: async () => {
-      return await findFilm(keyword);
+    queryFn: async ({ signal }) => {
+      return await findFilm(keyword, signal);
     },
   });
 

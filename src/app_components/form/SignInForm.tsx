@@ -267,6 +267,11 @@ function SignInForm() {
                 type={isCheck ? "text" : "password"}
                 required
                 value={form.password}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    signInMutate(form);
+                  }
+                }}
                 onChange={handleChange}
               />
               {isCheck ? (

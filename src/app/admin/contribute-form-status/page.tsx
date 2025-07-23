@@ -40,8 +40,8 @@ function ContributeFormManagePage() {
   const { data: allContributeForm, refetch: isContributeFormRefetch } =
     useQuery({
       queryKey: ["get-all-contribute-form"],
-      queryFn: async () => {
-        return await handleGetAllContributeForm();
+      queryFn: async ({signal}) => {
+        return await handleGetAllContributeForm(signal);
       },
     });
 

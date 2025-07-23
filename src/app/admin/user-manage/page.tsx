@@ -35,8 +35,8 @@ function UserManagePage() {
 
   const { data: userResponse, refetch: isUserRefetch } = useQuery({
     queryKey: ["get-all-user", page],
-    queryFn: async () => {
-      const data = await handleGetAllUser(PAGE_LIMIT, page);
+    queryFn: async ({ signal }) => {
+      const data = await handleGetAllUser(PAGE_LIMIT, page, signal);
       setUserList(data.data.userList);
       return data;
     },

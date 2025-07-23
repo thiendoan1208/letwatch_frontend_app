@@ -34,7 +34,7 @@ function ContributeFrom() {
     userID: user.id,
     type: "",
     description: "",
-    status: "in_progress",
+    status: "In Progress",
   });
 
   const { mutate: contributeFormSendMutate } = useMutation({

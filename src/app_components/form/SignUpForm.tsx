@@ -230,6 +230,11 @@ function SignUpForm() {
                 type={isCheck ? "text" : "password"}
                 name="re_password"
                 value={form.re_password}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    sendValidateCode();
+                  }
+                }}
                 onChange={handleChange}
                 required
                 autoComplete="true"

@@ -28,32 +28,36 @@ function WatchFilm() {
 
   const { data: film, isPending: isFilmLoading } = useQuery({
     queryKey: ["film-info", filmSlug],
-    queryFn: async () => {
-      return await getFilmInfo(filmSlug);
+    queryFn: async ({ signal }) => {
+      return await getFilmInfo(filmSlug, signal);
     },
     staleTime: 60 * 60 * 1000,
   });
 
   const { data: filmEpisode } = useQuery({
     queryKey: ["film-episode", episodeSlug, serverSlug],
-    queryFn: async () => {
-      return await getFilmEpisode(filmSlug, episodeSlug, serverSlug);
+    queryFn: async ({ signal }) => {
+      return await getFilmEpisode(filmSlug, episodeSlug, serverSlug, signal);
     },
   });
 
   const { data: filmSuggest } = useQuery({
     queryKey: ["film-suggest", film?.data.movie.category[0].slug],
-    queryFn: async () => {
+    queryFn: async ({ signal }) => {
       if (film) {
-        return await getFilmListSortByType(film!.data.movie.category[0].slug, {
-          page: 1,
-          sort_type: "",
-          sort_lang: "",
-          category: "",
-          country: "",
-          year: "",
-          limit: String(FILM_SUGGEST_LIMIT),
-        });
+        return await getFilmListSortByType(
+          film!.data.movie.category[0].slug,
+          {
+            page: 1,
+            sort_type: "",
+            sort_lang: "",
+            category: "",
+            country: "",
+            year: "",
+            limit: String(FILM_SUGGEST_LIMIT),
+          },
+          signal
+        );
       } else {
         return {
           success: false,

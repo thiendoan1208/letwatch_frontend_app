@@ -27,8 +27,8 @@ function MainDisplay() {
     isFetching,
   } = useQuery({
     queryKey: ["film-list", page],
-    queryFn: async () => {
-      return getNewFilmList(page, PAGE_LIMIT);
+    queryFn: async ({ signal }) => {
+      return getNewFilmList(page, PAGE_LIMIT, signal);
     },
   });
 

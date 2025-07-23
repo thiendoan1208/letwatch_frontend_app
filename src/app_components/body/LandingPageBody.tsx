@@ -66,7 +66,7 @@ function LandingPageBody() {
           </div>
         </div>
         <div className="flex flex-col gap-4 md:gap-3">
-          <div className="">
+          <div>
             <h1 className="text-3xl md:text-6xl font-bold text-yellow-400 font-(family-name:--font-poppins) md:leading-20">
               Một danh sách kiểm soát tất cả.
             </h1>
@@ -151,7 +151,7 @@ function LandingPageBody() {
             </h1>
           </div>
         </div>
-        <div className="">
+        <div>
           <p className="text-justify text-lg">
             Bước vào thế giới phim ảnh cực chất – nơi mỗi bộ phim là một hành
             trình mới để bạn khám phá cảm xúc, cười sảng khoái, thả hồn theo

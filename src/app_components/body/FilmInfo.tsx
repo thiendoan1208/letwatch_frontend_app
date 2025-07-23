@@ -36,8 +36,8 @@ function FilmInfo() {
 
   const { data: film, isPending: isFilmLoading } = useQuery({
     queryKey: ["film-info", filmSlug],
-    queryFn: async () => {
-      return await getFilmInfo(filmSlug);
+    queryFn: async ({ signal }) => {
+      return await getFilmInfo(filmSlug, signal);
     },
     staleTime: 60 * 60 * 1000,
   });

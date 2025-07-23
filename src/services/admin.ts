@@ -8,13 +8,15 @@ import { ResponseNoti } from "@/types/auth_type";
 
 const handleGetAllUser = (
   limit: number,
-  page: number
+  page: number,
+  signal?: AbortSignal
 ): Promise<UserResponse> => {
   return axios.get("/admin/users", {
     params: {
       limit: limit,
       page: page,
     },
+    signal,
   });
 };
 
@@ -28,8 +30,10 @@ const handleDeleteUser = (deleteInfo: string[]): Promise<ResponseNoti> => {
   });
 };
 
-const handleGetAllContributeForm = (): Promise<ContributeResponse> => {
-  return axios.get("/admin/get-all-contribute-form");
+const handleGetAllContributeForm = (
+  signal?: AbortSignal
+): Promise<ContributeResponse> => {
+  return axios.get("/admin/contribute-form", { signal });
 };
 
 const handleUpdateContributeForm = (
@@ -38,7 +42,7 @@ const handleUpdateContributeForm = (
     status: string;
   }[]
 ): Promise<ResponseNoti> => {
-  return axios.post("/admin/update-contribute-forms", contributeForms);
+  return axios.post("/admin/contribute-form/update", contributeForms);
 };
 
 const handleDeleteContributeForm = (

@@ -66,7 +66,7 @@ function LandingPageNav() {
 
   const { data: filmType } = useQuery({
     queryKey: ["film-types"],
-    queryFn: async () => await getFilmType(),
+    queryFn: async ({ signal }) => await getFilmType(signal),
     staleTime: 60 * 60 * 1000,
   });
 
@@ -79,13 +79,13 @@ function LandingPageNav() {
   const handleNavigateResultPage = (e: { code: string }) => {
     if (e.code === "Enter") {
       start();
-      router.push(`/watch/search?keyword=${searchKeyword}`);
+      router.push(`/watch/tim-kiem?keyword=${searchKeyword}`);
     }
   };
 
   const { data: userData, isPending: isUserPending } = useQuery({
     queryKey: ["me"],
-    queryFn: async () => await getUserInfo(),
+    queryFn: async ({ signal }) => await getUserInfo(signal),
     retry: false,
   });
 
@@ -177,7 +177,7 @@ function LandingPageNav() {
                     </ul>
                     <div>
                       {!filmType && (
-                        <div className="">
+                        <div>
                           <h1>Không thể lấy danh sách thể loại phim</h1>
                         </div>
                       )}
@@ -388,7 +388,7 @@ function LandingPageNav() {
                 </div>
                 <div>
                   {!filmType && (
-                    <div className="">
+                    <div>
                       <h1>Không thể lấy danh sách thể loại phim</h1>
                     </div>
                   )}

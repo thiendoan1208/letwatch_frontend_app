@@ -32,9 +32,9 @@ function WatchListPage() {
     refetch: isRefetchWatchList,
   } = useQuery({
     queryKey: ["film-in-watchlist", user.id],
-    queryFn: async () => {
+    queryFn: async ({ signal }) => {
       if (user.id !== 0) {
-        return await handleGetFilmFromWatchList(user.id);
+        return await handleGetFilmFromWatchList(user.id, signal);
       }
       return null;
     },

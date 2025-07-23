@@ -21,8 +21,8 @@ const handleSignIn = (userInfo: SignIn): Promise<LoginRespone> => {
   return axios.post("/auth/sign-in", userInfo);
 };
 
-const getUserInfo = (): Promise<LoginRespone> => {
-  return axios.get("/me");
+const getUserInfo = (signal?: AbortSignal): Promise<LoginRespone> => {
+  return axios.get("/me", { signal });
 };
 
 const handleSignOut = (): Promise<ResponseNoti> => {
@@ -36,7 +36,7 @@ const handleRefreshToken = (): Promise<ResponseNoti> => {
 const handleCheckRecoverCode = (
   recoverForm: SignUp
 ): Promise<VerifyResponseNoti> => {
-  return axios.post("/auth/check-recover-code", recoverForm);
+  return axios.post("/auth/recover-code/check", recoverForm);
 };
 
 const handleUpdatePassword = (newPasswordForm: {

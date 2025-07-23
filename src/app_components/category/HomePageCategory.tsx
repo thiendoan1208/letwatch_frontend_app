@@ -21,39 +21,31 @@ function HomePageCategory() {
     queries: [
       {
         queryKey: ["new-film-list", 1],
-        queryFn: async () => {
-          return await getNewFilmList(1, PAGE_LIMIT);
-        },
+        queryFn: ({ signal }) => getNewFilmList(1, PAGE_LIMIT, signal),
       },
       {
         queryKey: ["film-list-by-type-phim-bo", 1],
-        queryFn: async () => {
-          return await getFilmListByCategory("phim-bo", 1);
-        },
+        queryFn: ({ signal }) => getFilmListByCategory("phim-bo", 1, signal),
       },
       {
         queryKey: ["film-list-by-type-phim-le", 1],
-        queryFn: async () => {
-          return await getFilmListByCategory("phim-le", 1);
-        },
+        queryFn: ({ signal }) => getFilmListByCategory("phim-le", 1, signal),
       },
       {
         queryKey: ["film-list-by-type-phim-long-tieng", 1],
-        queryFn: async () => {
-          return await getFilmListByCategory("phim-long-tieng", 1);
-        },
+        queryFn: ({ signal }) =>
+          getFilmListByCategory("phim-long-tieng", 1, signal),
       },
       {
         queryKey: ["film-list-by-type-phim-thuyet-minh", 1],
-        queryFn: async () => {
-          return await getFilmListByCategory("phim-thuyet-minh", 1);
-        },
+        queryFn: ({ signal }) =>
+          getFilmListByCategory("phim-thuyet-minh", 1, signal),
       },
       {
         queryKey: ["random-film-list", randomNumber],
-        queryFn: async () => {
+        queryFn: ({ signal }) => {
           if (randomNumber) {
-            return await getNewFilmList(randomNumber, PAGE_LIMIT);
+            return getNewFilmList(randomNumber, PAGE_LIMIT, signal);
           }
         },
       },

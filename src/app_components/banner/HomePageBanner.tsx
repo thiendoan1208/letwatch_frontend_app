@@ -14,7 +14,7 @@ function HomePageBanner() {
   // get user info
   const { isPending: isUserPending } = useQuery({
     queryKey: ["me"],
-    queryFn: async () => await getUserInfo(),
+    queryFn: async ({ signal }) => await getUserInfo(signal),
     retry: false,
   });
 

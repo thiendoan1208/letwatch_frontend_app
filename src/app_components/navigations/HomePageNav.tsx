@@ -92,12 +92,12 @@ function HomePageNav() {
   const handleNavigateResultPage = (e: { code: string }) => {
     if (e.code === "Enter") {
       start();
-      router.push(`/watch/search?keyword=${searchKeyword}`);
+      router.push(`/watch/tim-kiem?keyword=${searchKeyword}`);
     }
   };
 
   useEffect(() => {
-    if (pathname !== "/watch/search") {
+    if (pathname !== "/watch/tim-kiem") {
       setSearchKeyword("");
     }
   }, [pathname]);
@@ -128,7 +128,7 @@ function HomePageNav() {
   // get user info
   const { data: userData, isPending: isUserPending } = useQuery({
     queryKey: ["me"],
-    queryFn: async () => await getUserInfo(),
+    queryFn: async ({ signal }) => await getUserInfo(signal),
     retry: false,
   });
 
@@ -226,7 +226,7 @@ function HomePageNav() {
                   toast.error("Vui lòng đăng nhập để sử dụng tính năng này.");
                 } else {
                   start();
-                  router.push("/watch/watchlist");
+                  router.push("/watch/danh-sach-xem");
                 }
               }}
             />

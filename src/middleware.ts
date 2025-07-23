@@ -3,7 +3,7 @@ import { jwtVerify } from "jose";
 
 // const privatePath = [];
 const authPath = ["/sign-in", "/sign-up", "/recover"];
-const privatePath = ["/watch/watchlist"];
+const privatePath = ["/watch/danh-sach-xem"];
 const adminPath = ["/admin"];
 
 const secret = new TextEncoder().encode(process.env.JWT_SECRET);
@@ -52,7 +52,7 @@ export const config = {
     "/sign-in",
     "/sign-up",
     "/recover",
-    "/watch/watchlist",
+    "/watch/danh-sach-xem",
     "/admin/:path*",
   ],
 };

@@ -76,13 +76,13 @@ function MainFilterAndDisplay() {
 
   const { data: filmType } = useQuery({
     queryKey: ["film-types"],
-    queryFn: async () => await getFilmType(),
+    queryFn: async ({ signal }) => await getFilmType(signal),
     staleTime: 60 * 60 * 1000,
   });
 
   const { data: filmCountry } = useQuery({
     queryKey: ["film-countries"],
-    queryFn: async () => await getFilmCountry(),
+    queryFn: async ({ signal }) => await getFilmCountry(signal),
     staleTime: 60 * 60 * 1000,
   });
 
