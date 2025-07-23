@@ -34,10 +34,10 @@ function FilmListCarousel({ data, noti }: { data: FilmList; noti: string }) {
               data.data?.items.map((film, index) => (
                 <CarouselItem
                   key={`new-films-${index}`}
-                  className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6 select-none -mr-2.5 md:mr-0"
+                  className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6 select-none -mr-2.5 md:mr-0 text-white hover:text-yellow-500 transition-all"
                 >
                   <div className=" relative flex flex-col h-full justify-between">
-                    <div className=" group rounded-xl h-full overflow-hidden hover:border-2 hover:border-white">
+                    <div className=" group rounded-xl h-full overflow-hidden">
                       <Image
                         className="object-cover object-center w-full h-full"
                         src={film.poster_url}
@@ -48,7 +48,7 @@ function FilmListCarousel({ data, noti }: { data: FilmList; noti: string }) {
                       />
                       <Link
                         href={film.slug}
-                        className="absolute w-full h-full top-0 rounded-xl text-transparent select-none"
+                        className="absolute w-full h-full top-0 rounded-xl text-transparent select-none "
                       >
                         {film.name}
                       </Link>
@@ -56,7 +56,7 @@ function FilmListCarousel({ data, noti }: { data: FilmList; noti: string }) {
                     <div className="flex flex-col flex-nowrap cursor-default">
                       <HoverCard>
                         <HoverCardTrigger asChild>
-                          <h6 className="cursor-pointer mt-1 font-normal text-white text-ellipsis overflow-hidden whitespace-nowrap">
+                          <h6 className="cursor-pointer mt-1 font-normal  text-ellipsis overflow-hidden whitespace-nowrap">
                             {film.name}
                           </h6>
                         </HoverCardTrigger>
@@ -64,7 +64,7 @@ function FilmListCarousel({ data, noti }: { data: FilmList; noti: string }) {
                           <div>{film.name}</div>
                         </HoverCardContent>
                       </HoverCard>
-                      <p className="text-white/75">{film.year}</p>
+                      <p>{film.year}</p>
                     </div>
                   </div>
                 </CarouselItem>

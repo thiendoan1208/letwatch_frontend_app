@@ -40,10 +40,10 @@ function FilmTypeCarousel({
               data.data?.data.items.map((film, index) => (
                 <CarouselItem
                   key={`new-films-${index}`}
-                  className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6 select-none -mr-2.5 md:mr-0"
+                  className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6 select-none -mr-2.5 md:mr-0 text-white hover:text-yellow-500 transition-all"
                 >
                   <div className=" relative flex flex-col h-full justify-between">
-                    <div className=" rounded-xl h-full overflow-hidden  hover:border-2 hover:border-white">
+                    <div className=" rounded-xl h-full overflow-hidden">
                       <Image
                         className="object-cover object-center w-full h-full "
                         src={`${process.env.NEXT_PUBLIC_API_IMAGE_URL}/${film.poster_url}`}
@@ -62,7 +62,7 @@ function FilmTypeCarousel({
                     <div className="flex flex-col flex-nowrap cursor-default">
                       <HoverCard>
                         <HoverCardTrigger asChild>
-                          <h6 className="cursor-pointer mt-1 font-normal text-white text-ellipsis overflow-hidden whitespace-nowrap">
+                          <h6 className="cursor-pointer mt-1 font-normal  text-ellipsis overflow-hidden whitespace-nowrap">
                             {film.name}
                           </h6>
                         </HoverCardTrigger>
@@ -70,7 +70,7 @@ function FilmTypeCarousel({
                           <div>{film.name}</div>
                         </HoverCardContent>
                       </HoverCard>
-                      <p className="text-white/75">{film.year}</p>
+                      <p>{film.year}</p>
                     </div>
                   </div>
                 </CarouselItem>
