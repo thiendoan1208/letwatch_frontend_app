@@ -25,6 +25,7 @@ import ReactPaginate from "react-paginate";
 
 const PAGE_LIMIT = 10;
 function UserManagePage() {
+  // useState
   const tableBodyRef = useRef<HTMLTableSectionElement>(null);
   const [userList, setUserList] = useState<User[]>();
   const [deleteItems, setDeleteItems] = useState<string[]>([]);
@@ -33,6 +34,9 @@ function UserManagePage() {
   const [page, setPage] = useState<number>(1);
   const [isShowPaginate, setisShowPaginate] = useState(true);
 
+  // Fetch data with useQuery
+
+  /* Get all users */
   const { data: userResponse, refetch: isUserRefetch } = useQuery({
     queryKey: ["get-all-user", page],
     queryFn: async ({ signal }) => {
@@ -42,6 +46,7 @@ function UserManagePage() {
     },
   });
 
+  // Delete user array manage
   const handleDeleteUserArr = (userEmail: string) => {
     const checkUserExist = deleteItems.some((user) => user === userEmail);
 
@@ -60,6 +65,7 @@ function UserManagePage() {
     }
   };
 
+  // Toggle click trash icon
   const isClickTrash = (
     userEmail: string,
     tableRowIndex: number,
@@ -78,6 +84,7 @@ function UserManagePage() {
     }
   };
 
+  // Delete user mutate
   const { mutate: deleteUserMutate } = useMutation({
     mutationFn: handleDeleteUser,
     onSuccess: (data) => {
@@ -95,16 +102,19 @@ function UserManagePage() {
     },
   });
 
+  // Input find user
   const handleFindUserInput = (e: ChangeEvent<HTMLInputElement>) => {
     setFindUserKeyWord(e.target.value);
   };
 
+  // Enter to find user
   const enterToFind = (e: { key: string }) => {
     if (e.key === "Enter") {
       findUserMutate(findUserKeyWord);
     }
   };
 
+  // Find user Mutate
   const { mutate: findUserMutate } = useMutation({
     mutationFn: handleFindUser,
     onSuccess: (data) => {
@@ -119,6 +129,7 @@ function UserManagePage() {
     },
   });
 
+  // Table pagination
   const handlePagination = async (e: { selected: number }) => {
     setPage(e.selected + 1);
     try {

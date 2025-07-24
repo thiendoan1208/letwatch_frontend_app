@@ -57,25 +57,37 @@ import ReviewForm from "@/app_components/form/ContributeForm";
 import { useProgress } from "@bprogress/next";
 
 function LandingPageNav() {
+  // BProgress
   const { start } = useProgress();
+
+  // Query client
   const queryClient = useQueryClient();
+
+  // Routes manages
   const router = useRouter();
+
+  // useContext
   const { user, login } = React.useContext(UserContext);
+
+  // useState
   const [isDropDownActive, setIsDropDownActive] =
     React.useState<boolean>(false);
 
+  const [searchKeyword, setSearchKeyword] = React.useState<string>("");
+
+  // Get all film types
   const { data: filmType } = useQuery({
     queryKey: ["film-types"],
     queryFn: async ({ signal }) => await getFilmType(signal),
     staleTime: 60 * 60 * 1000,
   });
 
-  const [searchKeyword, setSearchKeyword] = React.useState<string>("");
-
+  // Input search keyword
   const setSearchResult = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchKeyword(e.target.value);
   };
 
+  // Navigate to result page
   const handleNavigateResultPage = (e: { code: string }) => {
     if (e.code === "Enter") {
       start();
@@ -83,12 +95,14 @@ function LandingPageNav() {
     }
   };
 
-  const { data: userData, isPending: isUserPending } = useQuery({
+  // Get user info
+  const { data: userData } = useQuery({
     queryKey: ["me"],
     queryFn: async ({ signal }) => await getUserInfo(signal),
     retry: false,
   });
 
+  // Get refresh token
   const { mutate: refreshTokenMutate } = useMutation({
     mutationFn: handleRefreshToken,
     onSuccess: () => {
@@ -96,6 +110,7 @@ function LandingPageNav() {
     },
   });
 
+  // Refresh token
   React.useEffect(() => {
     if (userData && userData.success) {
       login(userData.data);
@@ -104,6 +119,7 @@ function LandingPageNav() {
     }
   }, [login, userData, user, refreshTokenMutate]);
 
+  // Sign out
   const { mutate: signOutMutate } = useMutation({
     mutationFn: handleSignOut,
     onSuccess: (data) => {
@@ -305,22 +321,20 @@ function LandingPageNav() {
               </div>
             ) : (
               <>
-                {!isUserPending && (
-                  <div className={`${isUserPending ? "hidden" : "block"}`}>
-                    <Link
-                      className="mx-4 font-semibold  text-white/80 hover:text-white hover:underline transition-all"
-                      href="/sign-in"
-                    >
-                      Đăng Nhập
-                    </Link>
-                    <Link
-                      className="mx-4 font-semibold shadow-2xl text-black/75 bg-yellow-500 px-8 py-1 rounded-md hover:text-black/50"
-                      href="/sign-up"
-                    >
-                      Đăng Ký
-                    </Link>
-                  </div>
-                )}
+                <div className={`${user.email === "" ? "hidden" : "block"}`}>
+                  <Link
+                    className="mx-4 font-semibold  text-white/80 hover:text-white hover:underline transition-all"
+                    href="/sign-in"
+                  >
+                    Đăng Nhập
+                  </Link>
+                  <Link
+                    className="mx-4 font-semibold shadow-2xl text-black/75 bg-yellow-500 px-8 py-1 rounded-md hover:text-black/50"
+                    href="/sign-up"
+                  >
+                    Đăng Ký
+                  </Link>
+                </div>
               </>
             )}
           </div>

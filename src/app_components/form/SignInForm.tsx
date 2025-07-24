@@ -43,13 +43,18 @@ import { ChangeEvent, useContext, useState } from "react";
 import { toast } from "sonner";
 
 function SignInForm() {
+  // routes manage
   const router = useRouter();
+
+  // useContext
+  const { login } = useContext(UserContext);
+
+  // useState
   const [isCheck, setIsCheck] = useState<boolean>(false);
   const [form, setForm] = useState<SignIn>({
     email_username: "",
     password: "",
   });
-
   const [recoverInfo, setRecoverInfo] = useState<SignUp>({
     email: "",
     username: "",
@@ -59,8 +64,7 @@ function SignInForm() {
   });
   const [verifyCode, setVerifyCode] = useState<string>("");
 
-  const { login } = useContext(UserContext);
-
+  // SignIn mutate
   const { mutate: signInMutate } = useMutation({
     mutationFn: handleSignIn,
     onSuccess: (data) => {
@@ -77,6 +81,7 @@ function SignInForm() {
     },
   });
 
+  // Send code when forget passsword
   const { mutate: sendCodeMutate } = useMutation({
     mutationFn: handleSendVerfyCode,
     onSuccess: () => {
@@ -87,6 +92,7 @@ function SignInForm() {
     },
   });
 
+  // Check recover code
   const { mutate: recoverMutate } = useMutation({
     mutationFn: handleCheckRecoverCode,
     onSuccess: (data) => {
@@ -102,6 +108,7 @@ function SignInForm() {
     },
   });
 
+  // text <-> password toggle
   const handleCheckEye = () => {
     if (isCheck) {
       setIsCheck(false);
@@ -110,14 +117,17 @@ function SignInForm() {
     }
   };
 
+  // Input field change manage
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  // Input email to verify manage
   const handleVerifyInfoChange = (e: ChangeEvent<HTMLInputElement>) => {
     setRecoverInfo({ ...recoverInfo, [e.target.name]: e.target.value });
   };
 
+  // Sign ins
   const submitForm = () => {
     signInMutate(form);
   };

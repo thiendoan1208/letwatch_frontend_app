@@ -8,8 +8,10 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 function SearchResult() {
+  // params manage
   const keyword = useSearchParams().get("keyword");
 
+  // Get film by keywords
   const { data: searchResult, isPending } = useQuery({
     queryKey: ["seacrch-keyword", keyword],
     queryFn: async ({ signal }) => {
@@ -36,7 +38,7 @@ function SearchResult() {
                   <Link
                     href={`/watch/${film.slug}`}
                     key={`search-result-${index}`}
-                    className="flex flex-col justify-between"
+                    className="flex flex-col justify-between relative"
                   >
                     <div className="w-full h-full">
                       <Image
@@ -49,8 +51,13 @@ function SearchResult() {
                     </div>
                     <div className="mt-1">
                       <h1 className="line-clamp-1">{film.name}</h1>
-                      <h6>{film.year}</h6>
+                      <p className="line-clamp-1 text-sm text-gray-500 font-semibold">
+                        {film.origin_name}
+                      </p>
                     </div>
+                    <h6 className="absolute right-1.5 top-1.5 bg-yellow-500 px-2 rounded-md font-semibold">
+                      {film.year}
+                    </h6>
                   </Link>
                 ))}
             </div>

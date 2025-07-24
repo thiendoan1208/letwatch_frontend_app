@@ -45,11 +45,18 @@ import { cloneDeep } from "lodash";
 const PAGE_LIMIT = "24";
 
 function MainFilterAndDisplay() {
+  // URL, pathname, params manage
   const pathname = usePathname();
   const path = pathname.split("/");
-  const [page, setPage] = React.useState(1);
 
+  // useState
+  const [page, setPage] = React.useState(1);
   const [pagePathName] = React.useState(path[path.length - 1]);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const [filmListData, setFilmListData] = React.useState<FilmListType | null>(
+    null
+  );
+
   const [sortPhimList, setSortFilmList] = React.useState({
     page: 1,
     sort_type: "",
@@ -59,6 +66,7 @@ function MainFilterAndDisplay() {
     year: "",
     limit: PAGE_LIMIT,
   });
+
   const [saveSortFilmList, setSaveSortFilmList] = React.useState({
     page: 1,
     sort_type: "",
@@ -69,23 +77,21 @@ function MainFilterAndDisplay() {
     limit: PAGE_LIMIT,
   });
 
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [filmListData, setFilmListData] = React.useState<FilmListType | null>(
-    null
-  );
-
+  // Get all film types
   const { data: filmType } = useQuery({
     queryKey: ["film-types"],
     queryFn: async ({ signal }) => await getFilmType(signal),
     staleTime: 60 * 60 * 1000,
   });
 
+  // Get all film types
   const { data: filmCountry } = useQuery({
     queryKey: ["film-countries"],
     queryFn: async ({ signal }) => await getFilmCountry(signal),
     staleTime: 60 * 60 * 1000,
   });
 
+  // Handle sort input change
   const handleSortChange = (value: string) => {
     setSortFilmList({
       ...sortPhimList,
@@ -117,10 +123,12 @@ function MainFilterAndDisplay() {
     });
   };
 
+  // Refetch when pagnate
   React.useEffect(() => {
     submitPaginationInfo();
   }, [page]);
 
+  // Submit sort info
   const submitSortInfo = async () => {
     try {
       setIsLoading(true);
@@ -138,6 +146,7 @@ function MainFilterAndDisplay() {
     }
   };
 
+  // Get all film page
   const submitPaginationInfo = async () => {
     try {
       setIsLoading(true);
@@ -153,6 +162,7 @@ function MainFilterAndDisplay() {
     }
   };
 
+  // Paginate film page
   const handlePagination = (e: { selected: number }) => {
     const cloneArr = cloneDeep(saveSortFilmList);
     cloneArr.page = e.selected + 1;

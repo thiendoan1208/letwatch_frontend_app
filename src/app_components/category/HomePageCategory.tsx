@@ -15,8 +15,10 @@ const MIN_PAGE = 1;
 const PAGE_LIMIT = "10";
 
 function HomePageCategory() {
+  // useState
   const [randomNumber, setRandomNumber] = useState<number>(10);
 
+  // Get all necessary film list to display
   const results = useQueries({
     queries: [
       {
@@ -48,10 +50,12 @@ function HomePageCategory() {
             return getNewFilmList(randomNumber, PAGE_LIMIT, signal);
           }
         },
+        staleTime: 5 * 60 * 1000,
       },
     ],
   });
 
+  // Queries data
   const [
     newFilmList,
     filmListByTypePhimBo,
@@ -61,6 +65,7 @@ function HomePageCategory() {
     randomFilmList,
   ] = results;
 
+  // Film sections
   const filmSections = [
     {
       title: "Phim Lẻ",
@@ -84,6 +89,7 @@ function HomePageCategory() {
     },
   ];
 
+  // Get random film page
   const randomFilmPage = () => {
     const number = Math.floor(
       Math.random() * (MAX_PAGE - MIN_PAGE + 1) + MIN_PAGE

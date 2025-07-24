@@ -13,6 +13,7 @@ import Link from "next/link";
 const PAGE_LIMIT = "24";
 
 function LandingPageSlider() {
+  // Get new films
   const {
     data: filmList,
     error: filmListError,

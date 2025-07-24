@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 
 function DiscoverPageCateGory() {
+  // Get all film type
   const { data: filmType } = useQuery({
     queryKey: ["film-types"],
     queryFn: async ({ signal }) => await getFilmType(signal),

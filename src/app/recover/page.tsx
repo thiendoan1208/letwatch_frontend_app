@@ -18,11 +18,14 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 function RecoverPage() {
+  // Mange URL information and routes
   const userEmail = useSearchParams().get("email");
   const router = useRouter();
 
+  // useState
   const [newPassword, setNewPassword] = useState<string>("");
 
+  // Validate function
   const validate = () => {
     const regexCheckSpace = /^(?!.*\s).+$/;
 
@@ -39,6 +42,7 @@ function RecoverPage() {
     return true;
   };
 
+  // Update password mutate
   const { mutate: updatePasswordMutate } = useMutation({
     mutationFn: handleUpdatePassword,
     onSuccess: (data) => {

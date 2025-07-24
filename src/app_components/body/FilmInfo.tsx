@@ -24,16 +24,20 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 function FilmInfo() {
+  // URL, route, params manage
   const pathname = usePathname();
   const pathSplit = pathname.split("/");
   const filmSlug = pathSplit[pathSplit.length - 1];
 
+  // useContext
   const { user } = useContext(UserContext);
 
+  // useState
   const [isLineClamp, setIsLineClamp] = useState(false);
   const [isExpand, setIsExpand] = useState(false);
   const [mainColor, setMainColor] = useState("");
 
+  // Get film info
   const { data: film, isPending: isFilmLoading } = useQuery({
     queryKey: ["film-info", filmSlug],
     queryFn: async ({ signal }) => {
@@ -45,6 +49,7 @@ function FilmInfo() {
   // Show more, show less
   const contentRef = useRef<HTMLHeadingElement>(null);
 
+  // Get film poster main color
   useEffect(() => {
     getMainColor();
 
@@ -65,6 +70,7 @@ function FilmInfo() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [film?.data.movie.content]);
 
+  // Display content with lineclamp toggle
   const displayContent = () => {
     if (
       contentRef.current &&
@@ -76,7 +82,7 @@ function FilmInfo() {
     }
   };
 
-  // copy clipboard
+  // Copy clipboard
   async function copyTextToClipboard(text: string) {
     try {
       await navigator.clipboard.writeText(text);
@@ -103,7 +109,7 @@ function FilmInfo() {
     }
   };
 
-  // Add film to watchlist
+  // Add film to watchlist mutate
   const { mutate: addToWatchListMutate } = useMutation({
     mutationFn: handleAddFilmToWatchist,
     onSuccess: (data) => {
@@ -118,6 +124,7 @@ function FilmInfo() {
     },
   });
 
+  // Add film to watchlist check if film exist
   const addFilmToWatchList = (film: FilmInfoData) => {
     if (film && film.data.movie) {
       const filmWatchList: WatchItemInfo = {

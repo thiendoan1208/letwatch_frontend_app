@@ -4,7 +4,6 @@ function WatchFilmPage() {
   return (
     <div className="min-h-screen">
       <div className="pt-20 text-white">
-        {/* Main Collapse Menu Film Filter */}
         <div>
           <WatchFilm />
         </div>

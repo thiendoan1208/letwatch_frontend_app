@@ -29,6 +29,7 @@ const menuItems = [
 ];
 
 function HomePageSubNav() {
+  // pathname manage
   const pathname = usePathname();
 
   return (

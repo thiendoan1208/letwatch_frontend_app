@@ -36,10 +36,15 @@ export default function RootLayout({
             "linear-gradient(90deg, hsla(0, 4%, 10%, 1) 0%, hsla(0, 4%, 14%, 1) 54%, hsla(0, 1%, 20%, 1) 100%)",
         }}
       >
+        {/* BProgress provider */}
         <Providers>
+          {/* User context provider*/}
           <UserProvider>
+            {/* Tanstack query provider */}
             <QueryProvider>
               <div>{children}</div>
+
+              {/* Sooner from ShadCN */}
               <Toaster richColors duration={3500} position="top-right" />
             </QueryProvider>
           </UserProvider>

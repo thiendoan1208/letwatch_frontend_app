@@ -20,12 +20,14 @@ import ErrorMessage from "@/app_components/error/ErrorMesage";
 const FILM_SUGGEST_LIMIT = 6;
 
 function WatchFilm() {
+  // URL, route, params manage
   const pathname = usePathname();
   const pathSplit = pathname.split("/");
   const serverSlug = useSearchParams().get("server");
   const filmSlug = pathSplit[pathSplit.length - 2];
   const episodeSlug = pathSplit[pathSplit.length - 1];
 
+  // Get film info
   const { data: film, isPending: isFilmLoading } = useQuery({
     queryKey: ["film-info", filmSlug],
     queryFn: async ({ signal }) => {
@@ -34,6 +36,7 @@ function WatchFilm() {
     staleTime: 60 * 60 * 1000,
   });
 
+  // Get specific film episode
   const { data: filmEpisode } = useQuery({
     queryKey: ["film-episode", episodeSlug, serverSlug],
     queryFn: async ({ signal }) => {
@@ -41,6 +44,7 @@ function WatchFilm() {
     },
   });
 
+  // Get film suggest with similar film type
   const { data: filmSuggest } = useQuery({
     queryKey: ["film-suggest", film?.data.movie.category[0].slug],
     queryFn: async ({ signal }) => {

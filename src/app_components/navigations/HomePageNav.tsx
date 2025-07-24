@@ -74,21 +74,30 @@ const menuItems = [
 ];
 
 function HomePageNav() {
+  // useProgress from BProgress
   const { start } = useProgress();
+
+  // queryClient
   const queryClient = useQueryClient();
+
+  // useContext
   const { user, login } = useContext(UserContext);
 
+  // URL, pathname, route manage
   const pathname = usePathname();
   const router = useRouter();
 
+  // useState
   const [isActive, setIsActive] = useState<boolean>(false);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const [isDropDownActive, setIsDropDownActive] = useState<boolean>(false);
 
+  // Search keyword input change
   const setSearchResult = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchKeyword(e.target.value);
   };
 
+  // Navigate to find film page
   const handleNavigateResultPage = (e: { code: string }) => {
     if (e.code === "Enter") {
       start();
@@ -96,12 +105,14 @@ function HomePageNav() {
     }
   };
 
+  // Delete search result
   useEffect(() => {
     if (pathname !== "/watch/tim-kiem") {
       setSearchKeyword("");
     }
   }, [pathname]);
 
+  // Toggle display input manage with smaller device
   const displayInput = () => {
     setIsActive(true);
   };
@@ -110,7 +121,7 @@ function HomePageNav() {
     setIsActive(false);
   });
 
-  //  sign out
+  //  Sign out
   const { mutate: signOutMutate } = useMutation({
     mutationFn: handleSignOut,
     onSuccess: (data) => {
@@ -125,13 +136,14 @@ function HomePageNav() {
     },
   });
 
-  // get user info
-  const { data: userData, isPending: isUserPending } = useQuery({
+  // Get user info
+  const { data: userData } = useQuery({
     queryKey: ["me"],
     queryFn: async ({ signal }) => await getUserInfo(signal),
     retry: false,
   });
 
+  // Get refresh token
   const { mutate: refreshTokenMutate } = useMutation({
     mutationFn: handleRefreshToken,
     onSuccess: () => {
@@ -139,6 +151,7 @@ function HomePageNav() {
     },
   });
 
+  // Refresh token
   useEffect(() => {
     if (userData && userData.success) {
       login(userData.data);
@@ -315,21 +328,19 @@ function HomePageNav() {
             </div>
           ) : (
             <>
-              {!isUserPending && (
-                <div
-                  className={`relative ${
-                    isUserPending ? "hidden" : "flex"
-                  } items-center justify-center gap-2 text-white bg-black/10 hover:bg-black/20 px-4 py-2 rounded-3xl cursor-pointer transition-all font-semibold`}
+              <div
+                className={`relative ${
+                  user.email === "" ? "hidden" : "flex"
+                } items-center justify-center gap-2 text-white bg-black/10 hover:bg-black/20 px-4 py-2 rounded-3xl cursor-pointer transition-all font-semibold`}
+              >
+                <h2 className="text-nowrap">Đăng nhập</h2>
+                <Link
+                  href="/sign-in"
+                  className="absolute w-full h-full text-transparent select-none"
                 >
-                  <h2 className="text-nowrap">Đăng nhập</h2>
-                  <Link
-                    href="/sign-in"
-                    className="absolute w-full h-full text-transparent select-none"
-                  >
-                    Sign In
-                  </Link>
-                </div>
-              )}
+                  Sign In
+                </Link>
+              </div>
             </>
           )}
         </div>

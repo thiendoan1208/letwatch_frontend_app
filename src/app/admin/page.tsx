@@ -46,6 +46,7 @@ const PAGE_LIMIT = "10";
 const NEW_FILM_PAGE_LIMIT = "24";
 
 function AdminPage() {
+  // useState
   const [isFormManage, setIsFormManage] = useState<boolean>(false);
   const [formStatus, setFormStatus] = useState<
     {
@@ -59,6 +60,7 @@ function AdminPage() {
     },
   ]);
 
+  // Fetch users, contribute form, film list with useQuery
   const results = useQueries({
     queries: [
       {
@@ -91,6 +93,10 @@ function AdminPage() {
     ],
   });
 
+  // useQueries result
+  const [allUser, allFilms, allContributeForm] = results;
+
+  // Change status manage
   const handleStatusChange = (formID: number, value: string) => {
     const cloneFormStatus = cloneDeep(formStatus);
     const findStatusForm = cloneFormStatus.find(
@@ -110,14 +116,13 @@ function AdminPage() {
     }
   };
 
+  // Update contribute form status
   const { mutate: updateContributeFormMutate } = useMutation({
     mutationFn: handleUpdateContributeForm,
     onSuccess: () => {
       allContributeForm.refetch();
     },
   });
-
-  const [allUser, allFilms, allContributeForm] = results;
 
   return (
     <div className=" col-span-11 xl:col-span-10 ml-5 pr-2 max-h-screen overflow-y-auto">

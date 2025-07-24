@@ -21,11 +21,17 @@ import { Trash, Wrench } from "lucide-react";
 import { cloneDeep } from "lodash";
 import { toast } from "sonner";
 function WatchListPage() {
+  // useRef
   const filmRef = useRef<HTMLDivElement>(null);
+
+  // useContext
   const { user } = useContext(UserContext);
+
+  // useState
   const [isDeleteActive, setIsDeleteActive] = useState<boolean>(false);
   const [deleteItems, setDeleteItems] = useState<string[]>([]);
 
+  // Get all film in watchlist
   const {
     data: filmWatchListData,
     isLoading,
@@ -40,6 +46,7 @@ function WatchListPage() {
     },
   });
 
+  // Delete film from watch list array manage
   const handleDeleteFilms = (movieSlug: string) => {
     const checkExistFilm = deleteItems.some((movie) => movie === movieSlug);
 
@@ -58,6 +65,7 @@ function WatchListPage() {
     }
   };
 
+  // Toggle delete item
   const isCheckBoxFunc = (movieSlug: string, itemIndex: number) => {
     const checkExistFilm = deleteItems.some((movie) => movie === movieSlug);
     if (!checkExistFilm) {
@@ -77,7 +85,7 @@ function WatchListPage() {
     }
   };
 
-  // Delete film
+  // Delete film mutate
   const { mutate: deleteFilmMutate } = useMutation({
     mutationFn: handleDeleteFilmFromWatchList,
     onSuccess: (data) => {

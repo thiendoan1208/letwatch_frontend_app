@@ -6,7 +6,6 @@ function DiscoverPage() {
   return (
     <div className=" min-h-screen">
       <div className="pt-20 text-white">
-        {/* Main Collapse Menu Film Filter */}
         <div className="mx-4 lg:mx-16 ">
           <div>
             <h1 className="text-2xl font-bold">Danh Mục</h1>

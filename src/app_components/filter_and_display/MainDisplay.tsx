@@ -19,8 +19,10 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 const PAGE_LIMIT = "24";
 
 function MainDisplay() {
+  // useState
   const [page, setPage] = React.useState(1);
 
+  // Get all film list
   const {
     data: filmList,
     isPending: isFilmListLoading,
@@ -32,6 +34,7 @@ function MainDisplay() {
     },
   });
 
+  // Paginate
   const handlePagination = (e: { selected: number }) => {
     setPage(e.selected + 1);
   };

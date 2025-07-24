@@ -29,7 +29,10 @@ import { handleSendContributeForm } from "@/services/contribute";
 import { toast } from "sonner";
 
 function ContributeFrom() {
+  // useContext
   const { user } = useContext(UserContext);
+
+  // useState
   const [form, setForm] = useState<ContributeFormType>({
     userID: user.id,
     type: "",
@@ -37,6 +40,7 @@ function ContributeFrom() {
     status: "In Progress",
   });
 
+  // Send form mutate
   const { mutate: contributeFormSendMutate } = useMutation({
     mutationFn: handleSendContributeForm,
     onSuccess: (data) => {
@@ -51,6 +55,7 @@ function ContributeFrom() {
     },
   });
 
+  // Validate function
   const validate = () => {
     for (const [key, value] of Object.entries(form)) {
       if (key && !value) {

@@ -41,11 +41,18 @@ import { cloneDeep } from "lodash";
 const PAGE_LIMIT = "24";
 
 function FilmListTypeFilterAndDisplay() {
+  // URL, pathname, params manage
   const pathname = usePathname();
   const path = pathname.split("/");
   const [page, setPage] = React.useState(1);
 
+  // useState
   const [pagePathName] = React.useState(path[path.length - 1]);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const [filmListData, setFilmListData] = React.useState<FilmListType | null>(
+    null
+  );
+
   const [sortPhimList, setSortFilmList] = React.useState({
     page: 1,
     sort_type: "",
@@ -55,6 +62,7 @@ function FilmListTypeFilterAndDisplay() {
     year: "",
     limit: PAGE_LIMIT,
   });
+
   const [saveSortFilmList, setSaveSortFilmList] = React.useState({
     page: 1,
     sort_type: "",
@@ -65,17 +73,14 @@ function FilmListTypeFilterAndDisplay() {
     limit: PAGE_LIMIT,
   });
 
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [filmListData, setFilmListData] = React.useState<FilmListType | null>(
-    null
-  );
-
+  // Get all film countries
   const { data: filmCountry } = useQuery({
     queryKey: ["film-countries"],
     queryFn: async ({ signal }) => await getFilmCountry(signal),
     staleTime: 60 * 60 * 1000,
   });
 
+  // Input sort field change
   const handleSortChange = (value: string) => {
     setSortFilmList({
       ...sortPhimList,
@@ -102,10 +107,12 @@ function FilmListTypeFilterAndDisplay() {
     });
   };
 
+  // Refetch page when paginate
   React.useEffect(() => {
     submitPaginationInfo();
   }, [page]);
 
+  // Submit sort info
   const submitSortInfo = async () => {
     try {
       setIsLoading(true);
@@ -123,6 +130,7 @@ function FilmListTypeFilterAndDisplay() {
     }
   };
 
+  // Get all film page
   const submitPaginationInfo = async () => {
     try {
       setIsLoading(true);
@@ -135,6 +143,7 @@ function FilmListTypeFilterAndDisplay() {
     }
   };
 
+  // Paginate film page
   const handlePagination = (e: { selected: number }) => {
     const cloneArr = cloneDeep(saveSortFilmList);
     cloneArr.page = e.selected + 1;

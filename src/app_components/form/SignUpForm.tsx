@@ -37,7 +37,10 @@ import { handleSendVerfyCode, handleSignUp } from "@/services/authen";
 import { useRouter } from "next/navigation";
 
 function SignUpForm() {
+  // Route manage
   const router = useRouter();
+ 
+  // useState
   const [isCheck, setIsCheck] = useState<boolean>(false);
   const [isDialogActive, setIsDialogActive] = useState(false);
   const [form, setForm] = useState<SignUp>({
@@ -49,6 +52,7 @@ function SignUpForm() {
   });
   const [verifyCode, setVerifyCode] = useState<string>("");
 
+  // Send verify code mutate
   const { mutate: sendCodeMutate } = useMutation({
     mutationFn: handleSendVerfyCode,
     onSuccess: () => {
@@ -59,6 +63,7 @@ function SignUpForm() {
     },
   });
 
+  // Sign up mutate
   const { mutate: signUpMutate } = useMutation({
     mutationFn: handleSignUp,
     onSuccess: (data) => {
@@ -76,6 +81,7 @@ function SignUpForm() {
     },
   });
 
+  // Toggle text <-> password
   const handleCheckEye = () => {
     if (isCheck) {
       setIsCheck(false);
@@ -84,10 +90,12 @@ function SignUpForm() {
     }
   };
 
+  // Input field manage
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  // Validate function
   const validateForm = () => {
     const regexCheckSpace = /^(?!.*\s).+$/;
     const regexEmail = /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/;
@@ -137,6 +145,7 @@ function SignUpForm() {
     return true;
   };
 
+  // Send code when pass validate func
   const sendValidateCode = () => {
     const isValidate = validateForm();
 
@@ -146,6 +155,7 @@ function SignUpForm() {
     }
   };
 
+  // Open code input dialog
   const submitForm = () => {
     setIsDialogActive(true);
     const isValidate = validateForm();

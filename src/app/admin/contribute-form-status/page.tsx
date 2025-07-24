@@ -35,16 +35,21 @@ import { cloneDeep } from "lodash";
 import { toast } from "sonner";
 
 function ContributeFormManagePage() {
+  // useState
   const [formID, setFormID] = useState<number[]>([]);
 
+  // Fetch data with useQuery
+
+  /* Get all contribute forms */
   const { data: allContributeForm, refetch: isContributeFormRefetch } =
     useQuery({
       queryKey: ["get-all-contribute-form"],
-      queryFn: async ({signal}) => {
+      queryFn: async ({ signal }) => {
         return await handleGetAllContributeForm(signal);
       },
     });
 
+  /* Manage contribute form */
   const handlePushFormID = (id: number) => {
     const checkID = formID.some((formid) => formid === id);
 
@@ -63,6 +68,7 @@ function ContributeFormManagePage() {
     }
   };
 
+  /* Delete contribute form mutate */
   const { mutate: deleteContributeFormMutate } = useMutation({
     mutationFn: handleDeleteContributeForm,
     onSuccess: (data) => {
@@ -85,6 +91,7 @@ function ContributeFormManagePage() {
       <div className="mt-5 mb-10">
         <h1 className="text-lg font-semibold">Contribute Form Status</h1>
 
+        {/* Delete manage button */}
         <div className={formID.length > 0 ? "flex justify-between" : "hidden"}>
           <div className="flex gap-2">
             Delete:{" "}
@@ -93,6 +100,15 @@ function ContributeFormManagePage() {
             ))}
           </div>
           <div>
+            <Button
+              variant="outline"
+              className="mr-2 cursor-pointer"
+              onClick={() => {
+                setFormID([]);
+              }}
+            >
+              Cancel
+            </Button>
             <Button
               className="bg-yellow-500"
               onClick={() => {
@@ -103,6 +119,8 @@ function ContributeFormManagePage() {
             </Button>
           </div>
         </div>
+
+        {/* Done status table */}
         <div className="mt-5">
           <h1 className="text-green-500 font-semibold">Done</h1>
           <Separator />
@@ -194,7 +212,7 @@ function ContributeFormManagePage() {
                         </TableCell>
                         <TableCell>
                           <Trash
-                            className="size-4 text-red-500"
+                            className="size-4 text-red-500 cursor-pointer"
                             onClick={() => {
                               handlePushFormID(form.id);
                             }}
@@ -207,6 +225,7 @@ function ContributeFormManagePage() {
           </div>
         </div>
 
+        {/* Reject status table */}
         <div className="mt-5">
           <h1 className="text-red-500 font-semibold">Reject</h1>
           <Separator />
