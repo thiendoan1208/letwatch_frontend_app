@@ -300,6 +300,7 @@ function FilmListTypeFilterAndDisplay() {
             <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5 md:gap-4 mt-4">
               {filmListData &&
                 filmListData.data &&
+                filmListData.data.data &&
                 filmListData.data.data.items !== null &&
                 filmListData.data.data.items.length > 0 &&
                 filmListData.data.data.items.map((film, index: number) => (
@@ -346,12 +347,20 @@ function FilmListTypeFilterAndDisplay() {
             <div>
               {filmListData &&
                 filmListData.data &&
+                filmListData.data.data &&
                 filmListData.data.data.items !== null &&
-                filmListData.data.data.items.length > 0 && (
+                filmListData.data.data.items.length <= 0 && (
                   <div>
                     <NoFilm />
                   </div>
                 )}
+            </div>
+            <div>
+              {filmListData && filmListData.data && !filmListData.data.data && (
+                <div>
+                  <ErrorMessage />
+                </div>
+              )}
             </div>
           </div>
         ) : (
@@ -368,6 +377,7 @@ function FilmListTypeFilterAndDisplay() {
       {/* Pagination */}
       {filmListData &&
         filmListData.success === true &&
+        filmListData.data.data &&
         filmListData?.data.data.items !== null &&
         filmListData?.data.data.items.length > 0 &&
         isLoading === false && (

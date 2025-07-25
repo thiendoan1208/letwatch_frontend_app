@@ -107,6 +107,8 @@ function WatchFilm() {
     playerRef.current = player;
   };
 
+  console.log(filmEpisode);
+
   return (
     <div>
       <div className="flex items-center justify-center mt-15 xl:mt-10 xl:mx-16">

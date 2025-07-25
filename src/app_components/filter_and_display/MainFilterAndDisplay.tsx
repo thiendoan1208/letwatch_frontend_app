@@ -331,7 +331,10 @@ function MainFilterAndDisplay() {
       {/* Display Result */}
       <div className="mt-10">
         <h1 className="text-xl font-semibold text-yellow-500">
-          Tổng hợp phim thuộc thể loại {filmListData?.data.data.titlePage}
+          Tổng hợp phim thuộc thể loại{" "}
+          {filmListData &&
+            filmListData.data !== null &&
+            filmListData?.data.data.titlePage}
         </h1>
       </div>
       <div className="mr-2 sm:mr-3 md:mr-0">

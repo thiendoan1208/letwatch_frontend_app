@@ -22,6 +22,7 @@ async function verify(token: string) {
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const accessToken = request.cookies.get("access_token")?.value;
+  const recoverEmail = request.cookies.get("recover-email")?.value;
 
   if (authPath.some((path) => path === pathname) && accessToken) {
     return NextResponse.redirect(new URL("/watch/trang-chu", request.url));
@@ -29,6 +30,10 @@ export async function middleware(request: NextRequest) {
 
   if (privatePath.some((path) => path === pathname) && !accessToken) {
     return NextResponse.redirect(new URL("/watch/trang-chu", request.url));
+  }
+
+  if (pathname === "/recover" && !recoverEmail && !accessToken) {
+    return NextResponse.redirect(new URL("/sign-in", request.url));
   }
 
   if (adminPath.some((path) => pathname.startsWith(path))) {
