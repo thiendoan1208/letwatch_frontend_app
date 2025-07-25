@@ -24,6 +24,7 @@ function SearchResult() {
       {!isPending &&
         searchResult &&
         searchResult.success &&
+        searchResult.data.data !== null &&
         searchResult.data.data.items !== null && (
           <div>
             <h1 className="text-xl text-yellow-500">
@@ -68,6 +69,7 @@ function SearchResult() {
         searchResult &&
         searchResult.data &&
         searchResult.success &&
+        searchResult.data.data !== null &&
         searchResult.data.data.items === null && (
           <div className="flex items-center justify-center mt-10">
             {!isPending && (

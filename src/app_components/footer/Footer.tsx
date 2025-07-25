@@ -45,10 +45,14 @@ function Footer() {
               <h1>thienmacro1234@gmail.com</h1>
             </div>
             <div className="flex gap-2">
-              <Link href="https://www.facebook.com/ddthien12" target="_blank">
+              <Link
+                className="flex gap-2"
+                href="https://www.facebook.com/ddthien12"
+                target="_blank"
+              >
                 <Facebook className="text-blue-500 cursor-pointer" />
+                <h1>Doan Thien</h1>
               </Link>
-              <h1>Doan Thien</h1>
             </div>
           </div>
         </div>

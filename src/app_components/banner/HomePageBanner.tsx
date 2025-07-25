@@ -4,21 +4,32 @@ import VideoPlayer from "@/app_components/video/HomePageVideo";
 import { UserContext } from "@/context/user";
 import Image from "next/image";
 import Link from "next/link";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
 function HomePageBanner() {
   // useContext
   const { user } = useContext(UserContext);
 
+  // useState
+  const [isUser, setIsUser] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (user && user.email !== "") {
+      setIsUser(true);
+    } else {
+      setIsUser(false);
+    }
+  }, [user]);
+
   return (
     <>
-      {user && user.email !== "" ? (
+      {user && user.email !== "" && isUser === true ? (
         <div className="pb-5"></div>
       ) : (
         <>
           <div
             className={`relative h-screen ${
-              user.email === "" ? "hidden" : "flex"
+              user.email === "" && isUser === false ? "flex" : "hidden"
             } items-center justify-center overflow-y-hidden`}
           >
             <div className="hidden lg:block">

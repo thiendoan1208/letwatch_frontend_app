@@ -72,8 +72,8 @@ function LandingPageNav() {
   // useState
   const [isDropDownActive, setIsDropDownActive] =
     React.useState<boolean>(false);
-
   const [searchKeyword, setSearchKeyword] = React.useState<string>("");
+  const [isUser, setIsUser] = React.useState<boolean>(false);
 
   // Get all film types
   const { data: filmType } = useQuery({
@@ -89,7 +89,7 @@ function LandingPageNav() {
 
   // Navigate to result page
   const handleNavigateResultPage = (e: { code: string }) => {
-    if (e.code === "Enter") {
+    if (e.code === "Enter" && searchKeyword.length > 0) {
       start();
       router.push(`/watch/tim-kiem?keyword=${searchKeyword}`);
     }
@@ -109,6 +109,15 @@ function LandingPageNav() {
       queryClient.invalidateQueries({ queryKey: ["me"] });
     },
   });
+
+  // User status
+  React.useEffect(() => {
+    if (user && user.email !== "") {
+      setIsUser(true);
+    } else {
+      setIsUser(false);
+    }
+  }, [user]);
 
   // Refresh token
   React.useEffect(() => {
@@ -237,7 +246,7 @@ function LandingPageNav() {
           </div>
           <div className="flex items-center ">
             <div className="h-[35px] w-[1.5px] bg-blue-950/50 rounded-2xl"></div>
-            {user && user.email !== "" ? (
+            {user && user.email !== "" && isUser === true ? (
               <div>
                 <DropdownMenu
                   open={isDropDownActive}
@@ -321,7 +330,11 @@ function LandingPageNav() {
               </div>
             ) : (
               <>
-                <div className={`${user.email === "" ? "hidden" : "block"}`}>
+                <div
+                  className={`${
+                    user.email === "" && isUser === false ? "block" : "hidden"
+                  }`}
+                >
                   <Link
                     className="mx-4 font-semibold  text-white/80 hover:text-white hover:underline transition-all"
                     href="/sign-in"

@@ -231,7 +231,7 @@ function WatchListPage() {
                     filmWatchListData.data.length <= 0 && (
                       <div>
                         <h1 className="text-white">
-                          Chưa có gì phim trong danh sách.
+                          Chưa có phim gì trong danh sách.
                         </h1>
                       </div>
                     )}

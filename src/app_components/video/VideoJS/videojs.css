@@ -16,7 +16,9 @@
    margin-left: auto;
 }
 
-
+.video-js .vjs-picture-in-picture-control  {
+  margin-left: auto;
+}
 
 .video-js .vjs-big-play-button {
     width: 5rem;
@@ -32,4 +34,14 @@
     width: 0%;
     height: 0%;
     position: static;
+}
+
+@media only screen and (min-width: 425px) {
+ .video-js .vjs-playback-rate {
+   margin-left: auto;
+}
+
+.video-js .vjs-picture-in-picture-control  {
+  margin-left: 0;
+}
 }

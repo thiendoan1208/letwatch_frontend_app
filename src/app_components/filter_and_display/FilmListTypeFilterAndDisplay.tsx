@@ -285,7 +285,10 @@ function FilmListTypeFilterAndDisplay() {
       {/* Display Result */}
       <div className="mt-10">
         <h1 className="text-xl font-semibold text-yellow-500">
-          Tổng hợp phim thuộc thể loại {filmListData?.data.data.titlePage}
+          Tổng hợp phim thuộc thể loại{" "}
+          {filmListData &&
+            filmListData.data !== null &&
+            filmListData?.data.data.titlePage}
         </h1>
       </div>
       <div className="mr-2 sm:mr-3 md:mr-0">
@@ -343,7 +346,8 @@ function FilmListTypeFilterAndDisplay() {
             <div>
               {filmListData &&
                 filmListData.data &&
-                filmListData.data.data.items == null && (
+                filmListData.data.data.items !== null &&
+                filmListData.data.data.items.length > 0 && (
                   <div>
                     <NoFilm />
                   </div>

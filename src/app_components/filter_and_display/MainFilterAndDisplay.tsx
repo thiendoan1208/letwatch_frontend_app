@@ -389,7 +389,7 @@ function MainFilterAndDisplay() {
             <div>
               {filmListData &&
                 filmListData.data &&
-                filmListData.data.data.items == null && (
+                filmListData.data.data.items === null && (
                   <div>
                     <NoFilm />
                   </div>

@@ -53,12 +53,7 @@ function AdminPage() {
       id: number;
       status: string;
     }[]
-  >([
-    {
-      id: 0,
-      status: "In Progress",
-    },
-  ]);
+  >([]);
 
   // Fetch users, contribute form, film list with useQuery
   const results = useQueries({
@@ -86,7 +81,6 @@ function AdminPage() {
           data.data.map((item) => {
             getStatus.push({ id: item.id, status: item.status });
           });
-          setFormStatus(getStatus);
           return data;
         },
       },
@@ -99,22 +93,25 @@ function AdminPage() {
   // Change status manage
   const handleStatusChange = (formID: number, value: string) => {
     const cloneFormStatus = cloneDeep(formStatus);
-    const findStatusForm = cloneFormStatus.find(
-      (item) => item.id === formID
-    ) as { id: number; status: string };
-    findStatusForm!.status = value;
+    const findStatusForm = cloneFormStatus.some((item) => item.id === formID);
 
-    const cutStatusFormIndex = cloneFormStatus.findIndex(
-      (item) => item.id === formID
-    );
-    if (cutStatusFormIndex !== 0) {
-      cloneFormStatus.splice(cutStatusFormIndex, cutStatusFormIndex);
-      setFormStatus([...cloneFormStatus, findStatusForm]);
+    if (findStatusForm) {
+      const cutStatusFormIndex = cloneFormStatus.findIndex(
+        (item) => item.id === formID
+      );
+      if (cutStatusFormIndex !== 0) {
+        cloneFormStatus.splice(cutStatusFormIndex, cutStatusFormIndex);
+        setFormStatus([...cloneFormStatus, { id: formID, status: value }]);
+      } else {
+        cloneFormStatus.shift();
+        setFormStatus([...cloneFormStatus, { id: formID, status: value }]);
+      }
     } else {
-      cloneFormStatus.shift();
-      setFormStatus([...cloneFormStatus, findStatusForm]);
+      setFormStatus([...formStatus, { id: formID, status: value }]);
     }
   };
+
+  console.log(formStatus);
 
   // Update contribute form status
   const { mutate: updateContributeFormMutate } = useMutation({
@@ -189,7 +186,7 @@ function AdminPage() {
                     In Progress:{" "}
                     <span className=" font-semibold text-yellow-500">
                       {
-                        formStatus.filter(
+                        allContributeForm.data?.data.filter(
                           (item) => item.status === "In Progress"
                         ).length
                       }
@@ -199,8 +196,9 @@ function AdminPage() {
                     Done:{" "}
                     <span className=" font-semibold text-green-500">
                       {
-                        formStatus.filter((item) => item.status === "Done")
-                          .length
+                        allContributeForm.data?.data.filter(
+                          (item) => item.status === "Done"
+                        ).length
                       }
                     </span>
                   </li>
@@ -209,8 +207,9 @@ function AdminPage() {
                     <span className=" font-semibold text-red-500">
                       {" "}
                       {
-                        formStatus.filter((item) => item.status === "Reject")
-                          .length
+                        allContributeForm.data?.data.filter(
+                          (item) => item.status === "Reject"
+                        ).length
                       }
                     </span>
                   </li>
@@ -286,6 +285,8 @@ function AdminPage() {
                   className="cursor-pointer"
                   onClick={() => {
                     setIsFormManage(false);
+                    setFormStatus([]);
+                    allContributeForm.refetch();
                   }}
                 >
                   Cancel

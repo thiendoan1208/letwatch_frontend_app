@@ -87,7 +87,7 @@ function LandingPageBody() {
               <div className="px-8 py-3 flex items- justify-center flex-nowrap bg-yellow-500  rounded-3xl text-xl font-semibold cursor-pointer hover:scale-95 transition-all ">
                 <Link
                   className="w-full h-full flex items-center justify-center"
-                  href="/abc.com"
+                  href="/sign-up"
                 >
                   Tạo tài khoản ngay
                 </Link>
@@ -120,7 +120,7 @@ function LandingPageBody() {
             </p>
           </div>
         </div>
-        <div className="col-span-2 rounded-3xl overflow-hidden">
+        <div className="xl:col-span-2 rounded-3xl overflow-hidden">
           <Image
             className="w-full object-center object-cover"
             src="/landing_page_watch.jpg"
@@ -170,6 +170,15 @@ function LandingPageBody() {
         >
           Cùng bắt đầu trải nghiệm cá nhân hóa của riêng bạn!
         </h1>
+      </div>
+
+      <div className="mt-10 flex justify-center">
+        <Link
+          href="/watch/trang-chu"
+          className="px-6 py-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold text-lg shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_5px_rgba(99,102,241,0.6)]"
+        >
+          Chuyển đến trang chủ
+        </Link>
       </div>
       <div className=" h-60 md:h-72 w-full"></div>
     </div>

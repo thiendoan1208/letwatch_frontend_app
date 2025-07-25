@@ -91,6 +91,7 @@ function HomePageNav() {
   const [isActive, setIsActive] = useState<boolean>(false);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const [isDropDownActive, setIsDropDownActive] = useState<boolean>(false);
+  const [isUser, setIsUser] = useState<boolean>(false);
 
   // Search keyword input change
   const setSearchResult = (e: ChangeEvent<HTMLInputElement>) => {
@@ -99,11 +100,19 @@ function HomePageNav() {
 
   // Navigate to find film page
   const handleNavigateResultPage = (e: { code: string }) => {
-    if (e.code === "Enter") {
+    if (e.code === "Enter" && searchKeyword.length > 0) {
       start();
       router.push(`/watch/tim-kiem?keyword=${searchKeyword}`);
     }
   };
+
+  useEffect(() => {
+    if (user && user.email !== "") {
+      setIsUser(true);
+    } else {
+      setIsUser(false);
+    }
+  }, [user]);
 
   // Delete search result
   useEffect(() => {
@@ -244,7 +253,7 @@ function HomePageNav() {
               }}
             />
           </div>
-          {user && user.email !== "" ? (
+          {user && user.email !== "" && isUser === true ? (
             <div>
               <DropdownMenu
                 open={isDropDownActive}
@@ -330,7 +339,7 @@ function HomePageNav() {
             <>
               <div
                 className={`relative ${
-                  user.email === "" ? "hidden" : "flex"
+                  user.email === "" && isUser === false ? "flex" : "hidden"
                 } items-center justify-center gap-2 text-white bg-black/10 hover:bg-black/20 px-4 py-2 rounded-3xl cursor-pointer transition-all font-semibold`}
               >
                 <h2 className="text-nowrap">Đăng nhập</h2>

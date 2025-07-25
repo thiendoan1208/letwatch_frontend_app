@@ -36,8 +36,8 @@ function WatchFilm() {
     staleTime: 60 * 60 * 1000,
   });
 
-  // Get specific film episode
-  const { data: filmEpisode } = useQuery({
+  const { data: filmEpisode, isPending: isFilmEpisodePending } = useQuery({
+    // Get specific film episode
     queryKey: ["film-episode", episodeSlug, serverSlug],
     queryFn: async ({ signal }) => {
       return await getFilmEpisode(filmSlug, episodeSlug, serverSlug, signal);
@@ -109,7 +109,7 @@ function WatchFilm() {
 
   return (
     <div>
-      <div className="flex items-center justify-center xl:mx-16">
+      <div className="flex items-center justify-center mt-15 xl:mt-10 xl:mx-16">
         {!isFilmLoading &&
           film &&
           film.success === true &&
@@ -127,8 +127,8 @@ function WatchFilm() {
                   />
                 </>
               ) : (
-                <div>
-                  <h1>Không có thông tin phim</h1>
+                <div className="flex justify-center">
+                  {!isFilmEpisodePending && <h1>Không có thông tin phim</h1>}
                 </div>
               )}
             </div>
@@ -221,7 +221,7 @@ function WatchFilm() {
                   filmSuggest.data.data.items.map((item, index) => (
                     <div
                       key={`film-suggest-${index}`}
-                      className="my-4 overflow-hidden"
+                      className="my-4 overflow-hidden hover:text-yellow-500"
                     >
                       <Link
                         href={`/watch/${item.slug}`}
@@ -238,6 +238,9 @@ function WatchFilm() {
                         </div>
                         <div className="col-span-2">
                           <h1 className="text-wrap">{item.name}</h1>
+                          <p className="text-wrap text-sm font-semibold opacity-40 ">
+                            {item.origin_name}
+                          </p>
                           <h6>{item.year}</h6>
                         </div>
                       </Link>

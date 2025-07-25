@@ -40,11 +40,13 @@ import { Eye, EyeClosed } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useContext, useState } from "react";
+import { useProgress } from "@bprogress/next";
 import { toast } from "sonner";
 
 function SignInForm() {
   // routes manage
   const router = useRouter();
+  const { start } = useProgress();
 
   // useContext
   const { login } = useContext(UserContext);
@@ -98,6 +100,7 @@ function SignInForm() {
     onSuccess: (data) => {
       if (data && data.success) {
         toast.success(data.message);
+        start();
         router.push(`/recover?email=${data.data.email}`);
       } else {
         toast.error(data.message);

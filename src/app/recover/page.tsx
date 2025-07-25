@@ -16,11 +16,14 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useProgress } from "@bprogress/next";
 
 function RecoverPage() {
   // Mange URL information and routes
   const userEmail = useSearchParams().get("email");
   const router = useRouter();
+
+  const { start } = useProgress();
 
   // useState
   const [newPassword, setNewPassword] = useState<string>("");
@@ -35,7 +38,7 @@ function RecoverPage() {
     }
 
     if (!regexCheckSpace.test(newPassword)) {
-      toast.error(`Trường ${newPassword} không được chứa khoảng trắng.`);
+      toast.error(`Trường mật khẩu không được chứa khoảng trắng.`);
       return false;
     }
 
@@ -48,6 +51,7 @@ function RecoverPage() {
     onSuccess: (data) => {
       if (data && data.success) {
         toast.success(data.message);
+        start();
         router.push("/sign-in");
       } else {
         toast.error(data.message);
@@ -93,6 +97,17 @@ function RecoverPage() {
                     value={newPassword}
                     onChange={(e) => {
                       setNewPassword(e.target.value);
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        const validatepassword = validate();
+                        if (validatepassword) {
+                          updatePasswordMutate({
+                            email: userEmail,
+                            password: newPassword,
+                          });
+                        }
+                      }
                     }}
                   />
                 </div>

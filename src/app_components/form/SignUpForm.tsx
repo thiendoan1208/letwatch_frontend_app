@@ -35,11 +35,13 @@ import {
 import { useMutation } from "@tanstack/react-query";
 import { handleSendVerfyCode, handleSignUp } from "@/services/authen";
 import { useRouter } from "next/navigation";
+import { useProgress } from "@bprogress/next";
 
 function SignUpForm() {
   // Route manage
   const router = useRouter();
- 
+  const { start } = useProgress();
+
   // useState
   const [isCheck, setIsCheck] = useState<boolean>(false);
   const [isDialogActive, setIsDialogActive] = useState(false);
@@ -69,6 +71,7 @@ function SignUpForm() {
     onSuccess: (data) => {
       if (data && data.success) {
         toast.success(data.message);
+        start();
         router.push("/sign-in");
       } else {
         toast.error(data.message);
