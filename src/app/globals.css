@@ -76,6 +76,10 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* Main color */
+  --text-color: oklch(0.85 0.15 90);
+  --bg-color: oklch(0.85 0.199 94.6);
 }
 
 .dark {
@@ -143,6 +147,8 @@
     --sidebar-ring: oklch(0.439 0 0);
   }
 }
+
+
 
 @theme {
   --animate-fadeIn: fadeIn 1s ease-in;

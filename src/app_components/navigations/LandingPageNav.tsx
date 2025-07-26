@@ -184,7 +184,7 @@ function LandingPageNav() {
                   </NavigationMenuTrigger>
                   <NavigationMenuContent className=" z-[999] absolute left-full top-full -translate-x-full mt-2">
                     <div>
-                      <h1 className="font-bold ml-1 text-yellow-500">
+                      <h1 className="font-bold ml-1 text-[var(--text-color)]">
                         Danh Mục
                       </h1>
                     </div>
@@ -215,7 +215,7 @@ function LandingPageNav() {
                   </NavigationMenuTrigger>
                   <NavigationMenuContent className=" z-[999] absolute left-full top-full -translate-x-full mt-2 ">
                     <div>
-                      <h1 className="font-bold ml-1 text-yellow-500">
+                      <h1 className="font-bold ml-1 text-[var(--text-color)]">
                         Chọn thể loại mà bạn ưa thích
                       </h1>
                     </div>
@@ -299,7 +299,7 @@ function LandingPageNav() {
                     <div className="px-2 text-sm hover:bg-gray-100 py-1 rounded-sm">
                       <AlertDialog>
                         <AlertDialogTrigger className="w-full text-start">
-                          <h1 className="text-yellow-500 font-semibold  w-full cursor-pointer">
+                          <h1 className="text-[var(--text-color)] font-semibold  w-full cursor-pointer">
                             Đăng xuất
                           </h1>
                         </AlertDialogTrigger>
@@ -317,7 +317,7 @@ function LandingPageNav() {
                               onClick={() => {
                                 signOutMutate();
                               }}
-                              className=" bg-yellow-500"
+                              className=" bg-[var(--bg-color)]"
                             >
                               Xác nhận
                             </AlertDialogAction>
@@ -342,7 +342,7 @@ function LandingPageNav() {
                     Đăng Nhập
                   </Link>
                   <Link
-                    className="mx-4 font-semibold shadow-2xl text-black/75 bg-yellow-500 px-8 py-1 rounded-md hover:text-black/50"
+                    className="mx-4 font-semibold shadow-2xl text-black/75 bg-[var(--bg-color)] px-8 py-1 rounded-md hover:text-black/50"
                     href="/sign-up"
                   >
                     Đăng Ký
@@ -373,7 +373,9 @@ function LandingPageNav() {
               </SheetHeader>
               <div className="mx-4">
                 <div>
-                  <h1 className="font-bold  text-yellow-500">Danh Mục</h1>
+                  <h1 className="font-bold  text-[var(--text-color)]">
+                    Danh Mục
+                  </h1>
                 </div>
                 <div className="grid grid-cols-2 ml-3 gap-3 mt-2 ">
                   {filmType &&
@@ -398,7 +400,9 @@ function LandingPageNav() {
               <div className="h-[1px] bg-black/50 mx-4 rounded-2xl"></div>
               <div className="mx-4">
                 <div>
-                  <h1 className="font-bold  text-yellow-500">Thể Loại</h1>
+                  <h1 className="font-bold  text-[var(--text-color)]">
+                    Thể Loại
+                  </h1>
                 </div>
                 <div className="grid grid-cols-2 ml-3 gap-3 mt-2 ">
                   {filmType &&
@@ -433,7 +437,7 @@ function LandingPageNav() {
                       Đăng nhập
                     </Link>
                     <Link
-                      className="mx-4 font-semibold shadow-2xl text-black/75 bg-yellow-500 px-8 py-1 rounded-md hover:text-black/50 text-center transition-all"
+                      className="mx-4 font-semibold shadow-2xl text-black/75 bg-[var(--bg-color)] px-8 py-1 rounded-md hover:text-black/50 text-center transition-all"
                       href="/sign-up"
                     >
                       Đăng ký

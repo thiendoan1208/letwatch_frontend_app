@@ -43,7 +43,9 @@ function MainDisplay() {
     <div>
       {/* Display Result */}
       <div className="mt-10">
-        <h1 className="text-xl font-semibold text-yellow-500">Phim mới</h1>
+        <h1 className="text-xl font-semibold text-[var(--text-color)]">
+          Phim mới
+        </h1>
       </div>
       <div className="mr-2 sm:mr-3 md:mr-0">
         {filmList &&
@@ -82,7 +84,7 @@ function MainDisplay() {
                       <div className="flex flex-col flex-nowrap cursor-default ">
                         <HoverCard>
                           <HoverCardTrigger asChild>
-                            <h6 className=" group-hover:text-yellow-500 cursor-pointer mt-1 font-normal text-white text-ellipsis overflow-hidden whitespace-nowrap">
+                            <h6 className=" group-hover:text-[var(--text-color)] cursor-pointer mt-1 font-normal text-white text-ellipsis overflow-hidden whitespace-nowrap">
                               {film.name}
                             </h6>
                           </HoverCardTrigger>
@@ -90,7 +92,7 @@ function MainDisplay() {
                             <div>{film.name}</div>
                           </HoverCardContent>
                         </HoverCard>
-                        <p className="text-white/75 group-hover:text-yellow-500">
+                        <p className="text-white/75 group-hover:text-[var(--text-color)]">
                           {film.year}
                         </p>
                       </div>

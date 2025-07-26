@@ -205,7 +205,7 @@ function FilmInfo() {
                             onClick={() => {
                               addFilmToWatchList(film);
                             }}
-                            className="size-7 cursor-pointer ml-1 text-yellow-500"
+                            className="size-7 cursor-pointer ml-1 text-[var(--text-color)]"
                           />
                           {/* toast lên, nếu có save r khi ấn lại sẽ thông báo đã save */}
 
@@ -319,7 +319,7 @@ function FilmInfo() {
                           </p>
                           {isExpand && (
                             <h1
-                              className="cursor-pointer text-yellow-500 w-fit"
+                              className="cursor-pointer text-[var(--text-color)] w-fit"
                               onClick={() => {
                                 displayContent();
                               }}

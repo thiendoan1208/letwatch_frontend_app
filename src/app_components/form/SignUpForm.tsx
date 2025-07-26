@@ -269,7 +269,7 @@ function SignUpForm() {
             <DialogTrigger asChild>
               <Button
                 onClick={sendValidateCode}
-                className="w-full bg-yellow-500"
+                className="w-full bg-[var(--bg-color)]"
               >
                 Đăng Ký
               </Button>
@@ -314,7 +314,7 @@ function SignUpForm() {
                 </Button>
                 <Button
                   onClick={submitForm}
-                  className="bg-yellow-500 cursor-pointer"
+                  className="bg-[var(--bg-color)] cursor-pointer"
                 >
                   Xác nhận
                 </Button>

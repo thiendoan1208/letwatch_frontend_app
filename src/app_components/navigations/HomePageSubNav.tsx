@@ -41,7 +41,9 @@ function HomePageSubNav() {
               key={href}
               className={cn(
                 "text-[14px] xl:text-md relative flex flex-col items-center justify-center px-4 py-2 rounded-3xl cursor-pointer transition-all font-semibold",
-                pathname.includes(href) ? "text-yellow-500" : "text-white/80"
+                pathname.includes(href)
+                  ? "text-[var(--text-color)]"
+                  : "text-white/80"
               )}
             >
               <Icon className="size-5" />

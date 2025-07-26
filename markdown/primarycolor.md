@@ -1,1 +1,1 @@
-bg-yellow-500
+bg-[var(--bg-color)]

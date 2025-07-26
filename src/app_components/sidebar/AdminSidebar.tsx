@@ -56,7 +56,7 @@ function AdminSidebar() {
               key={index}
               className={cn(
                 "flex items-center justify-center xl:justify-normal py-4 xl:py-1 px-2 my-1 space-x-1 rounded-md hover:bg-gray-200 transition-all",
-                pathname === item.link && "text-yellow-500"
+                pathname === item.link && "text-[var(--text-color)]"
               )}
             >
               <div className="p-0 ">{item.icon}</div>

@@ -40,7 +40,7 @@ function FilmTypeCarousel({
               data.data?.data.items.map((film, index) => (
                 <CarouselItem
                   key={`new-films-${index}`}
-                  className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6 select-none -mr-2.5 md:mr-0 text-white hover:text-yellow-500 transition-all"
+                  className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6 select-none -mr-2.5 md:mr-0 text-white hover:text-[var(--text-color)] transition-all"
                 >
                   <div className=" relative flex flex-col h-full justify-between">
                     <div className=" rounded-xl h-full overflow-hidden">

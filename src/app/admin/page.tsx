@@ -184,7 +184,7 @@ function AdminPage() {
                 <ul className="flex gap-4">
                   <li>
                     In Progress:{" "}
-                    <span className=" font-semibold text-yellow-500">
+                    <span className=" font-semibold text-[var(--text-color)]">
                       {
                         allContributeForm.data?.data.filter(
                           (item) => item.status === "In Progress"
@@ -264,8 +264,8 @@ function AdminPage() {
         <div className="mt-4 mb-2">
           <div className="flex items-center justify-between">
             <h1 className="text-xl font-semibold">
-              <span className="text-yellow-500">In Progress</span> Contribute
-              Information Table
+              <span className="text-[var(--text-color)]">In Progress</span>{" "}
+              Contribute Information Table
             </h1>
             <div>
               <Button
@@ -273,7 +273,9 @@ function AdminPage() {
                   setIsFormManage(true);
                 }}
                 className={
-                  isFormManage ? "hidden" : "bg-yellow-500 cursor-pointer mr-5"
+                  isFormManage
+                    ? "hidden"
+                    : "bg-[var(--bg-color)] cursor-pointer mr-5"
                 }
               >
                 Manage
@@ -359,7 +361,7 @@ function AdminPage() {
                               className={cn(
                                 "text-black font-semibold",
                                 form.status === "In Progress" &&
-                                  "text-yellow-500",
+                                  "text-[var(--text-color)]",
                                 form.status === "Done" && "text-green-500",
                                 form.status === "Reject" && "text-red-500"
                               )}
@@ -376,7 +378,7 @@ function AdminPage() {
                                 <Button
                                   className={`${
                                     isFormManage ? "block" : "hidden"
-                                  } bg-yellow-500 cursor-pointer`}
+                                  } bg-[var(--bg-color)] cursor-pointer`}
                                 >
                                   Detail
                                 </Button>

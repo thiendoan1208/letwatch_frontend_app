@@ -306,7 +306,7 @@ function HomePageNav() {
                   <div className="px-2 text-sm hover:bg-gray-100 py-1 rounded-sm">
                     <AlertDialog>
                       <AlertDialogTrigger className="w-full text-start">
-                        <h1 className="text-yellow-500 font-semibold  w-full cursor-pointer">
+                        <h1 className="text-[var(--text-color)] font-semibold  w-full cursor-pointer">
                           Đăng xuất
                         </h1>
                       </AlertDialogTrigger>
@@ -324,7 +324,7 @@ function HomePageNav() {
                             onClick={() => {
                               signOutMutate();
                             }}
-                            className=" bg-yellow-500"
+                            className=" bg-[var(--bg-color)]"
                           >
                             Xác nhận
                           </AlertDialogAction>

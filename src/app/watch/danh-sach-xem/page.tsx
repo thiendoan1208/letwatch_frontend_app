@@ -108,7 +108,7 @@ function WatchListPage() {
       <div className="pt-20 text-white">
         <div className="mx-4 lg:mx-16 ">
           <div className="mt-10 flex items-center justify-between">
-            <h1 className="text-xl font-semibold text-yellow-500">
+            <h1 className="text-xl font-semibold text-[var(--text-color)]">
               Danh sách xem
             </h1>
             <div className={`${isDeleteActive ? "hidden" : "block"}`}>
@@ -116,7 +116,7 @@ function WatchListPage() {
                 onClick={() => {
                   setIsDeleteActive(true);
                 }}
-                className="bg-yellow-500 cursor-pointer"
+                className="bg-[var(--bg-color)] cursor-pointer"
               >
                 Chỉnh sửa
                 <Wrench />
@@ -212,7 +212,7 @@ function WatchListPage() {
                           <div className="flex flex-col flex-nowrap cursor-default ">
                             <HoverCard>
                               <HoverCardTrigger asChild>
-                                <h6 className=" group-hover:text-yellow-500 cursor-pointer mt-1 font-normal text-white text-ellipsis overflow-hidden whitespace-nowrap">
+                                <h6 className=" group-hover:text-[var(--text-color)] cursor-pointer mt-1 font-normal text-white text-ellipsis overflow-hidden whitespace-nowrap">
                                   {film.movieTitle}
                                 </h6>
                               </HoverCardTrigger>

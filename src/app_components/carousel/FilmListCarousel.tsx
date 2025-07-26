@@ -17,7 +17,17 @@ import {
 import { FilmList } from "@/types/film_type";
 import ErrorMessage from "@/app_components/error/ErrorMesage";
 
-function FilmListCarousel({ data, noti }: { data: FilmList; noti: string }) {
+function FilmListCarousel({
+  data,
+  noti,
+  episode,
+}: {
+  data: FilmList;
+  noti: string;
+  episode: boolean;
+}) {
+  console.log(data);
+
   return (
     <>
       {data && data.success === false && data.data.items === null ? (
@@ -34,9 +44,9 @@ function FilmListCarousel({ data, noti }: { data: FilmList; noti: string }) {
               data.data?.items.map((film, index) => (
                 <CarouselItem
                   key={`new-films-${index}`}
-                  className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6 select-none -mr-2.5 md:mr-0 text-white hover:text-yellow-500 transition-all"
+                  className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6 select-none -mr-2.5 md:mr-0 text-white hover:text-[var(--text-color)] transition-all"
                 >
-                  <div className=" relative flex flex-col h-full justify-between">
+                  <div className="relative flex flex-col h-full justify-between">
                     <div className=" group rounded-xl h-full overflow-hidden">
                       <Image
                         className="object-cover object-center w-full h-full"
@@ -66,6 +76,11 @@ function FilmListCarousel({ data, noti }: { data: FilmList; noti: string }) {
                       </HoverCard>
                       <p>{film.year}</p>
                     </div>
+                    {episode && (
+                      <div className="absolute right-1.5 top-1.5 bg-[var(--bg-color)] text-white px-2 rounded-md font-semibold">
+                        <span>{film.episode_current}</span>
+                      </div>
+                    )}
                   </div>
                 </CarouselItem>
               ))}

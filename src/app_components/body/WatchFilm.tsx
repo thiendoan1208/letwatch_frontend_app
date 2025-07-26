@@ -140,7 +140,9 @@ function WatchFilm() {
       {/* film Episode */}
       {!isFilmLoading && film && film.data && film.data.status && (
         <div className="pb-10 mt-20 mx-4 lg:mx-16 ">
-          <h1 className="text-2xl font-semibold text-yellow-500">Tập Phim</h1>
+          <h1 className="text-2xl font-semibold text-[var(--text-color)]">
+            Tập Phim
+          </h1>
           <div className="grid grid-cols-3 gap-5">
             <div className="col-span-3 lg:col-span-2">
               {!isFilmLoading &&
@@ -168,7 +170,7 @@ function WatchFilm() {
                               "w-full text-center px-2 py-1 border-2 rounded bg-white  text-nowrap",
                               slugify(server.server_name) === serverSlug &&
                                 episode.slug === episodeSlug
-                                ? "text-yellow-500 font-semibold"
+                                ? "text-[var(--text-color)] font-semibold"
                                 : "text-black"
                             )}
                             key={`episode-${index}`}
@@ -185,13 +187,13 @@ function WatchFilm() {
                 ))}
 
               <div>
-                <div className="flex space-x-2 font-semibold text-xl text-yellow-500 mt-5">
+                <div className="flex space-x-2 font-semibold text-xl text-[var(--text-color)] mt-5">
                   <h1>{film?.data.movie.name}</h1>
                   <span>-</span>
                   <h1>{filmEpisode?.data.name}</h1>
                 </div>
                 <div className="mt-5">
-                  <h1 className="text-xl font-semibold text-yellow-500">
+                  <h1 className="text-xl font-semibold text-[var(--text-color)]">
                     Nội Dung Phim
                   </h1>
                   <p className="mt-2 text-md text-white/75">
@@ -213,7 +215,7 @@ function WatchFilm() {
             </div>
 
             <div className="hidden lg:block">
-              <h1 className="text-xl font-semibold text-yellow-500">
+              <h1 className="text-xl font-semibold text-[var(--text-color)]">
                 Có thể bạn sẽ thích
               </h1>
               <div>
@@ -223,7 +225,7 @@ function WatchFilm() {
                   filmSuggest.data.data.items.map((item, index) => (
                     <div
                       key={`film-suggest-${index}`}
-                      className="my-4 overflow-hidden hover:text-yellow-500"
+                      className="my-4 overflow-hidden hover:text-[var(--text-color)]"
                     >
                       <Link
                         href={`/watch/${item.slug}`}

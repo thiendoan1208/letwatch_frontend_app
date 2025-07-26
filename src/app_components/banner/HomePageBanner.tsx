@@ -56,7 +56,7 @@ function HomePageBanner() {
                   </h2>
                   <div>
                     <Link
-                      className=" transition-all font-semibold shadow-2xl text-black/75 bg-yellow-500 px-9 py-2 rounded-3xl hover:text-black/50"
+                      className=" transition-all font-semibold shadow-2xl text-black/75 bg-[var(--bg-color)] px-9 py-2 rounded-3xl hover:text-black/50"
                       href="/sign-up"
                     >
                       Đăng ký

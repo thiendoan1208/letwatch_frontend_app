@@ -158,7 +158,9 @@ function UserManagePage() {
               onClick={() => {
                 SetIsManageActive(true);
               }}
-              className={isManageActive ? "hidden" : "block bg-yellow-500"}
+              className={
+                isManageActive ? "hidden" : "block bg-[var(--bg-color)]"
+              }
             >
               Manage
             </Button>

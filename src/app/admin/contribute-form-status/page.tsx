@@ -110,7 +110,7 @@ function ContributeFormManagePage() {
               Cancel
             </Button>
             <Button
-              className="bg-yellow-500"
+              className="bg-[var(--bg-color)]"
               onClick={() => {
                 deleteContributeFormMutate(formID);
               }}
@@ -158,7 +158,7 @@ function ContributeFormManagePage() {
                               className={cn(
                                 "text-black font-semibold",
                                 form.status === "In Progress" &&
-                                  "text-yellow-500",
+                                  "text-[var(--text-color)]",
                                 form.status === "Done" && "text-green-500",
                                 form.status === "Reject" && "text-red-500"
                               )}
@@ -172,7 +172,7 @@ function ContributeFormManagePage() {
                             <form>
                               <DialogTrigger asChild>
                                 <Button
-                                  className={` bg-yellow-500 cursor-pointer`}
+                                  className={` bg-[var(--bg-color)] cursor-pointer`}
                                 >
                                   Detail
                                 </Button>
@@ -263,7 +263,7 @@ function ContributeFormManagePage() {
                               className={cn(
                                 "text-black font-semibold",
                                 form.status === "In Progress" &&
-                                  "text-yellow-500",
+                                  "text-[var(--text-color)]",
                                 form.status === "Done" && "text-green-500",
                                 form.status === "Reject" && "text-red-500"
                               )}
@@ -278,7 +278,7 @@ function ContributeFormManagePage() {
                             <form>
                               <DialogTrigger asChild>
                                 <Button
-                                  className={` bg-yellow-500 cursor-pointer`}
+                                  className={` bg-[var(--bg-color)] cursor-pointer`}
                                 >
                                   Detail
                                 </Button>

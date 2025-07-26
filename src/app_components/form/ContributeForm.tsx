@@ -130,7 +130,7 @@ function ContributeFrom() {
                   contributeFormSendMutate(form);
                 }
               }}
-              className="bg-yellow-500 cursor-pointer w-full"
+              className="bg-[var(--bg-color)] cursor-pointer w-full"
             >
               Xác nhận
             </Button>

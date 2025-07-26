@@ -84,7 +84,7 @@ function LandingPageBody() {
             <div></div>
           ) : (
             <div className=" flex items-center justify-start mt-2">
-              <div className="px-8 py-3 flex items- justify-center flex-nowrap bg-yellow-500  rounded-3xl text-xl font-semibold cursor-pointer hover:scale-95 transition-all ">
+              <div className="px-8 py-3 flex items- justify-center flex-nowrap bg-[var(--bg-color)]  rounded-3xl text-xl font-semibold cursor-pointer hover:scale-95 transition-all ">
                 <Link
                   className="w-full h-full flex items-center justify-center"
                   href="/sign-up"

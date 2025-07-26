@@ -125,7 +125,7 @@ function RecoverPage() {
                   });
                 }
               }}
-              className="w-full bg-yellow-500"
+              className="w-full bg-[var(--bg-color)]"
             >
               <span className="text-white">Xác nhận</span>
             </Button>

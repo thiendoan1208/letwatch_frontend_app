@@ -18,7 +18,7 @@ export default function NotFound() {
         />
       </div>
 
-      <div className="absolute w-[400px] h-[400px] bg-yellow-500 rounded-full blur-3xl opacity-20 animate-pulse -z-10"></div>
+      <div className="absolute w-[400px] h-[400px] bg-[var(--bg-color)] rounded-full blur-3xl opacity-20 animate-pulse -z-10"></div>
 
       <motion.h1
         initial={{ scale: 1 }}
@@ -41,7 +41,7 @@ export default function NotFound() {
         </p>
         <Link
           href="/watch/trang-chu"
-          className="px-6 py-3 bg-yellow-500 hover:bg-orange-500 transition-colors rounded-lg text-black font-medium"
+          className="px-6 py-3 bg-[var(--bg-color)] hover:bg-orange-500 transition-colors rounded-lg text-black font-medium"
         >
           Quay lại trang chủ
         </Link>

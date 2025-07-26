@@ -209,7 +209,7 @@ function SignInForm() {
                               onClick={() => {
                                 sendCodeMutate(recoverInfo);
                               }}
-                              className="bg-yellow-500 cursor-pointer"
+                              className="bg-[var(--bg-color)] cursor-pointer"
                             >
                               Xác nhận
                             </Button>
@@ -261,7 +261,7 @@ function SignInForm() {
                                     verifyCode: verifyCode,
                                   });
                                 }}
-                                className="bg-yellow-500 cursor-pointer"
+                                className="bg-[var(--bg-color)] cursor-pointer"
                               >
                                 Xác nhận
                               </Button>
@@ -306,7 +306,7 @@ function SignInForm() {
         <Button
           onClick={submitForm}
           type="submit"
-          className="w-full bg-yellow-500"
+          className="w-full bg-[var(--bg-color)]"
         >
           <span className="text-white">Đăng Nhập</span>
         </Button>

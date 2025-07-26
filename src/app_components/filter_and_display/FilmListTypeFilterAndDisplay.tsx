@@ -272,7 +272,7 @@ function FilmListTypeFilterAndDisplay() {
               <div>
                 <Button
                   onClick={submitSortInfo}
-                  className="bg-yellow-500 cursor-pointer"
+                  className="bg-[var(--bg-color)] cursor-pointer"
                 >
                   Xác nhận
                 </Button>
@@ -284,7 +284,7 @@ function FilmListTypeFilterAndDisplay() {
 
       {/* Display Result */}
       <div className="mt-10">
-        <h1 className="text-xl font-semibold text-yellow-500">
+        <h1 className="text-xl font-semibold text-[var(--text-color)]">
           Tổng hợp phim thuộc thể loại{" "}
           {filmListData &&
             filmListData.data !== null &&
@@ -328,7 +328,7 @@ function FilmListTypeFilterAndDisplay() {
                       <div className="flex flex-col flex-nowrap cursor-default ">
                         <HoverCard>
                           <HoverCardTrigger asChild>
-                            <h6 className=" group-hover:text-yellow-500 cursor-pointer mt-1 font-normal text-white text-ellipsis overflow-hidden whitespace-nowrap">
+                            <h6 className=" group-hover:text-[var(--text-color)] cursor-pointer mt-1 font-normal text-white text-ellipsis overflow-hidden whitespace-nowrap">
                               {film.name}
                             </h6>
                           </HoverCardTrigger>
@@ -336,7 +336,7 @@ function FilmListTypeFilterAndDisplay() {
                             <div>{film.name}</div>
                           </HoverCardContent>
                         </HoverCard>
-                        <p className="text-white/75 group-hover:text-yellow-500">
+                        <p className="text-white/75 group-hover:text-[var(--text-color)]">
                           {film.year}
                         </p>
                       </div>

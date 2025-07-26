@@ -117,7 +117,7 @@ function HomePageCategory() {
               <Link href={`/watch/phim-moi`} className="text-2xl font-bold">
                 Mới Cập Nhật
               </Link>
-              <div className="bg-black/45 px-3 py-1 rounded-sm text-yellow-500">
+              <div className="bg-black/45 px-3 py-1 rounded-sm text-[var(--text-color)]">
                 <h1>HOT</h1>
               </div>
               <Link href={`/watch/phim-moi`}>
@@ -138,7 +138,11 @@ function HomePageCategory() {
             newFilmList.data.data.items.length > 0 &&
             newFilmList.data.data.items.length !== null &&
             newFilmList.isPending === false ? (
-              <FilmListCarousel noti="normal" data={newFilmList?.data} />
+              <FilmListCarousel
+                noti="normal"
+                episode={true}
+                data={newFilmList?.data}
+              />
             ) : (
               <div>
                 <h1 className="text-white">
@@ -213,7 +217,11 @@ function HomePageCategory() {
             randomFilmList.data.data.items !== null &&
             randomFilmList.data.data.items.length > 0 &&
             randomFilmList.isPending === false ? (
-              <FilmListCarousel noti={"random"} data={randomFilmList?.data} />
+              <FilmListCarousel
+                noti={"random"}
+                episode={false}
+                data={randomFilmList?.data}
+              />
             ) : (
               <div>
                 <h1 className="text-white">
