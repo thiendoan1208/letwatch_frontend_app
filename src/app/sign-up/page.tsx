@@ -1,5 +1,11 @@
 import SignUpForm from "@/app_components/form/SignUpForm";
 import Image from "next/image";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Đăng Ký - LetWatch",
+  description: "Đăng Ký cho webite LetWatch",
+};
 
 function SignInPage() {
   return (

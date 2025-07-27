@@ -144,7 +144,7 @@ function HomePageCategory() {
                 data={newFilmList?.data}
               />
             ) : (
-              <div>
+              <div className={`${newFilmList.isPending ? "hidden" : "block"}`}>
                 <h1 className="text-white">
                   Không thể lấy dữ liệu danh sách phim
                 </h1>
@@ -223,7 +223,9 @@ function HomePageCategory() {
                 data={randomFilmList?.data}
               />
             ) : (
-              <div>
+              <div
+                className={`${randomFilmList.isPending ? "hidden" : "block"}`}
+              >
                 <h1 className="text-white">
                   Không thể lấy dữ liệu danh sách phim
                 </h1>

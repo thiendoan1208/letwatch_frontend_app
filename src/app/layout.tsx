@@ -29,6 +29,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="manifest" href="/site.webmanifest" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "VideoObject",
+              name: "Tên phim",
+              description: "Mô tả phim",
+              thumbnailUrl: "https://letwatch.net/logo_name.png",
+              uploadDate: "2025-07-26",
+            }),
+          }}
+        />
+      </head>
       <body
         className={`${interSans.variable} ${poppins.variable} antialiased bg-black min-h-screen`}
         style={{

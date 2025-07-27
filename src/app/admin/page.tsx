@@ -111,7 +111,6 @@ function AdminPage() {
     }
   };
 
-  console.log(formStatus);
 
   // Update contribute form status
   const { mutate: updateContributeFormMutate } = useMutation({

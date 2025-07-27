@@ -4,6 +4,51 @@ import LandingPageSlider from "@/app_components/sliders/LandingPageSlider";
 import Link from "next/link";
 import Image from "next/image";
 import { Facebook, Mail } from "lucide-react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "LetWatch - Xem phim miễn phí chất lượng cao",
+  description:
+    "Kho phim HD, Vietsub, miễn phí, tốc độ nhanh. Xem online mọi lúc.",
+  keywords: [
+    "xem phim",
+    "phim miễn phí",
+    "phim HD",
+    "LetWatch",
+    "let watch",
+    "letwatch",
+  ],
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: process.env.NEXT_PUBLIC_API_FRONTEND_URL,
+  },
+  openGraph: {
+    title: "LetWatch - Xem phim miễn phí chất lượng cao",
+    description: "Kho phim HD, Vietsub, miễn phí, tốc độ nhanh.",
+    url: process.env.NEXT_PUBLIC_API_FRONTEND_URL,
+    siteName: "LetWatch",
+    images: [
+      {
+        url: `http://${process.env.NEXT_PUBLIC_API_FRONTEND_URL}/logo_name.png`,
+        width: 800,
+        height: 600,
+      },
+    ],
+    locale: "vi_VN",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "LetWatch",
+    description: "Xem phim miễn phí, tốc độ cao, chất lượng Full HD.",
+    images: [
+      `http://${process.env.NEXT_PUBLIC_API_FRONTEND_URL}/logo_name.png`,
+    ],
+  },
+};
 
 export default function Home() {
   return (

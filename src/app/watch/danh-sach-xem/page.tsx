@@ -20,6 +20,7 @@ import { Button } from "@/components/ui/button";
 import { Trash, Wrench } from "lucide-react";
 import { cloneDeep } from "lodash";
 import { toast } from "sonner";
+
 function WatchListPage() {
   // useRef
   const filmRef = useRef<HTMLDivElement>(null);

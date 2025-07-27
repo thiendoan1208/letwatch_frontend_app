@@ -1,4 +1,10 @@
 import SearchResult from "@/app_components/body/SearchResult";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Tìm kiếm - LetWatch",
+  description: "Tìm kiếm cho webite LetWatch",
+};
 
 function SearchPage() {
   return (

@@ -26,8 +26,6 @@ function FilmListCarousel({
   noti: string;
   episode: boolean;
 }) {
-  console.log(data);
-
   return (
     <>
       {data && data.success === false && data.data.items === null ? (

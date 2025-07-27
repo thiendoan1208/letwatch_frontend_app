@@ -1,4 +1,10 @@
 import AdminSidebar from "@/app_components/sidebar/AdminSidebar";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Admin - LetWatch",
+  description: "Admin cho webite LetWatch",
+};
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

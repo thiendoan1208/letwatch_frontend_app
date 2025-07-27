@@ -107,7 +107,6 @@ function WatchFilm() {
     playerRef.current = player;
   };
 
-  console.log(filmEpisode);
 
   return (
     <div>

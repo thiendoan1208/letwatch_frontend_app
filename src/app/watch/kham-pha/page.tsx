@@ -1,6 +1,12 @@
 import DiscoverPageCateGory from "@/app_components/category/DiscorverPageCategory";
 import { filmList } from "@/config_film/film_type_config";
 import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Khám Phá - LetWatch",
+  description: "Khám phá website với vô vàn thể loại phim khác nhau.",
+};
 
 function DiscoverPage() {
   return (
