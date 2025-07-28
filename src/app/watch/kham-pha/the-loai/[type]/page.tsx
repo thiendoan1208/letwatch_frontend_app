@@ -2,12 +2,14 @@ import FilmListTypeFilterAndDisplay from "@/app_components/filter_and_display/Fi
 import { Metadata } from "next";
 import { filmTypeMeta } from "@/lib/filmTypeMeta";
 
-interface Props {
-  params: { type: string };
-}
+type Props = {
+  params: Promise<{
+    type: string;
+  }>;
+};
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { type } = params;
+  const { type } = await params;
 
   const meta = filmTypeMeta[type] || {
     title: "LetWatch - Kho phim đa dạng",

@@ -2,12 +2,14 @@ import MainFilterAndDisplay from "@/app_components/filter_and_display/MainFilter
 import { Metadata } from "next";
 import { filmCategoryMeta } from "@/lib/categoryMeta";
 
-interface Props {
-  params: { filmCategory: string };
-}
+type Props = {
+  params: Promise<{
+    filmCategory: string;
+  }>;
+};
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { filmCategory } = params;
+  const { filmCategory } = await params;
 
   const meta = filmCategoryMeta[filmCategory] || {
     title: "LetWatch - Kho phim đa dạng",

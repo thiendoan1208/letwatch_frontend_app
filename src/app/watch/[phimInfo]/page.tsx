@@ -1,15 +1,15 @@
 import FilmInfo from "@/app_components/body/FilmInfo";
 import { Metadata } from "next";
 
-interface Props {
-  params: {
+type Props = {
+  params: Promise<{
     phimInfo: string;
     phimEpisode: string;
-  };
-}
+  }>;
+};
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { phimInfo } = params;
+  const { phimInfo } = await params;
 
   try {
     const res = await fetch(
