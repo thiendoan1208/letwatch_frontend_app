@@ -67,7 +67,7 @@ function SignInForm() {
   const [verifyCode, setVerifyCode] = useState<string>("");
 
   // SignIn mutate
-  const { mutate: signInMutate } = useMutation({
+  const { mutate: signInMutate, isPending: isLogging } = useMutation({
     mutationFn: handleSignIn,
     onSuccess: (data) => {
       if (data && data.success) {
@@ -306,7 +306,9 @@ function SignInForm() {
         <Button
           onClick={submitForm}
           type="submit"
-          className="w-full bg-[var(--bg-color)]"
+          className={`w-full bg-[var(--bg-color)] ${
+            isLogging && "opacity-60 pointer-events-none cursor-not-allowed"
+          }`}
         >
           <span className="text-white">Đăng Nhập</span>
         </Button>

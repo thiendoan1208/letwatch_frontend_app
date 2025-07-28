@@ -55,7 +55,7 @@ function SignUpForm() {
   const [verifyCode, setVerifyCode] = useState<string>("");
 
   // Send verify code mutate
-  const { mutate: sendCodeMutate } = useMutation({
+  const { mutate: sendCodeMutate, isPending: isSendingCode } = useMutation({
     mutationFn: handleSendVerfyCode,
     onSuccess: () => {
       toast.success("Đã gửi mã!");
@@ -66,7 +66,7 @@ function SignUpForm() {
   });
 
   // Sign up mutate
-  const { mutate: signUpMutate } = useMutation({
+  const { mutate: signUpMutate, isPending: isSigning } = useMutation({
     mutationFn: handleSignUp,
     onSuccess: (data) => {
       if (data && data.success) {
@@ -269,7 +269,10 @@ function SignUpForm() {
             <DialogTrigger asChild>
               <Button
                 onClick={sendValidateCode}
-                className="w-full bg-[var(--bg-color)]"
+                className={`w-full bg-[var(--bg-color)] ${
+                  isSendingCode &&
+                  "opacity-60 pointer-events-none cursor-not-allowed"
+                }`}
               >
                 Đăng Ký
               </Button>
@@ -314,7 +317,10 @@ function SignUpForm() {
                 </Button>
                 <Button
                   onClick={submitForm}
-                  className="bg-[var(--bg-color)] cursor-pointer"
+                  className={`bg-[var(--bg-color)] cursor-pointer ${
+                    isSigning &&
+                    "opacity-60 pointer-events-none cursor-not-allowed"
+                  }`}
                 >
                   Xác nhận
                 </Button>
