@@ -7,8 +7,7 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { filmCategory } = await params;
-
+  const { filmCategory } = params;
 
   const meta = filmCategoryMeta[filmCategory] || {
     title: "LetWatch - Kho phim đa dạng",
