@@ -1,14 +1,16 @@
 import WatchFilm from "@/app_components/body/WatchFilm";
 import { Metadata } from "next";
 
-interface Props {
+interface PageProps {
   params: {
     phimInfo: string;
     phimEpisode: string;
   };
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const { phimInfo } = params;
 
   try {
