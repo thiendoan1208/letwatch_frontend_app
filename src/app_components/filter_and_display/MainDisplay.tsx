@@ -75,7 +75,7 @@ function MainDisplay() {
                           priority
                         />
                         <Link
-                          href={`watch/${film.slug}`}
+                          href={`/watch/${film.slug}`}
                           className="absolute w-full h-full top-0 rounded-xl text-transparent select-none"
                         >
                           {film.name}
