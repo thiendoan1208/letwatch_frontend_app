@@ -24,7 +24,6 @@ export async function middleware(request: NextRequest) {
   const accessToken = request.cookies.get("logged")?.value;
   const recoverEmail = request.cookies.get("recover-email")?.value;
 
-
   if (authPath.some((path) => path === pathname) && accessToken) {
     return NextResponse.redirect(new URL("/watch/trang-chu", request.url));
   }
