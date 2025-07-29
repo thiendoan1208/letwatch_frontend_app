@@ -1,4 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
+import { cookies } from "next/headers";
 import { jwtVerify } from "jose";
 
 // const privatePath = [];
@@ -21,8 +22,10 @@ async function verify(token: string) {
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const accessToken = request.cookies.get("logged")?.value;
-  const recoverEmail = request.cookies.get("recover-email")?.value;
+
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get("logged")?.value;
+  const recoverEmail = cookieStore.get("recover-email")?.value;
 
   if (authPath.some((path) => path === pathname) && accessToken) {
     return NextResponse.redirect(new URL("/watch/trang-chu", request.url));
