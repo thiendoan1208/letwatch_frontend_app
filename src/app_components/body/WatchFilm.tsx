@@ -85,6 +85,7 @@ function WatchFilm() {
     autoplay: true,
     controls: true,
     responsive: true,
+    playsinline: true,
     fluid: true,
     playbackRates: [0.5, 1, 1.5, 2],
     controlBar: {
@@ -106,7 +107,6 @@ function WatchFilm() {
   const handlePlayerReady = (player: Player) => {
     playerRef.current = player;
   };
-
 
   return (
     <div>
