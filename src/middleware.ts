@@ -24,7 +24,7 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const cookieStore = await cookies();
-  const accessToken = cookieStore.get("logged")?.value;
+  const accessToken = cookieStore.get("access_token")?.value;
   const recoverEmail = cookieStore.get("recover-email")?.value;
 
   if (authPath.some((path) => path === pathname) && accessToken) {

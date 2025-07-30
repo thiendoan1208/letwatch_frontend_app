@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://api.letwatch.net/api",
+  baseURL: process.env.NEXT_PUBLIC_API_BACKEND_URL,
   withCredentials: true,
 });
 
@@ -12,7 +12,7 @@ instance.interceptors.request.use(
     return config;
   },
   function (error) {
-    // Do something with request error
+    // Do something with request errors
     return Promise.reject(error);
   }
 );
