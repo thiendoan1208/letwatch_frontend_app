@@ -10,8 +10,8 @@ export default function VideoPlayer() {
       setIsplaying(window.innerWidth >= 1024);
     };
 
+    checkResize();
     window.addEventListener("resize", checkResize);
-
     return () => {
       window.removeEventListener("resize", checkResize);
     };
